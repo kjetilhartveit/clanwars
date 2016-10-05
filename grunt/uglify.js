@@ -3,7 +3,7 @@ module.exports = {
 	options: {
 		sourceMap: true
 	},
-	dist: {	
+	default: {	
 		files: [{
 			expand: true,
 			cwd: '<%= dirnames.dist %>',

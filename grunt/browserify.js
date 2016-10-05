@@ -1,6 +1,6 @@
 
 module.exports = {
-  dist: {
+  default: {
 		files: {
 			'<%= dirnames.dist %>/bundle.js': '<%= dirnames.compiled %>/main.js'
 		}

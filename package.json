@@ -3,23 +3,7 @@
   "version": "1.0.0",
   "description": "Livescores for Warcraft 3: The Frozen Throne",
   "author": "Kjetil Hårtveit",
-	
   "scripts": {
-    "lite": "lite-server",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w",
-    "typings": "typings install",
-    "postinstall": "npm run typings",
-    "cleancompiled": "rm -rf compiled/*",
-    "cleandist": "rm -rf dist/*",
-    "build": "npm run cleancompiled && tsc",
-    "buildprod": "npm run build && npm run cleandist && browserify -s main compiled/main.js > dist/bundle.js && npm run minify",
-    "minify": "uglifyjs dist/bundle.js --screw-ie8 --compress --mangle --source-map dist/bundle.js.map --output dist/bundle.min.js",
-    "watch": "npm run build && concurrently \"npm run tsc:w\" \"npm run lite\" ",
-    "xxxbuild": "npm run clean && tsc && browserify -s main compiled/main.js > dist/bundle.js && npm run minify",
-    "xxxserve": "http-server . -p 5556"
-  },
-  "xscripts": {
     "start": "tsc && concurrently \"npm run tsc:w\" \"npm run lite\" ",
     "lite": "lite-server",
     "postinstall": "typings install",
@@ -28,17 +12,6 @@
     "typings": "typings"
   },
   "license": "ISC",
-  "clanwars_options": {
-    "dirnames": {
-      "scss": "scss",
-      "js": "js",
-      "configs": "configs",
-      "deployment": "deployment",
-      "latest_build": "deployment/latest_build",
-      "web": "www",
-      "tmp": "tmp"
-    }
-  },
   "dependencies": {
     "@angular/common": "2.0.0",
     "@angular/compiler": "2.0.0",
