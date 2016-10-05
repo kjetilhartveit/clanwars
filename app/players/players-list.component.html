@@ -1,0 +1,31 @@
+
+<div id="players-list-container" class="edit-entity-template">
+	<h2>Players</h2>
+	
+	<div class="columns clearfix">
+		<div class="col-1">
+			<div id="players-container" class="items-container">
+				<div *ngFor="let player of players" 
+						 class="item"
+						 [class.active]="player === selectedPlayer"
+						 (click)="onSelect(player)">
+					<div class="col-asset col-1">
+						<img [src]="pathsService.getAssetsPath() + '/flags/' + player.country.flagFilename" />
+					</div>
+					<div class="col-asset col-2">
+						<img [src]="pathsService.getAssetsPath() + '/race-icons/' + player.race.iconFilename" />
+					</div>
+					<div class='col-primary col-3'>
+						{{player.nickname}}
+					</div>
+					<div class='col-aside col-4'>
+						{{player.clan.shortname}} 
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-2">
+			<cw-player-details [player]="selectedPlayer"></cw-player-details> 
+		</div>
+	</div>
+</div>

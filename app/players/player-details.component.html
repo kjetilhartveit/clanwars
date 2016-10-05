@@ -1,0 +1,80 @@
+
+<div id="player-details-container">
+	<div *ngIf="player">
+		<form>
+			<table>
+				<tr>
+					<td>
+						<label for="field-nickname">Nickname: </label>
+					</td>
+					<td>
+						<input [ngModel]="player.nickname" id="field-nickname" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-firstname">First name: </label>
+					</td>
+					<td>
+						<input [ngModel]="player.firstname" id="field-firstname" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-surname">Surname: </label>
+					</td>
+					<td>
+						<input [ngModel]="player.lastname" id="field-surname" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-race">Race: </label>
+					</td>
+					<td>
+						<select id="field-race" [ngModel]="player.race">
+							<option *ngFor="let race of races" 
+											[ngValue]="race"
+											[attr.selected]="player.race === race">
+								{{race.name}}
+							</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-clan">Clan: </label>
+					</td>
+					<td>
+						<select id="field-clan" [ngModel]="player.clan">
+							<option *ngFor="let clan of clans" 
+											[ngValue]="clan"
+											[attr.selected]="player.clan === clan">
+								{{clan.name}}
+							</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-country">Country:</label>
+					</td>
+					<td>
+						<select id="field-country" [ngModel]="player.country">
+							<option *ngFor="let country of countries" 
+											[ngValue]="country"
+											[attr.selected]="player.country === country">
+								{{country.name}}
+							</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button>Save</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

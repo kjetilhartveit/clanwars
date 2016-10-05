@@ -1,0 +1,38 @@
+
+@import '../shared/sass/partials/_base.scss';
+
+.items-container {
+	.item {
+		
+		@include clearfix;
+		
+		.col-1,
+		.col-2,
+		.col-3,
+		.col-4 {
+			float: left;
+			margin-right: 4px;
+		}
+		
+		.col-asset {
+			img {
+				width: 23px;
+			}
+		}
+		
+		.col-primary,
+		.col-aside {
+			padding-top: 2px;
+		}
+		
+		.col-primary {
+			font-weight: bold;
+			
+			margin-left: 3px;
+		}
+		
+		.col-aside {
+			color: #ccc;
+		}
+	}
+}

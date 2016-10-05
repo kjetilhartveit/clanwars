@@ -1,0 +1,38 @@
+
+/* Feedback and modal */
+
+$normalBg: #F4F4F4;
+$normalBorderColor: #ccc;
+
+$successBg: #E6FFED;
+$successBorderColor: #83FFA7;
+
+$errorBg: #FFF0F0;
+$errorBorderColor: #FF9B9B;
+
+.feedback {
+	background-color: $normalBg;
+	border: 2px dashed $normalBorderColor;
+	padding: 8px;
+	margin: 1em 0;
+	
+	p {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.feedback-type-success {
+	@extend .feedback;
+	
+	background-color: $successBg;
+	border-color: $successBorderColor;
+}
+
+.feedback-type-error {
+	@extend .feedback;
+	
+	background-color: $errorBg;
+	border-color: $errorBorderColor; 
+}
+

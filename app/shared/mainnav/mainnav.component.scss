@@ -1,0 +1,32 @@
+ 
+@import '../sass/partials/_base.scss';
+
+$headerBottomPadding: 20px; 
+
+#header {
+	position: relative;
+	
+	padding: $headerBottomPadding 30px;
+	border-bottom: 1px solid #B3B3B3;
+	
+	@include clearfix;
+}
+
+#siteTitle {
+	float: left;
+	
+	h1 {
+		margin: 0;
+	}
+}
+
+#userTopMenu {
+	position: absolute;
+	
+	right: 0;
+	bottom: $headerBottomPadding;
+	
+	>* {
+		display: inline-block;
+	}
+}
