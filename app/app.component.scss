@@ -35,6 +35,7 @@ textarea,
 select,
 input {
 	font-size: 1em;
+	padding: 3px 4px;
 }
 
 textarea {
@@ -87,3 +88,4 @@ table {
 @import 'shared/sass/partials/_generic.scss';
 @import 'shared/sass/partials/_edit-entity-template.scss';
 @import 'shared/sass/partials/_feedback.scss';
+@import 'shared/sass/partials/_form-validation.scss';

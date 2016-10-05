@@ -5,10 +5,11 @@ import { HttpModule }   from '@angular/http';
 
 import { AppComponent, HomeComponent, routing, appRoutingProviders }   from './';
 import { UtilityService, ConfigService, PathsService, MainNavComponent }   from './shared';
-import { ClansListComponent, ClanDetailsComponent, ClansService }   from './clans';
-import { PlayersListComponent, PlayerDetailsComponent, PlayersService }   from './players';
+import { FormHelperService, FieldIsRequiredComponent }   from './forms';
 import { CountriesService }   from './countries';
 import { RacesService }   from './races';
+import { ClansListComponent, ClanDetailsComponent, ClansService }   from './clans';
+import { PlayersListComponent, PlayerDetailsComponent, PlayersService }   from './players';
 
 /**
  * TODO Component's template/stylesheet URLs should use a relative URL instead of an "absolute" one
@@ -29,6 +30,7 @@ import { RacesService }   from './races';
 	declarations: [ 
 		AppComponent, 
 		MainNavComponent,
+		FieldIsRequiredComponent,
 		ClansListComponent,
 		ClanDetailsComponent,
 		PlayersListComponent,
@@ -37,6 +39,7 @@ import { RacesService }   from './races';
 	],
   providers: [
     { provide: ConfigService, useClass: ConfigService },
+    { provide: FormHelperService, useClass: FormHelperService },
     { provide: PathsService, useClass: PathsService },
     { provide: UtilityService, useClass: UtilityService },
     { provide: RacesService, useClass: RacesService },
