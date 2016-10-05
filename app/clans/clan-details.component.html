@@ -1,54 +1,61 @@
 
 <div id="clan-details-container">
 	<div *ngIf="clan">
-		<table>
-			<tr>
-				<td>
-					<label for="field-name">Name:</label>
-				</td>
-				<td>
-					<input [(ngModel)]="clan.name" id="field-name" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="field-shortname">Short name:</label>
-				</td>
-				<td>
-					<input [(ngModel)]="clan.shortname" id="field-shortname" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<label for="field-country">Country:</label>
-				</td>
-				<td>
-					<select id="field-country" [(ngModel)]="clan.country">
-						<option *ngFor="let country of countries" 
-										[ngValue]="country"
-										[attr.selected]="clan.country === country">
-							{{country.name}}
-						</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Players:
-				</td>
-				<td>
-					<ul id="clan-players-list">
-						<li *ngFor="let player of players">  
-							<a routerLink="/players/{{player.id}}">{{player.nickname}}</a>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<button>Save</button>
-				</td>
-			</tr>
-		</table>
+		<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+			<table>
+				<tr>
+					<td>
+						<label for="field-name">Name:</label>
+					</td>
+					<td>
+						<input [ngModel]="clan.name" name="name" id="field-name" #fieldname="ngModel"
+									 required />
+						<cw-form-field-is-required [element]="fieldname" fieldname="Name"></cw-form-field-is-required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-shortname">Short name:</label>
+					</td>
+					<td>
+						<input [ngModel]="clan.shortname" name="shortname" id="field-shortname" #fieldshortname="ngModel"
+									 required />
+						<cw-form-field-is-required [element]="fieldshortname" fieldname="Short name"></cw-form-field-is-required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-country">Country:</label>
+					</td>
+					<td>
+						<select [ngModel]="clan.country" name="country" id="field-country" #fieldcountry="ngModel">
+							<option *ngFor="let country of countries" 
+											[ngValue]="country"
+											[attr.selected]="clan.country === country">
+								{{country.name}}
+							</option>
+						</select>
+						<cw-form-field-is-required [element]="fieldcountry" fieldname="Country"></cw-form-field-is-required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Players:
+					</td>
+					<td>
+						<ul id="clan-players-list">
+							<li *ngFor="let player of players">  
+								<a routerLink="/players/{{player.id}}">{{player.nickname}}</a>
+							</li>
+						</ul>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button [disabled]="!form.form.valid">Save</button>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </div>

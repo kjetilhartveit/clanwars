@@ -1,6 +1,8 @@
 import { Component, Input, ReflectiveInjector, SimpleChange, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { ConfigService } from '../shared';
+import { FormHelperService } from '../forms';
 import { Country, CountriesService } from '../countries';
 import { Clan } from './';
 import { Player, PlayersService } from '../players';
@@ -23,8 +25,14 @@ export class ClanDetailsComponent implements OnInit {
 	
 	countries: Country[];
 	
-	constructor(private countriesService: CountriesService, private playersService: PlayersService) {}
+	constructor(private countriesService: CountriesService, 
+							private playersService: PlayersService,
+							private formHelperService: FormHelperService) {}
 		
+	ngOnInit() {
+		this.countries = this.countriesService.getCountries();
+	}
+	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 		if ( 'clan' in changes ) {
 			var chng = changes['clan'];
@@ -35,7 +43,13 @@ export class ClanDetailsComponent implements OnInit {
 		}
 	}
 	
-	ngOnInit() {
-		this.countries = this.countriesService.getCountries();
+	onSubmit(form: NgForm) {
+		if (form.submitted && form.valid && form.dirty) {
+			
+			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
+			this.clan.name = this.formHelperService.getValueAndResetState<string>(form.form.controls['name']);
+			this.clan.shortname = this.formHelperService.getValueAndResetState<string>(form.form.controls['shortname']);
+			this.clan.country = this.formHelperService.getValueAndResetState<Country>(form.form.controls['country']);
+		}
 	}
 }

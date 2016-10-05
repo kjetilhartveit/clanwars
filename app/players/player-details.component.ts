@@ -38,7 +38,7 @@ export class PlayerDetailsComponent implements OnInit {
 	}
 	
 	onSubmit(form: NgForm) {
-		if (form.valid && form.dirty) {
+		if (form.submitted && form.valid && form.dirty) {
 			
 			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
 			this.player.nickname = this.formHelperService.getValueAndResetState<string>(form.form.controls['nickname']);
