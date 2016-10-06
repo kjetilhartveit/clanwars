@@ -34,10 +34,10 @@ export class ClanDetailsComponent implements OnInit {
 	}
 	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-		if ( 'clan' in changes ) {
+		if ('clan' in changes) {
 			var chng = changes['clan'];
 			
-			if ( chng.currentValue != null ) {
+			if (chng.currentValue != null) {
 				this.players = this.playersService.getPlayersInClanOnId(chng.currentValue['id'] as number);
 			}
 		}
