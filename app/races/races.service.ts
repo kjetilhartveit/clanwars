@@ -1,10 +1,7 @@
 import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
-import { Service } from '../shared';
 import { Race, RACES } from './';
+import { Cache } from '../shared';
  
 @Injectable()
 /**
@@ -13,11 +10,18 @@ import { Race, RACES } from './';
  * A lot of hardcoding here, should we refactor or not?
  */
 export class RacesService {
+	
+	private _cache = new Cache<Race[]>();
+	
 	/**
 	 * TODO Make async, Promise<Race[]>
 	 */
 	getRaces(): Race[] {
-		return RACES;
+		if (!this._cache.hasCache()) {
+			this._cache.add(RACES);
+		}
+		
+		return this._cache.get();
 	}
 	
 	getOnId(id: string): Race {

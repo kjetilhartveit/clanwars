@@ -1,20 +1,23 @@
 import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
-import { Service } from '../shared';
 import { Player, PLAYERS } from './';
 import { Clan } from '../clans';
+import { Cache } from '../shared';
  
 @Injectable()
 export class PlayersService {
+	
+	private _cache = new Cache<Player[]>();
 	
 	/**
 	 * TODO Make async, Promise<Player[]>
 	 */
 	getPlayers(): Player[] {
-		return PLAYERS;
+		if (!this._cache.hasCache()) {
+			this._cache.add(PLAYERS);
+		}
+		
+		return this._cache.get();
 	}
 	
 	getPlayerOnId(id: number): Player {

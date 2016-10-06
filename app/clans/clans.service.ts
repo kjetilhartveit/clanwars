@@ -1,14 +1,13 @@
-import { Injectable, Inject }    from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import { Injectable }    from '@angular/core';
 
-import { Service } from '../shared';
 import { Clan, CLANS } from './';
+import { Cache } from '../shared';
 //import { Player, PlayersService } from '../players';
  
 @Injectable()
 export class ClansService {
+	
+	private _cache = new Cache<Clan[]>();
 	
 	// Seem to run into some circular dependencies here
 //	constructor(public playersService: PlayersService) {}
@@ -17,7 +16,11 @@ export class ClansService {
 	 * TODO Make async, Promise<Clan[]>
 	 */
 	getClans(): Clan[] {
-		return CLANS;
+		if (!this._cache.hasCache()) {
+			this._cache.add(CLANS);
+		}
+		
+		return this._cache.get();
 	}
 	
 	getClanOnId(id: number) {

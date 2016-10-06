@@ -1,19 +1,22 @@
 import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
 
-import { Service } from '../shared';
 import { Country, COUNTRIES } from './';
+import { Cache } from '../shared';
  
 @Injectable()
 export class CountriesService {
+	
+	private _cache = new Cache<Country[]>();
 	
 	/**
 	 * TODO Make async, Promise<Country[]>
 	 */
 	getCountries(): Country[] {
-		return COUNTRIES;
+		if (!this._cache.hasCache()) {
+			this._cache.add(COUNTRIES);
+		}
+		
+		return this._cache.get();
 	}
 	
 	getOnAlpha2Code(alpha2code: string): Country {
