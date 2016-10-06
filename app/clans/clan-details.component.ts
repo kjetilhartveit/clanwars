@@ -2,7 +2,7 @@ import { Component, Input, ReflectiveInjector, SimpleChange, OnInit } from '@ang
 import { NgForm } from '@angular/forms';
 
 import { ConfigService } from '../shared';
-import { FormHelperService } from '../forms';
+import { FormHelperService } from '../form';
 import { Country, CountriesService } from '../countries';
 import { Clan } from './';
 import { Player, PlayersService } from '../players';

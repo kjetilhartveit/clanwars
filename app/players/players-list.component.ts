@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ReflectiveInjector } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ConfigService, PathsService } from '../shared';
+import { ConfigService } from '../shared';
+import { WebHelperService } from '../web';
 import { Player, PlayersService } from './';
 
 // TODO Can we prettify this?
@@ -24,7 +25,7 @@ export class PlayersListComponent implements OnInit {
 	constructor(private route: ActivatedRoute,
 							private router: Router, 
 							private playersService: PlayersService,
-							private pathsService: PathsService) {}
+							private webHelper: WebHelperService) {}
 	
 	onSelect(player: Player): void {
     this.router.navigate(['/players', player.id]);

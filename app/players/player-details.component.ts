@@ -2,7 +2,7 @@ import { Component, Input, ReflectiveInjector, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { ConfigService } from '../shared';
-import { FormHelperService } from '../forms';
+import { FormHelperService } from '../form';
 import { Race, RacesService } from '../races';
 import { Country, CountriesService } from '../countries';
 import { Clan, ClansService } from '../clans';

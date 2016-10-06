@@ -10,10 +10,10 @@
 						 [class.active]="player === selectedPlayer"
 						 (click)="onSelect(player)">
 					<div class="col-asset col-1">
-						<img [src]="pathsService.getAssetsPath() + '/flags/' + player.country.flagFilename" />
+						<img [src]="player.country | countryToFlagPath" />
 					</div>
 					<div class="col-asset col-2">
-						<img [src]="pathsService.getAssetsPath() + '/race-icons/' + player.race.iconFilename" />
+						<img [src]="player.race | raceToIconPath" />
 					</div>
 					<div class='col-primary col-3'>
 						{{player.nickname}}
