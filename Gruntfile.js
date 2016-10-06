@@ -92,6 +92,16 @@ module.exports = function(grunt) {
 //		grunt.task.run(["jshint"]);
 	});
 	
+	/**
+	 * Runs the project in a browser
+	 */
+  grunt.registerTask('run', function() {
+		grunt.task.run('connect');
+	});
+	
+	/**
+	 * Deploys project to staging/production
+	 */
   grunt.registerTask('deploy', function(type) {
 		grunt.fatal('Incomplete');
 	});
