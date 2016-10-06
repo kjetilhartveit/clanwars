@@ -1,43 +1,59 @@
 # Clan Wars
 
-> An Angular 2 project
+> An Angular 2 app
 
 
-## Specs / prequisites
+## Specifications
 
  * [Node.js v6.0.0](https://www.nodejs.org/)
  * [npm v3.8.6](https://www.npmjs.org/)
  * [Grunt v1.0.1](http://gruntjs.com/) 
  * [Grunt CLI v1.2.0](http://gruntjs.com/) 
  * [Git v.2.8.0.windows.1](https://git-scm.com/)
+ * [Angular 2](https://angular.io/)
+ * [TypeScript](https://www.typescriptlang.org/)
+ * [Sass](https://angular.io/)
 
 ## Getting Started
 
-First of all make sure the technologies mentioned above are in place.
+First of all make sure Node.js, npm, Grunt and Git are installed.
 
-Clone the project:
+	Clone the app:
 
 ```shell
 git clone https://github.com/kjetilhartveit/clanwars.git
 ```
 
+### Easy way: using pre-built version 
+
+Copy the files from latest-dist to dist. For example you could do:
+
+```shell
+cp -R latest-dist/. dist/
+```
+
+You can now [run the app in a browser][Running the app in a browser].
+
+### Funnn way: building from scratch
+
 Retrieve all the required packages and dependencies by running:
+**(this could take some time)**
 
 ```shell
 npm install
 ```
 
-Build and run the project using Grunt. See below.
+[Build][build] and [run][run] the app using Grunt.
 
 ## Grunt tasks
 
-Use these Grunt tasks to build and run the project in a browser:
+Use these Grunt tasks to build and run the app in a browser:
 
 ### Building/compiling
 
 #### build
 
-Compiles and builds the project to the dist folder.
+Compiles and builds the app to the dist folder.
 
 ```shell
 grunt build
@@ -45,17 +61,17 @@ grunt build
 
 #### rebuild
 
-Cleans the dist folder and then builds the project
+Cleans the dist folder and then builds the app
 
 ```shell
 grunt rebuild
 ```
 
-### Running the project in a browser
+### Running the app in a browser
 
 #### run
 
-Runs the project in a browser on port 8000. 
+Runs the app in a browser on port 8000. 
 
 ```shell
 grunt run
