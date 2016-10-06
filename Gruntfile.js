@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 		// auto grunt.initConfig 
 		init: true,
  
-		// data passed into config.  Can use with <%= test %> 
+		// data passed into config. Can use in strings with <%= data.property %> 
 		data: {
 			dirnames: {
 				app: 'app',
@@ -43,6 +43,9 @@ module.exports = function(grunt) {
 //		preMerge: function(config, data) {}
 	});
 
+	/**
+	 * Compiles TypeScript
+	 */
   grunt.registerTask('compilets', function() {		
 		grunt.task.run('clean:compiled');
 		
@@ -53,6 +56,9 @@ module.exports = function(grunt) {
 //		grunt.task.run(['browserify:dist', 'uglify:dist']);
 	});
 
+	/**
+	 * Compiles Sass
+	 */
   grunt.registerTask('compilesass', function() {	
 		grunt.task.run('clean:compiled');
 			
@@ -60,6 +66,9 @@ module.exports = function(grunt) {
 		grunt.task.run(['sass', 'cssmin', 'copy:csstodist']);
 	});
 	
+	/**
+	 * Builds project to dist
+	 */
   grunt.registerTask('build', function() {
 		grunt.task.run('compilets');
 		grunt.task.run('compilesass');
@@ -68,6 +77,9 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:config');
 	});
 	
+	/**
+	 * Cleans and build the project to dist in full including resources/images and lib 
+	 */
   grunt.registerTask('rebuild', function() {
 		grunt.task.run('clean:dist');
 		
