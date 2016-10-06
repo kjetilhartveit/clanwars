@@ -67,9 +67,9 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Builds project to dist
+	 * Compiles/updates project 
 	 */
-  grunt.registerTask('build', function() {
+  grunt.registerTask('compile', function() {
 		grunt.task.run('compilets');
 		grunt.task.run('compilesass');
 
@@ -77,16 +77,24 @@ module.exports = function(grunt) {
 		grunt.task.run('copy:config');
 	});
 	
+	
 	/**
-	 * Cleans and build the project to dist in full including resources/images and lib 
+	 * Builds project to dist
+	 */
+  grunt.registerTask('build', function() {
+		grunt.task.run('compile');
+		
+		grunt.task.run('copy:images');
+		grunt.task.run('copy:lib');
+	});
+	
+	/**
+	 * Cleans dist first then builds the project
 	 */
   grunt.registerTask('rebuild', function() {
 		grunt.task.run('clean:dist');
 		
 		grunt.task.run('build');
-
-		grunt.task.run('copy:images');
-		grunt.task.run('copy:lib');
 		
 		// Make sure files are good
 //		grunt.task.run(["jshint"]);
