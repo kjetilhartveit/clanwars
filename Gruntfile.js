@@ -67,7 +67,7 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Compiles/updates project 
+	 * Compiles/updates app 
 	 */
   grunt.registerTask('compile', function() {
 		grunt.task.run('compilets');
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
 	
 	
 	/**
-	 * Builds project to dist
+	 * Builds app to dist
 	 */
   grunt.registerTask('build', function() {
 		grunt.task.run('compile');
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Cleans dist first then builds the project
+	 * Cleans dist first then builds the app
 	 */
   grunt.registerTask('rebuild', function() {
 		grunt.task.run('clean:dist');
@@ -101,7 +101,7 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Runs the project in a browser
+	 * Runs the app in a browser
 	 */
   grunt.registerTask('run', function() {
 		var distDir = grunt.config.data.dirnames.dist;
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Deploys project to staging/production
+	 * Deploys app to staging/production
 	 */
   grunt.registerTask('deploy', function(type) {
 		grunt.fatal('Incomplete');
