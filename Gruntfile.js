@@ -15,7 +15,7 @@ module.exports = function(grunt) {
 		// auto grunt.initConfig 
 		init: true,
  
-		// data passed into config. Can use in strings with <%= data.property %> 
+		// data passed into config
 		data: {
 			dirnames: {
 				app: 'app',
@@ -104,6 +104,12 @@ module.exports = function(grunt) {
 	 * Runs the project in a browser
 	 */
   grunt.registerTask('run', function() {
+		var distDir = grunt.config.dirnames.dist;
+		
+		if (!grunt.file.exists(distDir + '/index.html')) {
+			grunt.task.run('build');
+		}
+		
 		grunt.task.run('connect');
 	});
 	
