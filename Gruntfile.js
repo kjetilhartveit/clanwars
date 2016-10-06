@@ -104,7 +104,7 @@ module.exports = function(grunt) {
 	 * Runs the project in a browser
 	 */
   grunt.registerTask('run', function() {
-		var distDir = grunt.config.dirnames.dist;
+		var distDir = grunt.config.data.dirnames.dist;
 		
 		if (!grunt.file.exists(distDir + '/index.html')) {
 			grunt.task.run('build');
