@@ -18,10 +18,17 @@
 
 First of all make sure Node.js, npm, Grunt and Git are installed.
 
-	Clone the app:
+Create a new directory where the app will reside and make sure it's the current working directory in the shell. 
+For example:
 
 ```shell
-git clone https://github.com/kjetilhartveit/clanwars.git
+cd C:/clanwars-app
+```
+
+Clone the app into the current directory:
+
+```shell
+git clone https://github.com/kjetilhartveit/clanwars.git .
 ```
 
 ### Easy way: using pre-built version 
@@ -32,18 +39,17 @@ Copy the files from latest-dist to dist. For example you could do:
 cp -R latest-dist/. dist/
 ```
 
-You can now [run the app in a browser][Running the app in a browser].
+You can now [run the app in a browser](#run).
 
 ### Funnn way: building from scratch
 
-Retrieve all the required packages and dependencies by running:
-**(this could take some time)**
+Retrieve all the required packages and dependencies (**this could take some time**) by running:
 
 ```shell
 npm install
 ```
 
-[Build][build] and [run][run] the app using Grunt.
+[Build](#build) and [run](#run) the app using Grunt.
 
 ## Grunt tasks
 
