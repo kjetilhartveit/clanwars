@@ -10,8 +10,8 @@ let config: ConfigService = injector.get(ConfigService);
 @Component({
 	moduleId: module.id,
 	selector: config.getDirectiveSelectorPrefix() + 'form-field-is-required',
-	templateUrl: config.getAppPath() + '/forms/field-is-required.component.html',
-	styleUrls: [config.getAppPath() + '/forms/field-is-required.component.min.css']
+	templateUrl: config.getAppPath() + '/form/field-is-required.component.html',
+	styleUrls: [config.getAppPath() + '/form/field-is-required.component.min.css']
 })
 
 export class FieldIsRequiredComponent { 
