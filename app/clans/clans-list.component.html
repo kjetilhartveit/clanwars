@@ -11,7 +11,7 @@
 						 (click)="onSelect(clan)">
 
 					<div class="col-asset col-1">
-						<img [src]="pathsService.getAssetsPath() + '/flags/' + clan.country.flagFilename" />
+						<img [src]="clan.country | countryToFlagPath" />
 					</div>
 					<div class='col-primary col-2'>
 						{{clan.name}}
