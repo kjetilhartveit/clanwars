@@ -1,32 +1,23 @@
  
 @import '../sass/partials/_base.scss';
 
-$headerBottomPadding: 20px; 
-
-#header {
-	position: relative;
-	
-	padding: $headerBottomPadding 30px;
-	border-bottom: 1px solid #B3B3B3;
-	
-	@include clearfix;
-}
-
-#siteTitle {
-	float: left;
-	
-	h1 {
-		margin: 0;
-	}
-}
-
-#userTopMenu {
-	position: absolute;
-	
-	right: 0;
-	bottom: $headerBottomPadding;
-	
-	>* {
-		display: inline-block;
+#mainnav-container {
+	nav {
+		ul {
+			margin: 0;
+			padding: 0;
+		}
+		
+		li {
+			display: inline-block;
+			padding-left: 5px;
+			padding-right: 5px;
+			border-right: 1px solid #ccc;
+		}
+		
+		li:last-child {
+			border-right: 0;
+			padding-right: 0;
+		}
 	}
 }
