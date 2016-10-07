@@ -2,7 +2,6 @@
 
 > An Angular 2 app
 
-
 ## Specifications
 
  * [Node.js v6.0.0](https://www.nodejs.org/)
@@ -13,8 +12,12 @@
  * [Angular 2](https://angular.io/)
  * [TypeScript](https://www.typescriptlang.org/)
  * [Sass](https://angular.io/)
- * [Karma](http://karma-runner.github.io/)
- * [Jasmine](http://jasmine.github.io/)
+ * ~~[Karma](http://karma-runner.github.io/)~~
+ * ~~[[Jasmine](http://jasmine.github.io/)~~
+
+## Testing not yet ready
+
+Unfortunately tests and testing is not yet ready.
 
 ## Getting Started
 
@@ -100,17 +103,17 @@ Prepare and move compiled files to dist.
 grunt compiledtodist
 ```
 
-#### testheadless
+#### ~~testheadless~~
 
-Runs tests headlessly.
+Runs tests headlessly. **Not yet ready**
 
 ```shell
 grunt testheadless
 ```
 
-#### test
+#### ~~test~~
 
-Run tests manually in a browser.
+Run tests manually in a browser. **Not yet ready**
 
 ```shell
 grunt test
