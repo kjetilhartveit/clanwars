@@ -13,7 +13,7 @@
  * [TypeScript](https://www.typescriptlang.org/)
  * [Sass](https://angular.io/)
  * ~~[Karma](http://karma-runner.github.io/)~~
- * ~~[[Jasmine](http://jasmine.github.io/)~~
+ * ~~[Jasmine](http://jasmine.github.io/)~~
 
 ## Testing not yet ready
 
@@ -103,6 +103,16 @@ Prepare and move compiled files to dist.
 grunt compiledtodist
 ```
 
+#### compile
+
+Compiles TypeScript and Sass. Also moves HTML files from app to the compiled dir.
+
+```shell
+grunt compile
+```
+
+### Testing
+
 #### ~~testheadless~~
 
 Runs tests headlessly. **Not yet ready**
@@ -113,16 +123,8 @@ grunt testheadless
 
 #### ~~test~~
 
-Run tests manually in a browser. **Not yet ready**
+Compiles app then run tests manually in a browser. **Not yet ready**
 
 ```shell
 grunt test
-```
-
-#### compile
-
-Compiles TypeScript and Sass. Also moves HTML files from app to the compiled dir.
-
-```shell
-grunt compile
 ```
