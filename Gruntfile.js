@@ -18,7 +18,6 @@ module.exports = function(grunt) {
 		// data passed into config
 		data: {
 			dirnames: {
-				app: 'app',
 				compiled: 'compiled',
 				dist: 'dist'
 			}
@@ -44,52 +43,27 @@ module.exports = function(grunt) {
 	});
 
 	/**
-	 * Compiles TypeScript
+	 * Deploys app to staging/production.
 	 */
-  grunt.registerTask('compilets', function() {		
-		grunt.task.run('clean:compiled');
-		
-		// Compile TypeScript
-//		grunt.task.run(['force:on', 'ts', 'force:reset']);
-		grunt.task.run(['ts', 'browserify', 'uglify']);
-		
-//		grunt.task.run(['browserify:dist', 'uglify:dist']);
+  grunt.registerTask('deploy', function(type) {
+		grunt.fatal('Incomplete');
 	});
 
 	/**
-	 * Compiles Sass
+	 * Runs the app in a browser. Builds the app first if dist is empty.
 	 */
-  grunt.registerTask('compilesass', function() {	
-		grunt.task.run('clean:compiled');
-			
-		// Compile Sass
-		grunt.task.run(['sass', 'cssmin', 'copy:csstodist']);
-	});
-	
-	/**
-	 * Compiles/updates app 
-	 */
-  grunt.registerTask('compile', function() {
-		grunt.task.run('compilets');
-		grunt.task.run('compilesass');
-
-		grunt.task.run('copy:html');
-		grunt.task.run('copy:config');
-	});
-	
-	
-	/**
-	 * Builds app to dist
-	 */
-  grunt.registerTask('build', function() {
-		grunt.task.run('compile');
+  grunt.registerTask('run', function() {
+		var distDir = grunt.config.data.dirnames.dist;
 		
-		grunt.task.run('copy:images');
-		grunt.task.run('copy:lib');
+		if (!grunt.file.exists(distDir + '/index.html')) {
+			grunt.task.run('build');
+		}
+		
+		grunt.task.run('connect');
 	});
-	
+		
 	/**
-	 * Cleans dist first then builds the app
+	 * Cleans dist first then builds the app.
 	 */
   grunt.registerTask('rebuild', function() {
 		grunt.task.run('clean:dist');
@@ -101,22 +75,65 @@ module.exports = function(grunt) {
 	});
 	
 	/**
-	 * Runs the app in a browser
+	 * Builds app includes tests.
 	 */
-  grunt.registerTask('run', function() {
-		var distDir = grunt.config.data.dirnames.dist;
+  grunt.registerTask('build', function() {		
+		grunt.task.run(['compile', 'testheadless', 'compiledtodist']);
 		
-		if (!grunt.file.exists(distDir + '/index.html')) {
-			grunt.task.run('build');
-		}
+		grunt.task.run('copy:images');
+		grunt.task.run('copy:lib');
 		
-		grunt.task.run('connect');
+		// TODO Probably shouldn't copy config here?
+		grunt.task.run('copy:config');
 	});
 	
 	/**
-	 * Deploys app to staging/production
+	 * Shorthand for updating contents includes tests.
 	 */
-  grunt.registerTask('deploy', function(type) {
-		grunt.fatal('Incomplete');
+  grunt.registerTask('update', function() {
+		grunt.task.run(['compile', 'testheadless', 'compiledtodist']);
+	});
+	
+	/**
+	 * Shorthand for quick update without tests.
+	 */
+  grunt.registerTask('quickie', function() {
+		grunt.task.run(['compile', 'compiledtodist']);
+	});
+	
+	/**
+	 * Prepare and move compiled files to dist.
+	 */
+  grunt.registerTask('compiledtodist', function() {
+		grunt.task.run(['browserify', 'uglify']);
+		grunt.task.run('copy:csstodist');
+		grunt.task.run('copy:htmltodist');
+	});
+	
+	/**
+	 * Runs tests headlessly
+	 */
+  grunt.registerTask('testheadless', function() {
+		// TODO unfortunately testing is not yet fully implemented
+//		grunt.task.run('karma:headless');
+	});
+
+	/**
+	 * Run tests manually in a browser.
+	 */
+  grunt.registerTask('test', function() {
+		// TODO unfortunately testing is not yet fully implemented
+//		grunt.task.run(['compile', 'karma:browser']);
+	});
+	
+	/**
+	 * Compiles TypeScript and Sass. Also moves HTML files from app to the compiled dir.
+	 */
+  grunt.registerTask('compile', function() {		
+		grunt.task.run('clean:compiled');
+		
+		// Compile 
+		grunt.task.run(['ts', 'sass', 'cssmin']);
+		grunt.task.run('copy:htmltocompiled');
 	});
 };

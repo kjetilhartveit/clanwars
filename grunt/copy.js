@@ -4,23 +4,37 @@ module.exports = {
 		files: [
 			{
 				expand: true, 
-				cwd: '<%= dirnames.compiled %>',
+				cwd: '<%= dirnames.compiled %>/app',
 				src: ['**/*.min.css'],
 				dest: '<%= dirnames.dist %>/app'
 			}
 		]
 	},
-	html: {
+	htmltocompiled: {
 		files: [
 			{
 				expand: true, 
-				cwd: '<%= dirnames.app %>',
+				cwd: 'app',
+				src: ['**/*.html'], 
+				dest: '<%= dirnames.compiled %>/app'
+			}, 
+			{ 
+				src: ['index.html'], 
+				dest: '<%= dirnames.compiled %>/' 
+			}
+		]
+	},
+	htmltodist: {
+		files: [
+			{
+				expand: true, 
+				cwd: '<%= dirnames.compiled %>/app',
 				src: ['**/*.html'], 
 				dest: '<%= dirnames.dist %>/app'
 			}, 
 			{ 
-				src: ['index.html'], 
-				dest: '<%= dirnames.dist %>/' 
+				src: ['<%= dirnames.compiled %>/index.html'], 
+				dest: '<%= dirnames.dist %>/index.html' 
 			}
 		]
 	},
@@ -28,7 +42,7 @@ module.exports = {
 		files: [
 			{
 				expand: true, 
-				cwd: '<%= dirnames.app %>',
+				cwd: 'app',
 				src: ['**/*.jpg', '**/*.gif', '**/*.png'], 
 				dest: '<%= dirnames.dist %>/app'
 			}
@@ -65,20 +79,4 @@ module.exports = {
 			}
 		]
 	}
-//	bundlejstodist: {
-//		files: [
-//			{
-//				src: ['<%= dirnames.compiled %>/bundle.js'],
-//				dest: '<%= dirnames.dist %>/bundle.js'
-//			}
-//		]
-//	},
-//	lib: {
-//		files: [
-//			{ src: 'node_modules/core-js/client/shim.min.js', dest: '<%= dirnames.dist %>/lib/shim.min.js' },
-//			{ src: 'node_modules/zone.js/dist/zone.js', dest: '<%= dirnames.dist %>/lib/zone.js' },
-//			{ src: 'node_modules/reflect-metadata/Reflect.js', dest: '<%= dirnames.dist %>/lib/Reflect.js' },
-//			{ src: 'node_modules/systemjs/dist/system.src.js', dest: '<%= dirnames.dist %>/lib/system.src.js' }
-//		]
-//	},
 };

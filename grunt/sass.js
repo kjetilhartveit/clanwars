@@ -6,9 +6,9 @@ module.exports = {
 	default: {
 		files: [{
 			expand: true,
-			cwd: '<%= dirnames.app %>',
+			cwd: 'app',
 			src: ['**/*.scss'],
-			dest: '<%= dirnames.compiled %>',
+			dest: '<%= dirnames.compiled %>/app',
 			ext: '.css',
 			extDot: 'last'
 		}]

@@ -9,18 +9,24 @@ module.exports = {
 ////		files: ['**/*.html'],
 //		tasks: ['build']
 //	}
-	ts: {
-		files: ['<%= dirnames.app %>/**/*.ts'],
-		tasks: 'compilets'
-	},
-	sass: {
-		files: ['<%= dirnames.app %>/**/*.scss'],
-		tasks: 'compilesass'
-	},
-	html: {
-		files: ['index.html', '<%= dirnames.app %>/**/*.html'],
-		tasks: 'copy:html'
-	}
+
+
+//// TODO We must update the watch tasks
+//	ts: {
+//		files: ['app/**/*.ts'],
+//		tasks: 'compilets'
+//	},
+//	sass: {
+//		files: ['app/**/*.scss'],
+//		tasks: 'compilesass'
+//	},
+//	html: {
+//		files: ['index.html', 'app/**/*.html'],
+//		tasks: 'copy:html'
+//	}
+	
+	
+	
 //	css: {
 //		files: ['<%= dirnames.scss %>/**/*.scss'],
 //		tasks: '<%= aliases.cssdevtasks %>'

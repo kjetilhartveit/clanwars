@@ -1,7 +1,7 @@
 
 module.exports = {
 	default: {
-//		src: '<%= dirnames.app %>/**/*.ts',
+//		src: 'app/**/*.ts',
 //		dest: '<%= dirnames.compiled %>',
 		tsconfig: true,
 		options: {
