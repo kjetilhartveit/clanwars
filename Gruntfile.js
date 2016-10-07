@@ -119,7 +119,7 @@ module.exports = function(grunt) {
 	});
 
 	/**
-	 * Run tests manually in a browser.
+	 * Compiles app then run tests manually in a browser.
 	 */
   grunt.registerTask('test', function() {
 		// TODO unfortunately testing is not yet fully implemented
