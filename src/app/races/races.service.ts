@@ -13,9 +13,6 @@ export class RacesService {
 	
 	private _cache = new Cache<Race[]>();
 	
-	/**
-	 * TODO Make async, Promise<Race[]>
-	 */
 	getRaces(): Race[] {
 		if (!this._cache.hasCache()) {
 			this._cache.add(RACES);

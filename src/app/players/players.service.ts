@@ -9,9 +9,6 @@ export class PlayersService {
 	
 	private _cache = new Cache<Player[]>();
 	
-	/**
-	 * TODO Make async, Promise<Player[]>
-	 */
 	getPlayers(): Player[] {
 		if (!this._cache.hasCache()) {
 			this._cache.add(PLAYERS);

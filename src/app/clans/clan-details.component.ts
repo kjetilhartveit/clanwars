@@ -1,22 +1,16 @@
-import { Component, Input, ReflectiveInjector, SimpleChange, OnInit } from '@angular/core';
+import { Component, Input, SimpleChange, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { ConfigService } from '../shared';
+import { globals } from '../core';
 import { FormHelperService } from '../form';
 import { Country, CountriesService } from '../countries';
 import { Clan } from './';
 import { Player, PlayersService } from '../players';
 
-// TODO Can we prettify this?
-let injector = ReflectiveInjector.resolveAndCreate([ConfigService]);
-let config: ConfigService = injector.get(ConfigService);
-
 @Component({
-	moduleId: module.id,
-	selector: config.getDirectiveSelectorPrefix() + 'clan-details',
-	templateUrl: config.getAppPath() + '/clans/clan-details.component.html'
+	selector: globals.directiveSelector + 'clan-details',
+	templateUrl: './clan-details.component.html'
 })
-
 export class ClanDetailsComponent implements OnInit { 
 	@Input() 
 	clan: Clan;

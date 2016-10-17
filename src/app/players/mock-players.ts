@@ -12,7 +12,7 @@ let countriesService: CountriesService = injector.get(CountriesService);
 let injector2 = ReflectiveInjector.resolveAndCreate([RacesService]);  
 let racesService: RacesService = injector2.get(RacesService);
 
-let injector3 = ReflectiveInjector.resolveAndCreate([ClansService, PlayersService]);   
+let injector3 = ReflectiveInjector.resolveAndCreate([ClansService]);   
 let clansService: ClansService = injector3.get(ClansService);
 
 //let countriesService = UtilityService.ResolveService<CountriesService>(CountriesService);

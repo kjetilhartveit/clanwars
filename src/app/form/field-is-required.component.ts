@@ -1,19 +1,13 @@
-import { Component, Input, ReflectiveInjector } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ConfigService } from '../shared';
-
-// TODO Can we prettify this?
-let injector = ReflectiveInjector.resolveAndCreate([ConfigService]);
-let config: ConfigService = injector.get(ConfigService);
+import { globals } from '../core';
 
 @Component({
-	moduleId: module.id,
-	selector: config.getDirectiveSelectorPrefix() + 'form-field-is-required',
-	templateUrl: config.getAppPath() + '/form/field-is-required.component.html',
-	styleUrls: [config.getAppPath() + '/form/field-is-required.component.min.css']
+	selector: globals.directiveSelector + 'form-field-is-required',
+	templateUrl: './field-is-required.component.html',
+	styleUrls: ['./field-is-required.component.scss']
 })
-
 export class FieldIsRequiredComponent { 
 	@Input()
 	element: FormControl;

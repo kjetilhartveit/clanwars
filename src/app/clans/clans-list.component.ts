@@ -1,21 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ReflectiveInjector } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { ConfigService, PathsService } from '../shared';
+import { globals } from '../core';
 import { Clan, ClansService } from './';
 
-// TODO Can we prettify this?
-let injector = ReflectiveInjector.resolveAndCreate([ConfigService]);
-let config: ConfigService = injector.get(ConfigService);
-
 @Component({
-	moduleId: module.id,
-	selector: config.getDirectiveSelectorPrefix() + 'clans-list',
-	templateUrl: config.getAppPath() + '/clans/clans-list.component.html',
-	styleUrls:  [config.getAppPath() + '/clans/clans-list.component.min.css'] 
+	selector: globals.directiveSelector + 'clans-list',
+	templateUrl: './clans-list.component.html',
+	styleUrls:  ['./clans-list.component.scss'] 
 })
-
 export class ClansListComponent implements OnInit {
 	clans: Clan[] = [];
 	
@@ -23,8 +16,7 @@ export class ClansListComponent implements OnInit {
 	
 	constructor(private route: ActivatedRoute,
 							private router: Router, 
-							private clansService: ClansService,
-							private pathsService: PathsService) {}
+							private clansService: ClansService) {}
 	
 	onSelect(clan: Clan): void {
     this.router.navigate(['/clans', clan.id]);

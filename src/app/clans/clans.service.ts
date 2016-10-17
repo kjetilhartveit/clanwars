@@ -12,9 +12,6 @@ export class ClansService {
 	// Seem to run into some circular dependencies here
 //	constructor(public playersService: PlayersService) {}
 	
-	/**
-	 * TODO Make async, Promise<Clan[]>
-	 */
 	getClans(): Clan[] {
 		if (!this._cache.hasCache()) {
 			this._cache.add(CLANS);

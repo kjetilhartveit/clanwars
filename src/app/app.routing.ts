@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppComponent, HomeComponent }  from './';
+import { HomeComponent }  from './';
 import { ClansListComponent }  from './clans';
 import { PlayersListComponent }  from './players';
 
