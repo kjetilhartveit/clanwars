@@ -1,3 +1,5 @@
+/*
+
 import { browser, element, by } from 'protractor';
 
 export class SitePage {
@@ -9,3 +11,5 @@ export class SitePage {
     return element(by.css('app-root h1')).getText();
   }
 }
+
+*/

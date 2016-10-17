@@ -1,3 +1,5 @@
+/**
+ 
 import { SitePage } from './app.po';
 
 describe('site App', function() {
@@ -12,3 +14,5 @@ describe('site App', function() {
     expect(page.getParagraphText()).toEqual('app works!');
   });
 });
+
+ */
