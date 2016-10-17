@@ -1,0 +1,25 @@
+
+/compiled
+/dist
+/node_modules
+/typings
+/configs
+/tmp
+
+# NetBeans
+nbproject/private
+
+# Auto-generated caches
+.tscache
+.sass-cache
+
+# Windows file in folders with images
+Thumbs.db
+
+# Locked files
+*.~lock*
+
+.htaccess
+
+# Use the .keep files to index empty directories
+!.keep

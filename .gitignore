@@ -1,25 +1,40 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-/compiled
+# compiled output
 /dist
-/node_modules
-/typings
-/configs
 /tmp
 
-# NetBeans
+# dependencies
+/node_modules
+/bower_components
+
+# IDEs and editors
 nbproject/private
+/.idea
+/.vscode
+.project
+.classpath
+*.launch
+.settings/
 
-# Auto-generated caches
-.tscache
-.sass-cache
+# misc
+/.tscache
+/.sass-cache
+*.~lock*
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
 
-# Windows file in folders with images
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
 Thumbs.db
 
-# Locked files
-*.~lock*
-
+# Apache
 .htaccess
-
-# Use the .keep files to index empty directories
-!.keep
