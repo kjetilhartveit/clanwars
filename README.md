@@ -11,7 +11,7 @@
  * [Git v.2.8.0.windows.1](https://git-scm.com/)
  * [Angular 2](https://angular.io/)
  * [TypeScript](https://www.typescriptlang.org/)
- * [Sass](https://angular.io/)
+ * [Sass](http://sass-lang.com/)
  * ~~[Karma](http://karma-runner.github.io/)~~
  * ~~[Jasmine](http://jasmine.github.io/)~~
 
