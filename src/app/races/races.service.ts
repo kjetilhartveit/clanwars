@@ -1,7 +1,8 @@
 import { Injectable }    from '@angular/core';
 
-import { Race, RACES } from './';
-import { Cache } from '../shared';
+import { Race } from './race';
+import { RACES } from './mock-races';
+import { Cache } from '../shared/cache';
  
 @Injectable()
 /**

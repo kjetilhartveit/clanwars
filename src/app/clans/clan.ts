@@ -1,4 +1,4 @@
-import { Country } from '../countries';
+import { Country } from '../countries/country';
 
 export class Clan {
   id: number;

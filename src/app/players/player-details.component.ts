@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { globals } from '../core';
-import { FormHelperService } from '../form';
-import { Race, RacesService } from '../races';
-import { Country, CountriesService } from '../countries';
-import { Clan, ClansService } from '../clans';
-import { Player } from './';
+import { globals } from '../core/globals';
+import { Player } from './player';
+import { FormHelperService } from '../form/form-helper.service';
+import { Race } from '../races/race';
+import { RacesService } from '../races/races.service';
+import { Country } from '../countries/country';
+import { CountriesService } from '../countries/countries.service';
+import { Clan } from '../clans/clan';
+import { ClansService } from '../clans/clans.service';
 
 @Component({
 	selector: globals.directiveSelector + 'player-details',

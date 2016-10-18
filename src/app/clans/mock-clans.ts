@@ -1,7 +1,7 @@
 import { ReflectiveInjector } from '@angular/core';
 
-import { Clan } from './'; 
-import { CountriesService } from '../countries'; 
+import { Clan } from './clan'; 
+import { CountriesService } from '../countries/countries.service'; 
 
 // TODO Can we do this more elegantly?
 let injector = ReflectiveInjector.resolveAndCreate([CountriesService]);

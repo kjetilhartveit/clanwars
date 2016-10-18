@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { globals } from './core';
+import { globals } from './core/globals';
 
 @Component({  
 	selector: globals.directiveSelector + 'home',

@@ -3,14 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
 
-import { AppComponent, HomeComponent, routing, appRoutingProviders }   from './';
-import { UtilityService, ConfigService, PathsService, MainNavComponent }   from './shared';
-import { FormHelperService, FieldIsRequiredComponent }   from './form';
-import { WebHelperService }   from './web';
-import { CountriesService, CountryToFlagPathPipe }   from './countries';
-import { RacesService, RaceToIconPathPipe }   from './races';
-import { ClansListComponent, ClanDetailsComponent, ClansService }   from './clans';
-import { PlayersListComponent, PlayerDetailsComponent, PlayersService }   from './players';
+import { AppComponent }   from './app.component';
+import { HomeComponent }   from './home.component';
+import { routing, appRoutingProviders }   from './app.routing';
+import { UtilityService }   from './shared/utility.service';
+import { ConfigService }   from './shared/config.service';
+import { PathsService }   from './shared/paths.service';
+import { MainNavComponent }   from './shared//mainnav/mainnav.component';
+import { FormHelperService }   from './form/form-helper.service';
+import { FieldIsRequiredComponent }   from './form/field-is-required.component';
+import { WebHelperService }   from './web/web-helper.service';
+import { CountriesService }   from './countries/countries.service';
+import { CountryToFlagPathPipe }   from './countries/country-to-flag-path.pipe';
+import { RacesService }   from './races/races.service';
+import { RaceToIconPathPipe }   from './races/race-to-icon-path.pipe';
+import { ClansService }   from './clans/clans.service';
+import { ClansListComponent }   from './clans/clans-list.component';
+import { ClanDetailsComponent }   from './clans/clan-details.component';
+import { PlayersListComponent }   from './players/players-list.component';
+import { PlayerDetailsComponent }   from './players/player-details.component';
+import { PlayersService }   from './players/players.service';
 
 @NgModule({
 	imports:      [ 

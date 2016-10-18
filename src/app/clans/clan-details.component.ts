@@ -1,11 +1,13 @@
 import { Component, Input, SimpleChange, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { globals } from '../core';
-import { FormHelperService } from '../form';
-import { Country, CountriesService } from '../countries';
-import { Clan } from './';
-import { Player, PlayersService } from '../players';
+import { globals } from '../core/globals';
+import { FormHelperService } from '../form/form-helper.service';
+import { Country } from '../countries/country';
+import { CountriesService } from '../countries/countries.service';
+import { Clan } from './clan';
+import { Player } from '../players/player';
+import { PlayersService } from '../players/players.service';
 
 @Component({
 	selector: globals.directiveSelector + 'clan-details',

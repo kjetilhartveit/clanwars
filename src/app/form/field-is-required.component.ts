@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { globals } from '../core';
+import { globals } from '../core/globals';
 
 @Component({
 	selector: globals.directiveSelector + 'form-field-is-required',

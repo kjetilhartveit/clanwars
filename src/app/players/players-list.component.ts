@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { globals } from '../core';
-import { Player, PlayersService } from './';
+import { globals } from '../core/globals';
+import { Player } from './player';
+import { PlayersService } from './players.service';
 
 @Component({
 	selector: globals.directiveSelector + 'players-list',

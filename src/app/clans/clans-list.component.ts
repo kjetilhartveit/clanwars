@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { globals } from '../core';
-import { Clan, ClansService } from './';
+import { globals } from '../core/globals';
+import { Clan } from './clan';
+import { ClansService } from './clans.service';
 
 @Component({
 	selector: globals.directiveSelector + 'clans-list',

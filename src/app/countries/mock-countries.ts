@@ -1,4 +1,4 @@
-import { Country } from './'; 
+import { Country } from './country'; 
 
 //	alpha2code: string;
 //  name: string;

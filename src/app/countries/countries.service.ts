@@ -1,7 +1,8 @@
 import { Injectable }    from '@angular/core';
 
-import { Country, COUNTRIES } from './';
-import { Cache } from '../shared';
+import { Country } from './country';
+import { COUNTRIES } from './mock-countries';
+import { Cache } from '../shared/cache';
  
 @Injectable()
 export class CountriesService {

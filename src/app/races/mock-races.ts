@@ -1,4 +1,4 @@
-import { Race } from './'; 
+import { Race } from './race'; 
 
 //	id: string;
 //	name: string;

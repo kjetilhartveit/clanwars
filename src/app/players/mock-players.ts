@@ -1,10 +1,9 @@
 import { ReflectiveInjector }    from '@angular/core';
 
-import { Player, PlayersService } from './';  
-import { UtilityService } from '../shared';  
-import { CountriesService } from '../countries'; 
-import { RacesService } from '../races'; 
-import { ClansService } from '../clans'; 
+import { Player } from './player';  
+import { CountriesService } from '../countries/countries.service'; 
+import { RacesService } from '../races/races.service'; 
+import { ClansService } from '../clans/clans.service'; 
 
 let injector = ReflectiveInjector.resolveAndCreate([CountriesService]);  
 let countriesService: CountriesService = injector.get(CountriesService);

@@ -1,7 +1,8 @@
 import { Injectable }    from '@angular/core';
 
-import { Clan, CLANS } from './';
-import { Cache } from '../shared';
+import { Clan } from './clan';
+import { CLANS } from './mock-clans';
+import { Cache } from '../shared/cache';
 //import { Player, PlayersService } from '../players';
  
 @Injectable()

@@ -1,9 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent }  from './';
-import { ClansListComponent }  from './clans';
-import { PlayersListComponent }  from './players';
+import { HomeComponent }  from './home.component';
+import { ClansListComponent }  from './clans/clans-list.component';
+import { PlayersListComponent }  from './players/players-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
