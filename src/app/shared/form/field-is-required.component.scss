@@ -1,9 +1,9 @@
 
-@import '../sass/partials/_base.scss';
+:host {
+	.alert-danger {
+		background: #F2DEDE;
+		color: #BF7170;
 
-.alert-danger {
-	background: #F2DEDE;
-	color: #BF7170;
-	
-	padding: 8px;
+		padding: 8px;
+	}
 }

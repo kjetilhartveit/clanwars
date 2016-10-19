@@ -1,0 +1,18 @@
+
+/* Variables */
+
+$mainFonts: Arial, "Times New Roman", sans-serif;
+$mainFontSize: 13px;
+$linkColor: #456CFF;
+
+$maxSiteWidth: 900px;
+
+/** Mixins */
+
+@mixin clearfix {
+	&:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+}

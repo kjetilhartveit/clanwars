@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import 'app/shared/sass/base';
+
+/* Elements */
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: $mainFontSize;
+}
+
+body,
+textarea,
+select,
+input {
+	font-family: $mainFonts;
+}
+
+textarea,
+select,
+input {
+	font-size: 1em;
+	padding: 3px 4px;
+}
+
+textarea {
+	overflow: auto;
+	height: 3.5em;
+}
+
+button {
+	cursor: pointer;
+}
+
+a {
+	color: $linkColor;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+img {
+	vertical-align: bottom;
+	border: 0;
+	max-width: 100%;
+	height: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 1em 0;
+}		
+
+table {
+	th, td {
+		vertical-align: top;
+		text-align: left;
+		padding: 4px;
+	}
+}
+
+@import 'app/shared/sass/feedback';
+@import 'app/shared/sass/form-validation';
