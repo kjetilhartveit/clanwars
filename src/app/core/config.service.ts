@@ -29,9 +29,9 @@ export class ConfigService {
 	 * 
 	 * Default: cw-
 	 */
-	getDirectiveSelectorPrefix(): string {
-		return 'cw-';
-	}
+//	getDirectiveSelectorPrefix(): string {
+//		return 'cw-';
+//	}
 
 //  load() { // <------
 //    return new Promise((resolve) => {

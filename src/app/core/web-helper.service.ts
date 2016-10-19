@@ -1,6 +1,6 @@
 import { Injectable }    from '@angular/core';
  
-import { PathsService } from '../shared/paths.service';
+import { PathsService } from './paths.service';
 
 @Injectable()
 export class WebHelperService {

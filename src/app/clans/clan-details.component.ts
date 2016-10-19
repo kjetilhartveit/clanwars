@@ -2,7 +2,7 @@ import { Component, Input, SimpleChange, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { globals } from '../core/globals';
-import { FormHelperService } from '../form/form-helper.service';
+import { FormHelperService } from '../shared/form/form-helper.service';
 import { Country } from '../countries/country';
 import { CountriesService } from '../countries/countries.service';
 import { Clan } from './clan';

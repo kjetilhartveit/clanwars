@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { globals } from '../core/globals';
 import { Player } from './player';
-import { FormHelperService } from '../form/form-helper.service';
+import { FormHelperService } from '../shared/form/form-helper.service';
 import { Race } from '../races/race';
 import { RacesService } from '../races/races.service';
 import { Country } from '../countries/country';

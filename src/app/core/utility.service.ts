@@ -1,6 +1,4 @@
-import { Injectable, ReflectiveInjector }    from '@angular/core';
-
-import { Service }    from './service';
+import { Injectable }    from '@angular/core';
  
 @Injectable()
 export class UtilityService {
@@ -16,11 +14,11 @@ export class UtilityService {
 	 * 
 	 * @see https://angular.io/docs/ts/latest/api/core/index/ReflectiveInjector-class.html#!#resolveAndCreate-anchor
 	 */
-	static ResolveService<T extends Service>(service: any): T {
-		let providers: any[] = [service];
-		let injector = ReflectiveInjector.resolveAndCreate(providers);  
-		
-		return injector.get(service);
-	}
+//	static ResolveService<T extends Service>(service: any): T {
+//		let providers: any[] = [service];
+//		let injector = ReflectiveInjector.resolveAndCreate(providers);  
+//		
+//		return injector.get(service);
+//	}
 	
 }

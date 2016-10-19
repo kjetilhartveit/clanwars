@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { Race }	from './race';
-import { WebHelperService }	from '../web/web-helper.service';
+import { WebHelperService }	from '../core/web-helper.service';
 
 @Pipe({name: 'raceToIconPath'})
 export class RaceToIconPathPipe implements PipeTransform {

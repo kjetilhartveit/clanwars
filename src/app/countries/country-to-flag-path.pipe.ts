@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 import { Country }	from './country';
-import { WebHelperService }	from '../web/web-helper.service';
+import { WebHelperService }	from '../core/web-helper.service';
 
 @Pipe({name: 'countryToFlagPath'})
 export class CountryToFlagPathPipe implements PipeTransform {
