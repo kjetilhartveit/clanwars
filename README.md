@@ -6,28 +6,25 @@
 
  * [Node.js v6.0.0](https://www.nodejs.org/)
  * [npm v3.8.6](https://www.npmjs.org/)
- * [Grunt v1.0.1](http://gruntjs.com/) 
- * [Grunt CLI v1.2.0](http://gruntjs.com/) 
  * [Git v.2.8.0.windows.1](https://git-scm.com/)
  * [Angular 2](https://angular.io/)
  * [TypeScript](https://www.typescriptlang.org/)
  * [Sass](http://sass-lang.com/)
- * ~~[Karma](http://karma-runner.github.io/)~~
- * ~~[Jasmine](http://jasmine.github.io/)~~
-
-## Testing not yet ready
-
-Unfortunately tests and testing is not yet ready.
+ * [Angular CLI v1.0.0-beta.17](https://github.com/angular/angular-cli/)
+ * [Karma](http://karma-runner.github.io/)
+ * [Jasmine](http://jasmine.github.io/)
+ * ~~[Grunt v1.0.1](http://gruntjs.com/)~~
+ * ~~[Grunt CLI v1.2.0](http://gruntjs.com/)~~
 
 ## Getting Started
 
-First of all make sure Node.js, npm, Grunt and Git are installed.
+First of all make sure Node.js, npm and Git are installed.
 
 Clone the app into a new folder and make it the current working directory:
 
 ```shell
-git clone https://github.com/kjetilhartveit/clanwars.git clanwars-app
-cd clanwars-app
+git clone https://github.com/kjetilhartveit/clanwars.git ClanWars
+cd ClanWars
 ```
 
 Retrieve all the required packages and dependencies (**this could take some time**) by running:
@@ -36,95 +33,34 @@ Retrieve all the required packages and dependencies (**this could take some time
 npm install
 ```
 
-Next up we must build the app. You can do so by using the Grunt task [Build](#build) 
-or you could use the pre-built files in the latest-dist directory.
+# Site
 
-If you would like to use the pre-built files copy the files from latest-dist to dist. For example you could do:
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
 
-```shell
-cp -R latest-dist/. dist/
-```
+## Development server
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-When the app is built to dist, you can [run the app in a browser using Grunt task run](#run).
+## Code scaffolding
 
-## Grunt tasks
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class`.
 
-Use these Grunt tasks to build and run the app in a browser:
+## Build
 
-### Running the app in a browser
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-#### run
+## Running unit tests
 
-Runs the app in a browser. Builds the app first if dist is empty.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-```shell
-grunt run
-```
+## Running end-to-end tests
 
-### Building/compiling
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/). 
+Before running the tests make sure you are serving the app via `ng serve`.
 
-#### build
+## Deploying to Github Pages
 
-Builds app includes tests.
+Run `ng github-pages:deploy` to deploy to Github Pages.
 
-```shell
-grunt build
-```
+## Further help
 
-#### rebuild
-
-Cleans dist first then builds the app.
-
-```shell
-grunt rebuild
-```
-
-#### update
-
-Shorthand for updating contents includes tests.
-
-```shell
-grunt update
-```
-
-#### quickie
-
-Shorthand for quick update without tests.
-
-```shell
-grunt quickie
-```
-
-#### compiledtodist
-
-Prepare and move compiled files to dist.
-
-```shell
-grunt compiledtodist
-```
-
-#### compile
-
-Compiles TypeScript and Sass. Also moves HTML files from app to the compiled dir.
-
-```shell
-grunt compile
-```
-
-### Testing
-
-#### ~~testheadless~~
-
-Runs tests headlessly. **Not yet ready**
-
-```shell
-grunt testheadless
-```
-
-#### ~~test~~
-
-Compiles app then run tests manually in a browser. **Not yet ready**
-
-```shell
-grunt test
-```
+To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
