@@ -8,6 +8,7 @@ import { RacesModule }   from './races/races.module';
 import { CountriesModule }   from './countries/countries.module';
 import { ClansModule }   from './clans/clans.module';
 import { PlayersModule }   from './players/players.module';
+import { LeagueModule } from './league/league.module';
 import { AppComponent }   from './app.component';
 import { HomeComponent }   from './home.component';
 import { routing, appRoutingProviders }   from './app.routing';
@@ -22,6 +23,7 @@ import { routing, appRoutingProviders }   from './app.routing';
 		CountriesModule,
 		ClansModule,
 		PlayersModule,
+		LeagueModule,
 		routing
 	],
 	declarations: [ 

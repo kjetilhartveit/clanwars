@@ -14,17 +14,6 @@ let racesService: RacesService = injector2.get(RacesService);
 let injector3 = ReflectiveInjector.resolveAndCreate([ClansService]);   
 let clansService: ClansService = injector3.get(ClansService);
 
-//let countriesService = UtilityService.ResolveService<CountriesService>(CountriesService);
-//let racesService = UtilityService.ResolveService<RacesService>(RacesService);
-//let clansService = UtilityService.ResolveService<ClansService>(ClansService);
-
-//	id: number;
-//  nickname: string;
-//  firstname: string;
-//  lastname: string;
-//  country: Country;
-//  race: Race;
-//  clan: Clan;
 export const PLAYERS: Player[] = [
 	// Four Kings!
 	{ 

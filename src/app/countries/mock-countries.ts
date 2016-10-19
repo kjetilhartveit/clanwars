@@ -1,8 +1,5 @@
 import { Country } from './country'; 
 
-//	alpha2code: string;
-//  name: string;
-//	flagFilename: string;
 export const COUNTRIES: Country[] = [
 	{alpha2code: 'cn', name: 'China', flagFilename: 'cn.png'},
 	{alpha2code: 'de', name: 'Germany', flagFilename: 'de.png'},
