@@ -2,7 +2,7 @@
 <div id="clans-list-container">
 	<h2>Clans</h2>
 	
-	<div class="columns clearfix">
+	<div class="view-columns clearfix">
 		<div class="col-1">
 			<div id="clans-container" class="items-container">
 				<div *ngFor="let clan of clans" 
@@ -10,13 +10,13 @@
 						 [class.active]="clan === selectedClan"
 						 (click)="onSelect(clan)">
 
-					<div class="col-asset col-1">
+					<div class="col-flag">
 						<img [src]="clan.country | countryToFlagPath" />
 					</div>
-					<div class='col-primary col-2'>
+					<div class='col-primary'>
 						{{clan.name}}
 					</div>
-					<div class='col-aside col-3'>
+					<div class='col-aside'>
 						{{clan.shortname}} 
 					</div>
 				</div>

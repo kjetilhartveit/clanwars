@@ -2,23 +2,23 @@
 <div id="players-list-container">
 	<h2>Players</h2>
 	
-	<div class="columns clearfix">
+	<div class="view-columns clearfix">
 		<div class="col-1">
 			<div id="players-container" class="items-container">
 				<div *ngFor="let player of players" 
 						 class="item"
 						 [class.active]="player === selectedPlayer"
 						 (click)="onSelect(player)">
-					<div class="col-asset col-1">
+					<div class="col-flag">
 						<img [src]="player.country | countryToFlagPath" />
 					</div>
-					<div class="col-asset col-2">
+					<div class="col-race">
 						<img [src]="player.race | raceToIconPath" />
 					</div>
-					<div class='col-primary col-3'>
+					<div class='col-primary'>
 						{{player.nickname}}
 					</div>
-					<div class='col-aside col-4'>
+					<div class='col-aside'>
 						{{player.clan.shortname}} 
 					</div>
 				</div>
