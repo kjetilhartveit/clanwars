@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 
+import { Match } from './match';
 import { MatchSide } from './match-side';
 import { ClanResult } from './clan-result';
-import { ClanwarMatchMapping } from './clanwar-match-mapping';
+import { Clanwar } from './clanwar';
 import { ClanwarResult } from './clanwar-result';
 
 @Injectable()
 export class ClanwarHandlerService {
-	mapAndCalculate(map: ClanwarMatchMapping): ClanwarResult {
+	calculateResults(clanwar: Clanwar): ClanwarResult {
 		let clan1result = {
-			clan: map.clan1,
+			clan: clanwar.clan1,
 			score: 0
 		};
 		
 		let clan2result = {
-			clan: map.clan2,
+			clan: clanwar.clan2,
 			score: 0
 		};
 		
-		this.updateClanResults(this.calculateMatchResult(map.match1), clan1result, clan2result);
-		this.updateClanResults(this.calculateMatchResult(map.match2), clan1result, clan2result);
-		this.updateClanResults(this.calculateMatchResult(map.match3), clan1result, clan2result);
-		this.updateClanResults(this.calculateMatchResult(map.match4), clan1result, clan2result);
-		this.updateClanResults(this.calculateMatchResult(map.match5), clan1result, clan2result);
+		for (let match of clanwar.matches) {
+			console.log(match);
+			this.updateClanResults(this.calculateMatchResult(match), clan1result, clan2result);
+		}
 		
 		let clanwarResult = new ClanwarResult();
 		
-		clanwarResult.clan1 = clan1result;
-		clanwarResult.clan2 = clan2result;
-		clanwarResult.map = map;
+		clanwarResult.clan1result = clan1result;
+		clanwarResult.clan2result = clan2result;
+		clanwarResult.clanwar = clanwar;
 		
 		return clanwarResult;
 	}
@@ -41,14 +41,14 @@ export class ClanwarHandlerService {
 		}
 	}
 	
-	private calculateMatchResult(match: { clan1: MatchSide, clan2: MatchSide }): number {
-		return this.calculateMatchSidesResult(match.clan1, match.clan2);
+	public calculateMatchResult(match: Match): number {
+		return this.calculateMatchSidesResult(match.side1, match.side2);
 	}
 	
 	/**
 	 * @return number Returns 1 for side1, 2 for side2 or 0 for tie
 	 */
-	private calculateMatchSidesResult(matchSide1: MatchSide, matchSide2: MatchSide): number {
+	public calculateMatchSidesResult(matchSide1: MatchSide, matchSide2: MatchSide): number {
 		if (matchSide1.score > matchSide2.score) {
 			return 1;
 		} else if (matchSide1.score < matchSide2.score) {

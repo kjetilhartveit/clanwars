@@ -1,17 +1,17 @@
 import { ClanResult } from './clan-result';
-import { ClanwarMatchMapping } from './clanwar-match-mapping';
+import { Clanwar } from './clanwar';
 
 export class ClanwarResult {
-	clan1: ClanResult;
-	clan2: ClanResult;
+	clan1result: ClanResult;
+	clan2result: ClanResult;
 
-	map: ClanwarMatchMapping;
+	clanwar: Clanwar;
 	
 	getWinner(): ClanResult {
-		if (this.clan1.score > this.clan2.score) {
-			return this.clan1;
-		} else if (this.clan1.score < this.clan2.score) {
-			return this.clan2;
+		if (this.clan1result.score > this.clan2result.score) {
+			return this.clan1result;
+		} else if (this.clan1result.score < this.clan2result.score) {
+			return this.clan2result;
 		}
 		
 		return null;

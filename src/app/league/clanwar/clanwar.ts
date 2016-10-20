@@ -1,7 +1,11 @@
-import { ClanwarSide } from './clanwar-side';
+import { Clan } from '../../clans/clan';
+import { Match } from './match';
+import { ClanwarFormat } from './clanwar-format';
 
 export class Clanwar {
 	id: number;
-	clanwarSide1: ClanwarSide;
-	clanwarSide2: ClanwarSide;
+	clan1: Clan;
+	clan2: Clan;
+	format: ClanwarFormat;
+	matches: Match[];
 }

@@ -1,8 +1,10 @@
 import { ReflectiveInjector }    from '@angular/core';
 
 import { Clanwar } from './clanwar'; 
+import { MatchDistance } from './match'; 
 import { ClansService } from '../../clans/clans.service'; 
 import { PlayersService } from '../../players/players.service'; 
+import { MockHelper } from './mock-helper'; 
 
 let injector = ReflectiveInjector.resolveAndCreate([ClansService]);  
 let clansService: ClansService = injector.get(ClansService);
@@ -10,56 +12,39 @@ let clansService: ClansService = injector.get(ClansService);
 let injector2 = ReflectiveInjector.resolveAndCreate([PlayersService]);  
 let playersService: PlayersService = injector2.get(PlayersService);
 
+let matchDistance = MatchDistance.BestOf5;
+
+let mocker = new MockHelper(playersService, matchDistance);
+
 export const CLANWARS: Clanwar[] = [
 	{
 		id: 1,
-		clanwarSide1: {
-			clan: clansService.getClanOnId(1),
-			singlesMatchSide1: {
-				player: playersService.getPlayerOnId(1),
-				score: 2
-			},
-			singlesMatchSide2: {
-				player: playersService.getPlayerOnId(2),
-				score: 2
-			},
-			singlesMatchSide3: {
-				player: playersService.getPlayerOnId(3),
-				score: 1
-			},
-			singlesMatchSide4: {
-				player: playersService.getPlayerOnId(4),
-				score: 2
-			},
-			doublesMatchSide: {
-				player1: playersService.getPlayerOnId(1),
-				player2: playersService.getPlayerOnId(2),
-				score: 1
-			}
-		},
-		clanwarSide2: {
-			clan: clansService.getClanOnId(2),
-			singlesMatchSide1: {
-				player: playersService.getPlayerOnId(5),
-				score: 1
-			},
-			singlesMatchSide2: {
-				player: playersService.getPlayerOnId(6),
-				score: 0
-			},
-			singlesMatchSide3: {
-				player: playersService.getPlayerOnId(7),
-				score: 2
-			},
-			singlesMatchSide4: {
-				player: playersService.getPlayerOnId(8),
-				score: 1
-			},
-			doublesMatchSide: {
-				player1: playersService.getPlayerOnId(5),
-				player2: playersService.getPlayerOnId(6),
-				score: 2
-			}
-		}
+		
+		clan1: clansService.getClanOnId(1),
+		clan2: clansService.getClanOnId(2),
+		
+		format: null,
+			
+		matches: mocker.createMatches4KvMYM()
+	},
+	{
+		id: 2,
+		
+		clan1: clansService.getClanOnId(3),
+		clan2: clansService.getClanOnId(4),
+		
+		format: null,
+			
+		matches: mocker.createMatchesSKvWE()
+	},
+	{
+		id: 3,
+		
+		clan1: clansService.getClanOnId(1),
+		clan2: clansService.getClanOnId(3),
+		
+		format: null,
+			
+		matches: mocker.createMatches4KvSK()
 	}
 ];
