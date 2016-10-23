@@ -12,7 +12,7 @@ import { NotificationsConfigService } from './notifications-config.service';
 @Injectable()
 export class ToastyNotificationsFactory implements NotificationsFactory {
 	notifications: Notification[] = [];
-	toastRemoved = new ReplaySubject<Notification>();
+	notificationRemoved = new ReplaySubject<Notification>();
 	subs: Subscription[] = [];
 	
 	constructor(private idGeneratorService: IdGeneratorService,
@@ -63,9 +63,9 @@ export class ToastyNotificationsFactory implements NotificationsFactory {
 				// TODO implement notification removal
 //				Observable.
 //				
-//				let timeout = setTimeout(() => {
-//					this.toastRemoved.next(toastyNotification);
-//				}, this.notificationsConfigService.config.timeout); 
+				let timeout = setTimeout(() => {
+					this.notificationRemoved.next(toastyNotification);
+				}, this.notificationsConfigService.config.timeout); 
 //				
 //				timeout.
 			}
