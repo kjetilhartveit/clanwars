@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { globals } from '../core/globals';
@@ -10,6 +10,8 @@ import { Country } from '../countries/country';
 import { CountriesService } from '../countries/countries.service';
 import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
+import { NotificationType } from '../core/notifications/notification';
+import { NotificationsService, NotificationsServiceToken } from '../core/notifications/notifications.service';
 
 @Component({
 	selector: globals.directiveSelector + 'player-details',
@@ -26,7 +28,8 @@ export class PlayerDetailsComponent implements OnInit {
 	constructor(private racesService: RacesService,
 							private countriesService: CountriesService, 
 							private clansService: ClansService,
-							private formHelperService: FormHelperService) {}
+							private formHelperService: FormHelperService,
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
 	
 	ngOnInit() {
 		this.races = this.racesService.getRaces();
@@ -44,6 +47,8 @@ export class PlayerDetailsComponent implements OnInit {
 			this.player.country = this.formHelperService.getValueAndResetState<Country>(form.form.controls['country']);
 			this.player.race = this.formHelperService.getValueAndResetState<Race>(form.form.controls['race']);
 			this.player.clan = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan']);
+						
+			this.notificationsService.addMessage('Player updated', 'Player successfully updated', NotificationType.Success);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChange, OnInit } from '@angular/core';
+import { Component, Inject, Input, SimpleChange, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { globals } from '../core/globals';
@@ -8,6 +8,8 @@ import { CountriesService } from '../countries/countries.service';
 import { Clan } from './clan';
 import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
+import { NotificationType } from '../core/notifications/notification';
+import { NotificationsService, NotificationsServiceToken } from '../core/notifications/notifications.service';
 
 @Component({
 	selector: globals.directiveSelector + 'clan-details',
@@ -23,7 +25,8 @@ export class ClanDetailsComponent implements OnInit {
 	
 	constructor(private countriesService: CountriesService, 
 							private playersService: PlayersService,
-							private formHelperService: FormHelperService) {}
+							private formHelperService: FormHelperService,
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
 		
 	ngOnInit() {
 		this.countries = this.countriesService.getCountries();
@@ -46,6 +49,8 @@ export class ClanDetailsComponent implements OnInit {
 			this.clan.name = this.formHelperService.getValueAndResetState<string>(form.form.controls['name']);
 			this.clan.shortname = this.formHelperService.getValueAndResetState<string>(form.form.controls['shortname']);
 			this.clan.country = this.formHelperService.getValueAndResetState<Country>(form.form.controls['country']);
+			
+			this.notificationsService.addMessage('Clan updated', 'Clan successfully updated', NotificationType.Success);
 		}
 	}
 }

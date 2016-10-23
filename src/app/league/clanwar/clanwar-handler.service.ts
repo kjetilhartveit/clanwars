@@ -20,7 +20,6 @@ export class ClanwarHandlerService {
 		};
 		
 		for (let match of clanwar.matches) {
-			console.log(match);
 			this.updateClanResults(this.calculateMatchResult(match), clan1result, clan2result);
 		}
 		
