@@ -9,7 +9,8 @@ import { Clan } from './clan';
 import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
 import { NotificationType } from '../core/notifications/notification';
-import { NotificationsService, NotificationsServiceToken } from '../core/notifications/notifications.service';
+import { NotificationsService } from '../core/notifications/notifications.service';
+import { NotificationsServiceToken } from '../core/notifications/notifications.service.token';
 
 @Component({
 	selector: globals.directiveSelector + 'clan-details',

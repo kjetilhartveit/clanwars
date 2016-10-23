@@ -13,7 +13,8 @@ export class AppComponent {
 	
 	constructor(private notificationsConfigService: NotificationsConfigService) {
 		let config = new ToastyNotificationsConfig();
-		config.timeout = 0;
+		config.showClose = false;
+		config.timeout = 5000;
 		
 		notificationsConfigService.config = config;
 	}

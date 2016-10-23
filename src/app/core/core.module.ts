@@ -1,4 +1,4 @@
-import { NgModule, OpaqueToken, Optional, SkipSelf } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
@@ -7,8 +7,10 @@ import { ConfigService }	from './config.service';
 import { PathsService }	from './paths.service';
 import { UtilityService }	from './utility.service';
 import { WebHelperService }	from './web-helper.service';
-import { NotificationsServiceToken } from './notifications/notifications.service';
+import { NotificationsServiceToken } from './notifications/notifications.service.token';
 import { ToastyNotificationsService } from './notifications/toasty-notifications.service';
+import { NotificationsFactoryToken } from './notifications/notifications.factory.token';
+import { ToastyNotificationsFactory } from './notifications/toasty-notifications.factory';
 import { NotificationsConfigService } from './notifications/notifications-config.service';
 import { IdGeneratorService } from './notifications/id-generator.service';
 import { MainNavComponent }	from './navigation/mainnav.component';
@@ -35,7 +37,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 		{ provide: WebHelperService, useClass: WebHelperService },
 		{ provide: NotificationsServiceToken, useClass: ToastyNotificationsService },
 		{ provide: NotificationsConfigService, useClass: NotificationsConfigService },
-		{ provide: IdGeneratorService, useClass: IdGeneratorService }
+		{ provide: IdGeneratorService, useClass: IdGeneratorService },
+		{ provide: NotificationsFactoryToken, useClass: ToastyNotificationsFactory }
 	]
 })
 export class CoreModule { 

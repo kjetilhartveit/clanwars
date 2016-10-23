@@ -1,4 +1,3 @@
-import { ElementRef } from '@angular/core';
 import { ToastData } from 'ng2-toasty';
 
 import { Notification, NotificationType } from './notification';
@@ -9,7 +8,7 @@ export class ToastyNotification implements Notification {
 	message: string;
 	notificationType: NotificationType; 
 	toast: ToastData;
-	elementRef: ElementRef;
+	element: Element;
 	
 	constructor(id: number, title: string, message: string, notificationType: NotificationType) {
 		this.id = id;

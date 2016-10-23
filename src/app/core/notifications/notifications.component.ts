@@ -1,8 +1,12 @@
-import { Component, Inject, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Inject, Output, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Subscription, ReplaySubject } from 'rxjs';
 
 import { globals } from '../globals';
-import { NotificationsService, NotificationsServiceToken } from './notifications.service';
+import { NotificationsFactory } from './notifications.factory';
+import { NotificationsFactoryToken } from './notifications.factory.token';
+import { NotificationsService } from './notifications.service';
+import { NotificationsServiceToken } from './notifications.service.token';
+import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 
 @Component({
@@ -15,13 +19,18 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 	private subs: Subscription[] = [];
 	
 	@Output()
-	toastAddedToDom = new EventEmitter<Element>();
+	toastAddedToDom = new ReplaySubject<Element>();
 	
 	constructor(private elementRef: ElementRef,
+							@Inject(NotificationsFactoryToken) private notifactionsFactory: NotificationsFactory,
 							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
+		let toastyNotificationsFactory = <ToastyNotificationsFactory> notifactionsFactory;
 		let toastyNotificationsService = <ToastyNotificationsService> notificationsService;
 		
-		this.subs.push(this.toastAddedToDom.asObservable().subscribe(toastyNotificationsService.onToastAddedToDom));
+		this.subs.push(
+			this.toastAddedToDom.subscribe((element) => toastyNotificationsFactory.onToastAddedToDom(element)),
+			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.onToastAddedToDom(element))
+		);
 	}
 	
 	ngAfterViewInit() {
@@ -41,7 +50,7 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 			
 			if (toasts && toasts.length) {
 				for (let toast of toasts) {
-					this.toastAddedToDom.emit(toast);
+					this.toastAddedToDom.next(toast);
 				}
 				
 //				setTimeout(() => {

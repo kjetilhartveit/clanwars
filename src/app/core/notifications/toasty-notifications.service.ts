@@ -5,14 +5,16 @@ import { ReplaySubject } from 'rxjs';
 import { Notification, NotificationType } from './notification';
 import { ToastyNotification } from './toasty-notification';
 import { ToastyNotificationsConfig } from './toasty-notifications-config';
+import { ToastAddedArguments } from './toast-added-arguments';
 import { NotificationsConfigService } from './notifications-config.service';
 import { NotificationsService } from './notifications.service';
-import { NotificationsFactory, NotificationsFactoryToken } from './notifications.factory';
+import { NotificationsFactory } from './notifications.factory';
+import { NotificationsFactoryToken } from './notifications.factory.token';
 import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 
 @Injectable()
 export class ToastyNotificationsService implements NotificationsService {
-	toastAdded = new ReplaySubject<ToastData>(); 
+	toastAdded = new ReplaySubject<ToastAddedArguments>(); 
 
   constructor(private notificationsConfigService: NotificationsConfigService,
 							private toastyService: ToastyService,
@@ -33,16 +35,14 @@ export class ToastyNotificationsService implements NotificationsService {
 		var toastOptions: ToastOptions = {
 				title: title,
 				msg: message,
-				timeout: toastyConfig.timeout,
+				timeout: 0, // force timeout to be 0 as we want to control the removal
 				showClose: toastyConfig.showClose,
 				theme: toastyConfig.theme,
 				onAdd: (toast: ToastData) => {
-					this.toastAdded.next(toast);
-					notification.toast = toast;
-//						console.log('Toast ' + toast.id + ' has been added!');
-				},
-				onRemove: function(toast: ToastData) {
-//						console.log('Toast ' + toast.id + ' has been removed!');
+					this.toastAdded.next({
+						notification: notification,
+						toast: toast
+					});
 				}
 		};
 
