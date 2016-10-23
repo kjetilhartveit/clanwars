@@ -1,6 +1,8 @@
-import { Component, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Inject, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { globals } from '../globals';
+import { NotificationsService, NotificationsServiceToken } from './notifications.service';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 
 @Component({
@@ -9,19 +11,21 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements AfterViewInit, OnDestroy {
-	private observer: MutationObserver;
+	private toastsObserver: MutationObserver;
+	private subs: Subscription[] = [];
 	
 	@Output()
-	toastAddedToDom = new EventEmitter<ElementRef>();
+	toastAddedToDom = new EventEmitter<Element>();
 	
-//	sub: any;
-	
-	constructor(private elementRef: ElementRef) {
-					
+	constructor(private elementRef: ElementRef,
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
+		let toastyNotificationsService = <ToastyNotificationsService> notificationsService;
+		
+		this.subs.push(this.toastAddedToDom.asObservable().subscribe(toastyNotificationsService.onToastAddedToDom));
 	}
 	
 	ngAfterViewInit() {
-		this.observer = new MutationObserver((mutations: MutationRecord[], observer: MutationObserver) => {
+		this.toastsObserver = new MutationObserver((mutations: MutationRecord[], observer: MutationObserver) => {
 			
 			let toasts = mutations.map(p => {
 				let len = p.addedNodes.length;
@@ -37,22 +41,21 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 			
 			if (toasts && toasts.length) {
 				for (let toast of toasts) {
-					this.toastAddedToDom.emit(new ElementRef(toast));
+					this.toastAddedToDom.emit(toast);
 				}
 				
-				setTimeout(() => {
-					for (let toast of toasts) {
-						console.log(toast);
-						toast.classList.add('showing');
-					}
-				}, 100);	
+//				setTimeout(() => {
+//					for (let toast of toasts) {
+//						toast.classList.add('showing');
+//					}
+//				}, 100);	
 			}
 			
 		});
 
 		// define what element should be observed by the observer
 		// and what types of mutations trigger the callback
-		this.observer.observe(this.elementRef.nativeElement, {
+		this.toastsObserver.observe(this.elementRef.nativeElement, {
 			childList: true,
 			subtree: true,
 			attributes: false
@@ -60,6 +63,7 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 	}
 	
 	ngOnDestroy() {
-//		this.sub;
+		this.subs.forEach(p => p.unsubscribe());
+		this.toastsObserver.disconnect();
 	}
 }
