@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Inject, Component } from '@angular/core';
 
 import { ToastyNotificationsConfig } from './core/notifications/toasty-notifications-config';
 import { NotificationsConfigService } from './core/notifications/notifications-config.service';
+import { NotificationsConfigServiceToken } from './core/notifications/notifications-config.service.token';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,11 @@ import { NotificationsConfigService } from './core/notifications/notifications-c
 export class AppComponent {
 	title = "Clan Wars";
 	
-	constructor(private notificationsConfigService: NotificationsConfigService) {
+	constructor( @Inject(NotificationsConfigServiceToken) private notificationsConfigService: NotificationsConfigService) {
 		let config = new ToastyNotificationsConfig();
 		config.showClose = false;
 		config.timeout = 5000;
 		
-		notificationsConfigService.config = config;
+		this.notificationsConfigService.config = config;
 	}
 }

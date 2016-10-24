@@ -11,7 +11,8 @@ import { NotificationsServiceToken } from './notifications/notifications.service
 import { ToastyNotificationsService } from './notifications/toasty-notifications.service';
 import { NotificationsFactoryToken } from './notifications/notifications.factory.token';
 import { ToastyNotificationsFactory } from './notifications/toasty-notifications.factory';
-import { NotificationsConfigService } from './notifications/notifications-config.service';
+import { NotificationsConfigServiceToken } from './notifications/notifications-config.service.token';
+import { ToastyNotificationsConfigService } from './notifications/toasty-notifications-config.service';
 import { IdGeneratorService } from './notifications/id-generator.service';
 import { MainNavComponent }	from './navigation/mainnav.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -36,7 +37,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 		{ provide: PathsService, useClass: PathsService },
 		{ provide: WebHelperService, useClass: WebHelperService },
 		{ provide: NotificationsServiceToken, useClass: ToastyNotificationsService },
-		{ provide: NotificationsConfigService, useClass: NotificationsConfigService },
+		{ provide: NotificationsConfigServiceToken, useClass: ToastyNotificationsConfigService },
 		{ provide: IdGeneratorService, useClass: IdGeneratorService },
 		{ provide: NotificationsFactoryToken, useClass: ToastyNotificationsFactory }
 	]

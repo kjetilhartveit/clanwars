@@ -1,12 +1,10 @@
-import { Component, Inject, Output, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Inject, Output, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription, ReplaySubject } from 'rxjs';
+import { ToastyComponent } from 'ng2-toasty';
 
 import { globals } from '../globals';
-import { NotificationsFactory } from './notifications.factory';
-import { NotificationsFactoryToken } from './notifications.factory.token';
 import { NotificationsService } from './notifications.service';
 import { NotificationsServiceToken } from './notifications.service.token';
-import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 
 @Component({
@@ -15,25 +13,31 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements AfterViewInit, OnDestroy {
+	@Output()
+	readonly toastAddedToDom = new ReplaySubject<Element>();
+	
+	@ViewChild(ToastyComponent)
+	private toastyComponent: ToastyComponent;
+	
 	private toastsObserver: MutationObserver;
 	private subs: Subscription[] = [];
 	
-	@Output()
-	toastAddedToDom = new ReplaySubject<Element>();
-	
 	constructor(private elementRef: ElementRef,
-							@Inject(NotificationsFactoryToken) private notifactionsFactory: NotificationsFactory,
 							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
-		let toastyNotificationsFactory = <ToastyNotificationsFactory> notifactionsFactory;
-		let toastyNotificationsService = <ToastyNotificationsService> notificationsService;
+		let toastyNotificationsService = <ToastyNotificationsService>this.notificationsService;
 		
 		this.subs.push(
-			this.toastAddedToDom.subscribe((element) => toastyNotificationsFactory.onToastAddedToDom(element)),
 			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.onToastAddedToDom(element))
 		);
 	}
 	
 	ngAfterViewInit() {
+		(<ToastyNotificationsService>this.notificationsService).toastsContainer = this.toastyComponent;
+		
+		this.initMutationObserver();
+	}
+	
+	initMutationObserver() {
 		this.toastsObserver = new MutationObserver((mutations: MutationRecord[], observer: MutationObserver) => {
 			
 			let toasts = mutations.map(p => {
@@ -43,7 +47,7 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 					let node = p.addedNodes.item(i);
 					
 					if (node.nodeName.toLowerCase() === 'ng2-toast') {
-						return <Element> node;
+						return <Element>node;
 					}
 				}
 			}).filter(p => p);
@@ -52,12 +56,6 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 				for (let toast of toasts) {
 					this.toastAddedToDom.next(toast);
 				}
-				
-//				setTimeout(() => {
-//					for (let toast of toasts) {
-//						toast.classList.add('showing');
-//					}
-//				}, 100);	
 			}
 			
 		});
