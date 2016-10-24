@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 /**
+ * TODO This class has an awfully generic name
  * TODO Should this class be an observable?
  */
 @Injectable()
