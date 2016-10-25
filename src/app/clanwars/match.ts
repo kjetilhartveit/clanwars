@@ -1,6 +1,7 @@
 import { MatchSide } from './match-side';
 
 export abstract class Match {
+	id: number;
 	distance: MatchDistance;
 	abstract side1: MatchSide;
 	abstract side2: MatchSide;

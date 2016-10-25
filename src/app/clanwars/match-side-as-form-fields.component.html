@@ -1,0 +1,37 @@
+
+<span *ngIf="singlesMatchSide">
+	
+	<select [ngModel]="singlesMatchSide.player" 
+					name="matches[{{match.id}}][side{{sideNum}}][player]">
+		<option *ngFor="let player of players" 
+						[ngValue]="player"
+						[attr.selected]="singlesMatchSide.player === player">
+			{{player.nickname}}
+		</option>
+	</select>
+	
+</span>
+
+<span *ngIf="doublesMatchSide">
+	
+	<select [ngModel]="doublesMatchSide.player1" 
+					name="matches[{{match.id}}][side{{sideNum}}][player1]">
+		<option *ngFor="let player of players" 
+						[ngValue]="player"
+						[attr.selected]="doublesMatchSide.player1 === player">
+			{{player.nickname}}
+		</option>
+	</select>
+	
+	/ 
+	
+	<select [ngModel]="doublesMatchSide.player2" 
+					name="matches[{{match.id}}][side{{sideNum}}][player2]">
+		<option *ngFor="let player of players" 
+						[ngValue]="player"
+						[attr.selected]="doublesMatchSide.player2 === player">
+			{{player.nickname}}
+		</option>
+	</select>
+	
+</span>

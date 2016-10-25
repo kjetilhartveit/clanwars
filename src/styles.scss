@@ -30,6 +30,10 @@ input {
 	padding: 3px 4px;
 }
 
+input[type="number"] {
+	width: 3rem;
+}
+
 textarea {
 	overflow: auto;
 	height: 3.5em;

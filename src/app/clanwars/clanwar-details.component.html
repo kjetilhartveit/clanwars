@@ -1,3 +1,54 @@
-<p>
-  clanwar-details works!
-</p>
+
+<div id="clanwar-details-container">
+	<div *ngIf="clanwar">
+		<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+			<table>
+				<tr>
+					<td>
+						<label for="field-clan1">Clan 1:</label>
+					</td>
+					<td>
+						<select [ngModel]="clanwar.clan1" name="clan1" id="field-clan1" #fieldclan1="ngModel">
+							<option *ngFor="let clan of clans" 
+											[ngValue]="clan"
+											[attr.selected]="clanwar.clan1 === clan1">
+								{{clan.name}}
+							</option>
+						</select>
+						<cw-form-field-is-required [element]="fieldclan1" fieldname="Clan 1"></cw-form-field-is-required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label for="field-clan2">Clan 2:</label>
+					</td>
+					<td>
+						<select [ngModel]="clanwar.clan2" name="clan2" id="field-clan2" #fieldclan2="ngModel">
+							<option *ngFor="let clan of clans" 
+											[ngValue]="clan"
+											[attr.selected]="clanwar.clan2 === clan2">
+								{{clan.name}}
+							</option>
+						</select>
+						<cw-form-field-is-required [element]="fieldclan2" fieldname="Clan 2"></cw-form-field-is-required>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Matches:</label>
+					</td>
+					<td>
+						<div *ngFor="let match of clanwar.matches" class="matches">
+							<cw-match-as-form-fields [match]="match"></cw-match-as-form-fields>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button [disabled]="!form.form.valid">Save</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>

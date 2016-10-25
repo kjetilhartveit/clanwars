@@ -6,6 +6,7 @@ import { DoublesMatch } from './doubles-match';
 import { PlayersService } from '../players/players.service'; 
 
 export class MockHelper {
+	private matchId = 0;
 	private matchDistance: MatchDistance;
 	private playersService: PlayersService;
 	
@@ -13,7 +14,35 @@ export class MockHelper {
 		this.playersService = playersService;
 		this.matchDistance = matchDistance;
 	}
+	
+	genId(): number {
+		return this.matchId++;
+	}
 
+	initDoublesMatch(): DoublesMatch {
+		let match = new DoublesMatch();
+		match.id = this.genId();
+		match.distance = this.matchDistance;
+		
+		return match;
+	}	
+	
+	initSinglesMatch(): SinglesMatch {
+		let match = new SinglesMatch();
+		match.id = this.genId();
+		match.distance = this.matchDistance;
+		
+		return match;
+	}	
+	
+	createSinglesMatchSide(playerId: number, score: number): SinglesMatchSide {
+		let side = new SinglesMatchSide();
+		side.player = this.playersService.getPlayerOnId(playerId);
+		side.score = score;
+		
+		return side;
+	}
+	
 	createDoublesMatchSide(player1Id: number, player2Id: number, score: number): DoublesMatchSide {
 		let side = new DoublesMatchSide();
 		side.player1 = this.playersService.getPlayerOnId(player1Id);
@@ -94,26 +123,4 @@ export class MockHelper {
 
 		return [match1, match2, match3, match4, match5];
 	}
-	
-	createSinglesMatchSide(playerId: number, score: number): SinglesMatchSide {
-		let side = new SinglesMatchSide();
-		side.player = this.playersService.getPlayerOnId(playerId);
-		side.score = score;
-		
-		return side;
-	}
-	
-	initDoublesMatch(): DoublesMatch {
-		let match = new DoublesMatch();
-		match.distance = this.matchDistance;
-		
-		return match;
-	}	
-	
-	initSinglesMatch(): SinglesMatch {
-		let match = new SinglesMatch();
-		match.distance = this.matchDistance;
-		
-		return match;
-	}	
 }

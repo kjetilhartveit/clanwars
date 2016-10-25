@@ -4,6 +4,11 @@ import { NgForm } from '@angular/forms';
 import { globals } from '../core/globals';
 import { FormHelperService } from '../shared/form/form-helper.service';
 import { Clanwar } from './clanwar';
+import { Clan } from '../clans/clan';
+import { ClansService } from '../clans/clans.service';
+import { Player } from '../players/player';
+import { Match } from './match';
+import { PlayersService } from '../players/players.service';
 import { NotificationType } from '../core/notifications/notification';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { NotificationsServiceToken } from '../core/notifications/notifications.service.token';
@@ -17,30 +22,33 @@ export class ClanwarDetailsComponent implements OnInit {
 	@Input() 
 	clanwar: Clanwar;
 	
+	clans: Clan[];
+	players: Player[];
+	
 	constructor(private formHelperService: FormHelperService,
+							private clansService: ClansService,
+							private playersService: PlayersService,
 							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
 		
 	ngOnInit() {
-//		this.countries = this.countriesService.getCountries();
-	}
-	
-	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-//		if ('clan' in changes) {
-//			var chng = changes['clan'];
-//			
-//			if (chng.currentValue != null) {
-//				this.players = this.playersService.getPlayersInClanOnId(chng.currentValue['id'] as number);
-//			}
-//		}
+		this.clans = this.clansService.getClans();
+		this.players = this.playersService.getPlayers();
 	}
 	
 	onSubmit(form: NgForm) {
+		console.log('submitting');
+		
 		if (form.submitted && form.valid && form.dirty) {
+			console.log('submit accepted. Lets do this');
 			
 			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
-//			this.clanwar.name = this.formHelperService.getValueAndResetState<string>(form.form.controls['name']);
-//			this.clanwar.shortname = this.formHelperService.getValueAndResetState<string>(form.form.controls['shortname']);
-//			this.clanwar.country = this.formHelperService.getValueAndResetState<Country>(form.form.controls['country']);
+			this.clanwar.clan1 = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan1']);
+			this.clanwar.clan2 = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan2']);
+			
+			// TODO this isn't working. Maybe we need model-driven forms
+//			this.clanwar.matches = this.formHelperService.getValueAndResetState<Match[]>(form.form.controls['matches']);
+			
+			console.log(this.clanwar, 'clanwar after setting values');
 			
 			this.notificationsService.addMessage('Clanwar updated', 'Clanwar successfully updated', NotificationType.Success);
 		}

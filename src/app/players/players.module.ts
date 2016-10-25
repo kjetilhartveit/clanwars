@@ -24,8 +24,7 @@ import { PlayerDetailsComponent } from './player-details.component';
 		PlayerDetailsComponent
 	],
 	exports: [
-		PlayersListComponent,
-		PlayerDetailsComponent
+		PlayersListComponent
 	],
 	providers: [
 		{ provide: PlayersService, useClass: PlayersService }

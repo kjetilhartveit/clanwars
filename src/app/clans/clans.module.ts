@@ -24,8 +24,7 @@ import { ClanDetailsComponent } from './clan-details.component';
 		ClanDetailsComponent
 	],
 	exports: [
-		ClansListComponent,
-		ClanDetailsComponent
+		ClansListComponent
 	],
 	providers: [
 		{ provide: ClansService, useClass: ClansService }
