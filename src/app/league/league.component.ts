@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { globals } from '../core/globals';
-import { Clanwar } from './clanwar/clanwar';
-import { ClanwarsService } from './clanwar/clanwars.service';
+import { ClanwarResult } from '../clanwars/clanwar-result';
+import { ClanwarsService } from '../clanwars/clanwars.service';
+import { ClanwarsHandlerService } from '../clanwars/clanwars-handler.service';
 
 @Component({
   selector: globals.directiveSelector + 'league',
@@ -10,12 +11,16 @@ import { ClanwarsService } from './clanwar/clanwars.service';
   styleUrls: ['./league.component.scss']
 })
 export class LeagueComponent implements OnInit {
-	clanwars: Clanwar[];
+	clanwarResults: ClanwarResult[];
 
-  constructor(private clanwarsService: ClanwarsService) { }
+  constructor(private clanwarsService: ClanwarsService,
+							private clanwarsHandlerService: ClanwarsHandlerService) { 
+	}
 
   ngOnInit() {
-		this.clanwars = this.clanwarsService.getClanwars();
+		this.clanwarResults = this.clanwarsService.getClanwars().map(clanwar => 
+			this.clanwarsHandlerService.calculateResults(clanwar)
+		);
   }
 
 }

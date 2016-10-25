@@ -2,8 +2,8 @@ import { ReflectiveInjector }    from '@angular/core';
 
 import { Clanwar } from './clanwar'; 
 import { MatchDistance } from './match'; 
-import { ClansService } from '../../clans/clans.service'; 
-import { PlayersService } from '../../players/players.service'; 
+import { ClansService } from '../clans/clans.service'; 
+import { PlayersService } from '../players/players.service'; 
 import { MockHelper } from './mock-helper'; 
 
 let injector = ReflectiveInjector.resolveAndCreate([ClansService]);  

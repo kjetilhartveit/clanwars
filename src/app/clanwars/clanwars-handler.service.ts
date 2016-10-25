@@ -7,7 +7,7 @@ import { Clanwar } from './clanwar';
 import { ClanwarResult } from './clanwar-result';
 
 @Injectable()
-export class ClanwarHandlerService {
+export class ClanwarsHandlerService {
 	calculateResults(clanwar: Clanwar): ClanwarResult {
 		let clan1result = {
 			clan: clanwar.clan1,

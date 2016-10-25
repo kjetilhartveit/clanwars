@@ -3,7 +3,7 @@ import { SinglesMatchSide } from './singles-match-side';
 import { DoublesMatchSide } from './doubles-match-side'; 
 import { SinglesMatch } from './singles-match'; 
 import { DoublesMatch } from './doubles-match'; 
-import { PlayersService } from '../../players/players.service'; 
+import { PlayersService } from '../players/players.service'; 
 
 export class MockHelper {
 	private matchDistance: MatchDistance;

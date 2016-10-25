@@ -2,7 +2,7 @@ import { Injectable }    from '@angular/core';
 
 import { Clanwar } from './clanwar';
 import { CLANWARS } from './mock-clanwars';
-import { Cache } from '../../shared/cache';
+import { Cache } from '../shared/cache';
  
 @Injectable()
 /**

@@ -1,4 +1,4 @@
-import { Clan } from '../../clans/clan';
+import { Clan } from '../clans/clan';
 import { Match } from './match';
 import { ClanwarFormat } from './clanwar-format';
 

@@ -1,30 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ClansModule } from '../clans/clans.module';
-import { PlayersModule } from '../players/players.module';
-import { ClanwarHandlerService } from './clanwar/clanwar-handler.service';
-import { ClanwarsService } from './clanwar/clanwars.service';
+import { ClanwarsModule } from '../clanwars/clanwars.module';
 import { LeagueComponent } from './league.component';
-import { ClanwarComponent } from './clanwar/clanwar.component';
 
 @NgModule({
   imports: [
     CommonModule,
-		ClansModule,
-		PlayersModule
+		ClanwarsModule
   ],
   declarations: [
-		LeagueComponent,
-		ClanwarComponent
+		LeagueComponent
 	],
 	exports: [
-		LeagueComponent,
-		ClanwarComponent
+		LeagueComponent
 	],
 	providers: [
-		{ provide: ClanwarsService, useClass: ClanwarsService },
-		{ provide: ClanwarHandlerService, useClass: ClanwarHandlerService }
 	]
 })
 export class LeagueModule { }

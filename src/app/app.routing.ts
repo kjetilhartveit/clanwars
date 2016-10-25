@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent }  from './home.component';
 import { ClansListComponent }  from './clans/clans-list.component';
 import { PlayersListComponent }  from './players/players-list.component';
+import { ClanwarsListComponent }  from './clanwars/clanwars-list.component';
 import { LeagueComponent }  from './league/league.component';
 
 const appRoutes: Routes = [
@@ -12,6 +13,8 @@ const appRoutes: Routes = [
   { path: 'clans/:id', component: ClansListComponent },
   { path: 'players', component: PlayersListComponent },
   { path: 'players/:id', component: PlayersListComponent },
+  { path: 'clanwars', component: ClanwarsListComponent },
+  { path: 'clanwars/:id', component: ClanwarsListComponent },
   { path: 'league', component: LeagueComponent }
 //  { path: 'heroes', component: HeroListComponent }
 //  {

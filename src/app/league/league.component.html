@@ -1,5 +1,13 @@
 <div>
-	<div *ngFor="let clanwar of clanwars">
-		<cw-clanwar [clanwar]="clanwar"></cw-clanwar>
+	<div *ngFor="let clanwarResult of clanwarResults">
+		<div>
+			<table class="clanwar-table">
+				<tr>
+					<td>{{clanwarResult.clan1result.clan.name}}</td>
+					<td>{{clanwarResult.clan1result.score}} : {{clanwarResult.clan2result.score}}</td>
+					<td>{{clanwarResult.clan2result.clan.name}}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
