@@ -36,10 +36,7 @@ export class ClanwarDetailsComponent implements OnInit {
 	}
 	
 	onSubmit(form: NgForm) {
-		console.log('submitting');
-		
 		if (form.submitted && form.valid && form.dirty) {
-			console.log('submit accepted. Lets do this');
 			
 			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
 			this.clanwar.clan1 = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan1']);
@@ -47,8 +44,6 @@ export class ClanwarDetailsComponent implements OnInit {
 			
 			// TODO this isn't working. Maybe we need model-driven forms
 //			this.clanwar.matches = this.formHelperService.getValueAndResetState<Match[]>(form.form.controls['matches']);
-			
-			console.log(this.clanwar, 'clanwar after setting values');
 			
 			this.notificationsService.addMessage('Clanwar updated', 'Clanwar successfully updated', NotificationType.Success);
 		}
