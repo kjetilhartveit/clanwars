@@ -1,4 +1,4 @@
-import { Component, Inject, Input, SimpleChange, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { globals } from '../core/globals';
@@ -7,7 +7,6 @@ import { Clanwar } from './clanwar';
 import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
 import { Player } from '../players/player';
-import { Match } from './match';
 import { PlayersService } from '../players/players.service';
 import { NotificationType } from '../core/notifications/notification';
 import { NotificationsService } from '../core/notifications/notifications.service';

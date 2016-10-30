@@ -21,7 +21,6 @@ export class ClanDetailsComponent implements OnInit {
 	clan: Clan;
 	
 	players: Player[];
-	
 	countries: Country[];
 	
 	constructor(private countriesService: CountriesService, 

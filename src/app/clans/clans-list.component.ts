@@ -12,7 +12,6 @@ import { ClansService } from './clans.service';
 })
 export class ClansListComponent implements OnInit {
 	clans: Clan[] = [];
-	
 	selectedClan: Clan;
 	
 	constructor(private route: ActivatedRoute,

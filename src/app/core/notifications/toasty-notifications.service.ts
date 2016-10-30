@@ -2,6 +2,7 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ToastyService, ToastOptions, ToastData } from 'ng2-toasty';
 import { Subscription, ReplaySubject } from 'rxjs';
 
+import { HasSubscriptions } from '../../shared/has-subscriptions';
 import { Notification, NotificationType } from './notification';
 import { ToastyNotification } from './toasty-notification';
 import { ToastyNotificationsConfig } from './toasty-notifications-config';
@@ -13,22 +14,20 @@ import { NotificationsFactoryToken } from './notifications.factory.token';
 import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 
 @Injectable()
-export class ToastyNotificationsService implements NotificationsService, OnDestroy {
+export class ToastyNotificationsService implements HasSubscriptions, NotificationsService, OnDestroy {
 	notifications: Notification[] = [];
 	readonly notificationHasToast = new ReplaySubject<Notification>();
 	readonly notificationHasDomElement = new ReplaySubject<Notification>();
 	readonly removeNotification = new ReplaySubject<Notification>();
+	subs: Subscription[] = []; 
 	
 	toastsContainer: {
 		toasts: ToastData[];
 	}
-
-	private subs: Subscription[] = []; 
 	
   constructor(@Inject(NotificationsConfigServiceToken) private notificationsConfigService: NotificationsConfigService,
 							private toastyService: ToastyService,
 							@Inject(NotificationsFactoryToken) private notificationsFactory: NotificationsFactory) { 
-	
 		let toastyNotificationsFactory = <ToastyNotificationsFactory>this.notificationsFactory;		
 		
 		this.subs.push(
@@ -40,6 +39,10 @@ export class ToastyNotificationsService implements NotificationsService, OnDestr
 			),
 			this.removeNotification.subscribe((notification) => { this.onRemoveNotification(notification) })
 		);
+	}
+
+	ngOnDestroy() {
+		this.subs.forEach(p => p.unsubscribe());
 	}
 	
 	addMessage(title: string, message: string, nType: NotificationType): Notification {
@@ -127,10 +130,6 @@ export class ToastyNotificationsService implements NotificationsService, OnDestr
 			// Can't use the official way as there's a bug in code. clear(id: number) clears all toasts
 //			this.toastyService.clear(toastyNotification.toast.id);
 		}, 600); // hardcoding fadeout time
-	}
-	
-	ngOnDestroy() {
-		this.subs.forEach(p => p.unsubscribe());
 	}
 	
 	private getEarliestNotificationWithoutDomElement(): Notification {

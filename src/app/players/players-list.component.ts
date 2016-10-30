@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
+import { HasSubscriptionsNgLifecycles } from '../shared/has-subscriptions';
 import { Player } from './player';
 import { PlayersService } from './players.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -13,7 +14,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 	styleUrls:  ['./players-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
-export class PlayersListComponent implements OnInit, OnDestroy {
+export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnInit, OnDestroy {
 	players: Player[] = [];
 	selectedPlayer: Player;
 	subs: Subscription[] = [];

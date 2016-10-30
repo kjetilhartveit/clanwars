@@ -26,7 +26,6 @@ export class MatchSideAsFormFieldsComponent implements OnInit {
 	
 	private singlesMatchSide: SinglesMatchSide;
 	private doublesMatchSide: DoublesMatchSide;
-	
 	private players: Player[];
 
   constructor(private playersService: PlayersService) {}

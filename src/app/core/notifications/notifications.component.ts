@@ -3,6 +3,7 @@ import { Subscription, ReplaySubject } from 'rxjs';
 import { ToastyComponent } from 'ng2-toasty';
 
 import { globals } from '../globals';
+import { HasSubscriptionsNgLifecycles } from '../../shared/has-subscriptions';
 import { NotificationsService } from './notifications.service';
 import { NotificationsServiceToken } from './notifications.service.token';
 import { ToastyNotificationsService } from './toasty-notifications.service';
@@ -12,7 +13,7 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements AfterViewInit, OnDestroy {
+export class NotificationsComponent implements HasSubscriptionsNgLifecycles, AfterViewInit, OnDestroy {
 	@Output()
 	readonly toastAddedToDom = new ReplaySubject<Element>();
 	
@@ -20,10 +21,14 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 	private toastyComponent: ToastyComponent;
 	
 	private toastsObserver: MutationObserver;
-	private subs: Subscription[] = [];
+	subs: Subscription[] = [];
 	
 	constructor(private elementRef: ElementRef,
 							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
+
+	}
+	
+	ngOnInit() {		
 		let toastyNotificationsService = <ToastyNotificationsService>this.notificationsService;
 		
 		this.subs.push(
@@ -35,6 +40,11 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 		(<ToastyNotificationsService>this.notificationsService).toastsContainer = this.toastyComponent;
 		
 		this.initMutationObserver();
+	}
+	
+	ngOnDestroy() {
+		this.subs.forEach(p => p.unsubscribe());
+		this.toastsObserver.disconnect();
 	}
 	
 	initMutationObserver() {
@@ -67,10 +77,5 @@ export class NotificationsComponent implements AfterViewInit, OnDestroy {
 			subtree: true,
 			attributes: false
 		});
-	}
-	
-	ngOnDestroy() {
-		this.subs.forEach(p => p.unsubscribe());
-		this.toastsObserver.disconnect();
 	}
 }
