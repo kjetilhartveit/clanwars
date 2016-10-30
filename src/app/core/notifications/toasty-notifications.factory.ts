@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
+import { IdGeneratorService } from '../../shared/id-generator.service';
 import { Notification, NotificationType } from './notification';
 import { ToastyNotification } from './toasty-notification';
 import { NotificationsFactory } from './notifications.factory';
-import { IdGeneratorService } from './id-generator.service';
 
 @Injectable()
 export class ToastyNotificationsFactory implements NotificationsFactory {

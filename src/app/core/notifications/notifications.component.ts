@@ -4,6 +4,7 @@ import { ToastyComponent } from 'ng2-toasty';
 
 import { globals } from '../globals';
 import { HasSubscriptionsNgLifecycles } from '../../shared/has-subscriptions';
+import { IdGeneratorService } from '../../shared/id-generator.service';
 import { NotificationsService } from './notifications.service';
 import { NotificationsServiceToken } from './notifications.service.token';
 import { ToastyNotificationsService } from './toasty-notifications.service';
@@ -11,7 +12,8 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
 @Component({
   selector: globals.directiveSelector + 'notifications',
   templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+  styleUrls: ['./notifications.component.scss'],
+	providers: [IdGeneratorService]
 })
 export class NotificationsComponent implements HasSubscriptionsNgLifecycles, AfterViewInit, OnDestroy {
 	@Output()

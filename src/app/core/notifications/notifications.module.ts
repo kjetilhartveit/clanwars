@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastyModule } from 'ng2-toasty';
 
-import { IdGeneratorService } from './id-generator.service';
 import { NotificationsConfigServiceToken } from './notifications-config.service.token';
 import { ToastyNotificationsConfigService } from './toasty-notifications-config.service';
 import { NotificationsFactoryToken } from './notifications.factory.token';
@@ -23,7 +22,6 @@ import { NotificationsComponent } from './notifications.component';
 		NotificationsComponent
 	],
 	providers: [
-		{ provide: IdGeneratorService, useClass: IdGeneratorService },
 		{ provide: NotificationsFactoryToken, useClass: ToastyNotificationsFactory },
 		{ provide: NotificationsConfigServiceToken, useClass: ToastyNotificationsConfigService },
 		{ provide: NotificationsServiceToken, useClass: ToastyNotificationsService }
