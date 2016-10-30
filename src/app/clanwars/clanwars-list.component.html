@@ -1,23 +1,15 @@
 
-<div id="clanwars-list-container">
-	<h2>Clanwars</h2>
-	
-	<div class="view-columns clearfix">
-		<div class="col-1">
-			<div id="clanwars-container" class="items-container">
-				<div *ngFor="let clanwar of clanwars" 
-						 class="item"
-						 [class.active]="clanwar === selectedClanwar"
-						 (click)="onSelect(clanwar)">
-
-					<div class='col-primary'>
-						{{clanwar.clan1.name}} vs {{clanwar.clan2.name}}
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-2">
+<edit-entity-template title="Clanwars">
+	<edit-entity-template-list>
+		<edit-entity-template-list-item *ngFor="let clanwar of clanwars" 
+																		[item]="clanwar">
+			
+			<edit-entity-template-column type="primary">
+				{{clanwar.clan1.name}} vs {{clanwar.clan2.name}}
+			</edit-entity-template-column>
+		</edit-entity-template-list-item>
+	</edit-entity-template-list>
+	<edit-entity-template-details>
 			<cw-clanwar-details [clanwar]="selectedClanwar"></cw-clanwar-details> 
-		</div>
-	</div>
-</div>
+	</edit-entity-template-details>
+</edit-entity-template>

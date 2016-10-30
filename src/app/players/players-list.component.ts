@@ -33,12 +33,6 @@ export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnIni
 	ngOnInit() {
     this.players = this.playersService.getPlayers();
 		
-		this.subs.push(
-			this.editEntityTemplateService.selectItem.skip(1).subscribe((item) => {
-				this.onSelectPlayer(item);
-			})
-		);
-		
 		this.route.params.forEach((params: Params) => {
 			 let id = +params['id']; // (+) converts string 'id' to a number
 			 
@@ -55,6 +49,12 @@ export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnIni
 		if (!this.editEntityTemplateService.selectItem.value) {
 			this.editEntityTemplateService.selectItem.next(this.players[0]);
 		}
+		
+		this.subs.push(
+			this.editEntityTemplateService.selectItem.subscribe((item) => {
+				this.onSelectPlayer(item);
+			})
+		);
   }
 	
 	ngOnDestroy() {

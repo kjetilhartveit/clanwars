@@ -1,29 +1,21 @@
 
-<div id="clans-list-container">
-	<h2>Clans</h2>
-	
-	<div class="view-columns clearfix">
-		<div class="col-1">
-			<div id="clans-container" class="items-container">
-				<div *ngFor="let clan of clans" 
-						 class="item"
-						 [class.active]="clan === selectedClan"
-						 (click)="onSelect(clan)">
-
-					<div class="col-flag">
-						<img [src]="clan.country | countryToFlagPath" />
-					</div>
-					<div class='col-primary'>
-						{{clan.name}}
-					</div>
-					<div class='col-aside'>
-						{{clan.shortname}} 
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-2">
+<edit-entity-template title="Clans">
+	<edit-entity-template-list>
+		<edit-entity-template-list-item *ngFor="let clan of clans" 
+																		[item]="clan">
+			
+			<edit-entity-template-column type="flag">
+				<img [src]="clan.country | countryToFlagPath" />
+			</edit-entity-template-column>
+			<edit-entity-template-column type="primary">
+				{{clan.name}}
+			</edit-entity-template-column>
+			<edit-entity-template-column type="aside">
+				{{clan.shortname}} 
+			</edit-entity-template-column>
+		</edit-entity-template-list-item>
+	</edit-entity-template-list>
+	<edit-entity-template-details>
 			<cw-clan-details [clan]="selectedClan"></cw-clan-details> 
-		</div>
-	</div>
-</div>
+	</edit-entity-template-details>
+</edit-entity-template>
