@@ -1,31 +1,24 @@
 
-<div id="players-list-container">
-	<h2>Players</h2>
-	
-	<div class="view-columns clearfix">
-		<div class="col-1">
-			<div id="players-container" class="items-container">
-				<div *ngFor="let player of players" 
-						 class="item"
-						 [class.active]="player === selectedPlayer"
-						 (click)="onSelect(player)">
-					<div class="col-flag">
-						<img [src]="player.country | countryToFlagPath" />
-					</div>
-					<div class="col-race">
-						<img [src]="player.race | raceToIconPath" />
-					</div>
-					<div class='col-primary'>
-						{{player.nickname}}
-					</div>
-					<div class='col-aside'>
-						{{player.clan.shortname}} 
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-2">
-			<cw-player-details [player]="selectedPlayer"></cw-player-details> 
-		</div>
-	</div>
-</div>
+<edit-entity-template title="Players">
+	<edit-entity-template-list>
+		<edit-entity-template-list-item *ngFor="let player of players" 
+																		[item]="player">
+			
+			<edit-entity-template-column type="flag">
+				<img [src]="player.country | countryToFlagPath" />
+			</edit-entity-template-column>
+			<edit-entity-template-column type="race">
+				<img [src]="player.race | raceToIconPath" />
+			</edit-entity-template-column>
+			<edit-entity-template-column type="primary">
+				{{player.nickname}}
+			</edit-entity-template-column>
+			<edit-entity-template-column type="aside">
+				{{player.clan.shortname}} 
+			</edit-entity-template-column>
+		</edit-entity-template-list-item>
+	</edit-entity-template-list>
+	<edit-entity-template-details>
+		<cw-player-details [player]="selectedPlayer"></cw-player-details> 
+	</edit-entity-template-details>
+</edit-entity-template>

@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-template.module';
 import { FormHelperService }	from './form/form-helper.service';
 import { FieldIsRequiredComponent }	from './form/field-is-required.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+		EditEntityTemplateModule
   ],
   declarations: [
 		FieldIsRequiredComponent
 	],
 	exports: [
+		EditEntityTemplateModule,
 		FieldIsRequiredComponent
 	],
 	providers: [

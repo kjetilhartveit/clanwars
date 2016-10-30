@@ -1,0 +1,31 @@
+
+edit-entity-template-column {
+	margin-right: 4px;
+	
+	&.type-flag,
+	&.type-race { 
+		img {
+			width: 23px;
+		}
+	}
+	
+	&.type-flag {
+		order: 1;
+	}
+	
+	&.type-race {
+		order: 2;
+	}
+	
+	&.type-primary {
+		order: 3;
+		
+		font-weight: bold;
+	}
+
+	&.type-aside {
+		order: 4;
+		
+		color: #ccc;
+	}
+}
