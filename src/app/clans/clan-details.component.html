@@ -1,16 +1,15 @@
 
 <div id="clan-details-container">
 	<div *ngIf="clan">
-		<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+		<form [formGroup]="form" (ngSubmit)="onSubmit()">
 			<table>
 				<tr>
 					<td>
 						<label for="field-name">Name:</label>
 					</td>
 					<td>
-						<input [ngModel]="clan.name" name="name" id="field-name" #fieldname="ngModel"
-									 required />
-						<cw-form-field-is-required [element]="fieldname" fieldname="Name"></cw-form-field-is-required>
+						<input id="field-name" formControlName="name" required />
+						<cw-form-field-is-required [element]="form.controls.name" fieldname="Name"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -18,9 +17,8 @@
 						<label for="field-shortname">Short name:</label>
 					</td>
 					<td>
-						<input [ngModel]="clan.shortname" name="shortname" id="field-shortname" #fieldshortname="ngModel"
-									 required />
-						<cw-form-field-is-required [element]="fieldshortname" fieldname="Short name"></cw-form-field-is-required>
+						<input id="field-shortname" formControlName="shortname" required />
+						<cw-form-field-is-required [element]="form.controls.shortname" fieldname="Short name"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -28,14 +26,14 @@
 						<label for="field-country">Country:</label>
 					</td>
 					<td>
-						<select [ngModel]="clan.country" name="country" id="field-country" #fieldcountry="ngModel">
+						<select id="field-country" formControlName="country" required>
 							<option *ngFor="let country of countries" 
 											[ngValue]="country"
 											[attr.selected]="clan.country === country">
 								{{country.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="fieldcountry" fieldname="Country"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.controls.country" fieldname="Country"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -52,7 +50,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button [disabled]="!form.form.valid">Save</button>
+						<button [disabled]="!form.valid">Save</button>
 					</td>
 				</tr>
 			</table>

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { RacesModule } from '../races/races.module';
@@ -14,7 +13,6 @@ import { ClanDetailsComponent } from './clan-details.component';
   imports: [
     CommonModule,
 		RouterModule,
-		FormsModule,
 		SharedModule,
 		RacesModule,
 		CountriesModule

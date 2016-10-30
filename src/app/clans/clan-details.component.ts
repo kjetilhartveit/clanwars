@@ -1,8 +1,7 @@
 import { Component, Inject, Input, SimpleChange, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { globals } from '../core/globals';
-import { FormHelperService } from '../shared/form/form-helper.service';
 import { Country } from '../countries/country';
 import { CountriesService } from '../countries/countries.service';
 import { Clan } from './clan';
@@ -22,14 +21,21 @@ export class ClanDetailsComponent implements OnInit {
 	
 	players: Player[];
 	countries: Country[];
+	form: FormGroup;
 	
 	constructor(private countriesService: CountriesService, 
 							private playersService: PlayersService,
-							private formHelperService: FormHelperService,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
+							private formBuilder: FormBuilder) {}
 		
 	ngOnInit() {
 		this.countries = this.countriesService.getCountries();
+	
+		this.buildForm();
+	
+//    this.heroForm.valueChanges
+//      .subscribe(data => this.onValueChanged(data));
+//    this.onValueChanged(); // (re)set validation messages now
 	}
 	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
@@ -37,18 +43,33 @@ export class ClanDetailsComponent implements OnInit {
 			var chng = changes['clan'];
 			
 			if (chng.currentValue != null) {
+				this.buildForm();
 				this.players = this.playersService.getPlayersInClanOnId(chng.currentValue['id'] as number);
 			}
 		}
 	}
 	
-	onSubmit(form: NgForm) {
-		if (form.submitted && form.valid && form.dirty) {
+	buildForm() {
+		this.form = this.formBuilder.group({
+			name: [this.clan.name, [
+          Validators.required,
+//          Validators.minLength(4),
+//          Validators.maxLength(24),
+        ]
+      ],
+			shortname: [this.clan.shortname, [Validators.required]],
+      country:   [this.clan.country, [Validators.required]]
+    });
+	}
+	
+	onSubmit() {
+		if (this.form && this.form.valid && this.form.dirty) {
+			this.clan.name = this.form.controls['name'].value;
+			this.clan.shortname = this.form.controls['shortname'].value;
+			this.clan.country = this.form.controls['country'].value;
 			
-			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
-			this.clan.name = this.formHelperService.getValueAndResetState<string>(form.form.controls['name']);
-			this.clan.shortname = this.formHelperService.getValueAndResetState<string>(form.form.controls['shortname']);
-			this.clan.country = this.formHelperService.getValueAndResetState<Country>(form.form.controls['country']);
+			this.form.markAsUntouched();
+			this.form.markAsPristine();
 			
 			this.notificationsService.addMessage('Clan updated', 'Clan successfully updated', NotificationType.Success);
 		}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-template.module';
 import { IdGeneratorService }	from './id-generator.service';
@@ -9,12 +10,14 @@ import { FieldIsRequiredComponent }	from './form/field-is-required.component';
 @NgModule({
   imports: [
     CommonModule,
+		ReactiveFormsModule,
 		EditEntityTemplateModule
   ],
   declarations: [
 		FieldIsRequiredComponent
 	],
 	exports: [
+		ReactiveFormsModule,
 		EditEntityTemplateModule,
 		FieldIsRequiredComponent
 	],
