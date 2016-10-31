@@ -6,6 +6,7 @@ import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-tem
 import { IdGeneratorService }	from './id-generator.service';
 import { FormHelperService }	from './form/form-helper.service';
 import { FieldIsRequiredComponent }	from './form/field-is-required.component';
+import { SetInitialSelectedOptionDirective } from './set-selected-on-load.directive';
 
 @NgModule({
   imports: [
@@ -14,12 +15,14 @@ import { FieldIsRequiredComponent }	from './form/field-is-required.component';
 		EditEntityTemplateModule
   ],
   declarations: [
-		FieldIsRequiredComponent
+		FieldIsRequiredComponent,
+		SetInitialSelectedOptionDirective
 	],
 	exports: [
 		ReactiveFormsModule,
 		EditEntityTemplateModule,
-		FieldIsRequiredComponent
+		FieldIsRequiredComponent,
+		SetInitialSelectedOptionDirective
 	],
 	providers: [
 		{ provide: IdGeneratorService, useClass: IdGeneratorService },

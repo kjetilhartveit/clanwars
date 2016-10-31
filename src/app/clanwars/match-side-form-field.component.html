@@ -1,8 +1,13 @@
 
-<span *ngIf="singlesMatchSide">
+<span class="score-container">
+	<input type="number"
+				 [value]="matchSide.score"
+				 (change)="onChangeScore($event.target.value)" />
+</span>
+
+<span class="singles-container" *ngIf="singlesMatchSide">
 	
-	<select [ngModel]="singlesMatchSide.player" 
-					name="matches[{{match.id}}][side{{sideNum}}][player]">
+	<select setInitialSelectedOption (change)="onChangeSinglesPlayer($event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="singlesMatchSide.player === player">
@@ -12,10 +17,9 @@
 	
 </span>
 
-<span *ngIf="doublesMatchSide">
+<span class="doubles-container" *ngIf="doublesMatchSide">
 	
-	<select [ngModel]="doublesMatchSide.player1" 
-					name="matches[{{match.id}}][side{{sideNum}}][player1]">
+	<select setInitialSelectedOption (change)="onChangeDoublesPlayer(1, $event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="doublesMatchSide.player1 === player">
@@ -25,8 +29,7 @@
 	
 	/ 
 	
-	<select [ngModel]="doublesMatchSide.player2" 
-					name="matches[{{match.id}}][side{{sideNum}}][player2]">
+	<select setInitialSelectedOption (change)="onChangeDoublesPlayer(2, $event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="doublesMatchSide.player2 === player">
@@ -35,3 +38,4 @@
 	</select>
 	
 </span>
+	

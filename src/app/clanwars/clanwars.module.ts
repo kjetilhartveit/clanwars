@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { ClansModule } from '../clans/clans.module';
@@ -10,23 +9,24 @@ import { ClanwarsHandlerService } from './clanwars-handler.service';
 import { ClanwarsService } from './clanwars.service';
 import { ClanwarsListComponent } from './clanwars-list.component';
 import { ClanwarDetailsComponent } from './clanwar-details.component';
-import { MatchSideAsFormFieldsComponent } from './match-side-as-form-fields.component';
-import { MatchAsFormFieldsComponent } from './match-as-form-fields.component';
+import { MatchSideFormFieldComponent } from './match-side-form-field.component';
+import { MatchFormFieldComponent } from './match-form-field.component';
+import { MatchesFormFieldComponent } from './matches-form-field.component';
 
 @NgModule({
   imports: [
     CommonModule,
 		RouterModule,
-		FormsModule,
 		SharedModule,
 		ClansModule,
 		PlayersModule
   ],
   declarations: [
-		MatchSideAsFormFieldsComponent,
-		MatchAsFormFieldsComponent,
+		MatchSideFormFieldComponent,
+		MatchFormFieldComponent,
 		ClanwarsListComponent,
-		ClanwarDetailsComponent
+		ClanwarDetailsComponent,
+		MatchesFormFieldComponent
 	],
 	exports: [
 		ClanwarsListComponent

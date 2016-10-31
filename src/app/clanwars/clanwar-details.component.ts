@@ -1,8 +1,7 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Inject, Input, OnInit, SimpleChange } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { globals } from '../core/globals';
-import { FormHelperService } from '../shared/form/form-helper.service';
 import { Clanwar } from './clanwar';
 import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
@@ -23,23 +22,45 @@ export class ClanwarDetailsComponent implements OnInit {
 	
 	clans: Clan[];
 	players: Player[];
+	form: FormGroup;
 	
-	constructor(private formHelperService: FormHelperService,
-							private clansService: ClansService,
+	constructor(private clansService: ClansService,
 							private playersService: PlayersService,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
+							private formBuilder: FormBuilder) {}
 		
 	ngOnInit() {
 		this.clans = this.clansService.getClans();
 		this.players = this.playersService.getPlayers();
+		
+		this.buildForm();
 	}
 	
-	onSubmit(form: NgForm) {
-		if (form.submitted && form.valid && form.dirty) {
+	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
+		if ('clanwar' in changes) {
+			var chng = changes['clanwar'];
 			
-			// TODO this looks dodgy. Hardcoding of field names. Change to model driven validation? 
-			this.clanwar.clan1 = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan1']);
-			this.clanwar.clan2 = this.formHelperService.getValueAndResetState<Clan>(form.form.controls['clan2']);
+			if (chng.currentValue != null) {
+				this.buildForm();
+			}
+		}
+	}
+	
+	buildForm() {
+		this.form = this.formBuilder.group({
+			clan1: [this.clanwar.clan1, [Validators.required]],
+			clan2: [this.clanwar.clan2, [Validators.required]],
+			matches: [this.clanwar.matches]
+    });
+	}
+	
+	onSubmit() {
+		if (this.form.valid && this.form.dirty) {
+			this.clanwar.clan1 = this.form.controls['clan1'].value;
+			this.clanwar.clan2 = this.form.controls['clan2'].value;
+			
+			this.form.markAsUntouched();
+			this.form.markAsPristine();
 			
 			// TODO this isn't working. Maybe we need model-driven forms
 //			this.clanwar.matches = this.formHelperService.getValueAndResetState<Match[]>(form.form.controls['matches']);
