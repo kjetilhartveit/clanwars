@@ -1,3 +1,3 @@
 import { OpaqueToken } from '@angular/core'; 
 
-export let NotificationsServiceToken = new OpaqueToken('notifications-service');
+export const NotificationsServiceToken = new OpaqueToken('notifications-service');
