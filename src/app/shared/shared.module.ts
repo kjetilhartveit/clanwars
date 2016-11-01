@@ -19,6 +19,7 @@ import { SetInitialSelectedOptionDirective } from './set-initial-selected-option
 		SetInitialSelectedOptionDirective
 	],
 	exports: [
+		CommonModule,
 		ReactiveFormsModule,
 		EditEntityTemplateModule,
 		FieldIsRequiredComponent,
