@@ -6,7 +6,7 @@ import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-tem
 import { IdGeneratorService }	from './id-generator.service';
 import { FormHelperService }	from './form/form-helper.service';
 import { FieldIsRequiredComponent }	from './form/field-is-required.component';
-import { SetInitialSelectedOptionDirective } from './set-selected-on-load.directive';
+import { SetInitialSelectedOptionDirective } from './set-initial-selected-option.directive';
 
 @NgModule({
   imports: [
