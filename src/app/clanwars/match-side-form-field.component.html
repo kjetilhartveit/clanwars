@@ -1,13 +1,15 @@
 
 <span class="score-container">
 	<input type="number"
-				 [value]="matchSide.score"
+				 [formControl]="matchSideFormGroup.controls.score"
 				 (change)="onChangeScore($event.target.value)" />
 </span>
 
 <span class="singles-container" *ngIf="singlesMatchSide">
 	
-	<select setInitialSelectedOption (change)="onChangeSinglesPlayer($event.target.value)">
+	<select setInitialSelectedOption 
+					[formControl]="matchSideFormGroup.controls.player"
+					(change)="onChangeSinglesPlayer($event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="singlesMatchSide.player === player">
@@ -19,7 +21,9 @@
 
 <span class="doubles-container" *ngIf="doublesMatchSide">
 	
-	<select setInitialSelectedOption (change)="onChangeDoublesPlayer(1, $event.target.value)">
+	<select setInitialSelectedOption 
+					[formControl]="matchSideFormGroup.controls.player1"
+					(change)="onChangeDoublesPlayer(1, $event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="doublesMatchSide.player1 === player">
@@ -29,7 +33,9 @@
 	
 	/ 
 	
-	<select setInitialSelectedOption (change)="onChangeDoublesPlayer(2, $event.target.value)">
+	<select setInitialSelectedOption 
+					[formControl]="matchSideFormGroup.controls.player2"
+					(change)="onChangeDoublesPlayer(2, $event.target.value)">
 		<option *ngFor="let player of players" 
 						[ngValue]="player"
 						[attr.selected]="doublesMatchSide.player2 === player">

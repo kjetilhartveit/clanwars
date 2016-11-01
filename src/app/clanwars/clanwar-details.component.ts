@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit, SimpleChange } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { globals } from '../core/globals';
 import { Clanwar } from './clanwar';
@@ -17,8 +17,7 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
   styleUrls: ['./clanwar-details.component.scss']
 })
 export class ClanwarDetailsComponent implements OnInit {
-	@Input() 
-	clanwar: Clanwar;
+	@Input() clanwar: Clanwar;
 	
 	clans: Clan[];
 	players: Player[];
@@ -26,13 +25,12 @@ export class ClanwarDetailsComponent implements OnInit {
 	
 	constructor(private clansService: ClansService,
 							private playersService: PlayersService,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
-							private formBuilder: FormBuilder) {}
+							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
 		
 	ngOnInit() {
 		this.clans = this.clansService.getClans();
 		this.players = this.playersService.getPlayers();
-		
+
 		this.buildForm();
 	}
 	
@@ -47,18 +45,18 @@ export class ClanwarDetailsComponent implements OnInit {
 	}
 	
 	buildForm() {
-		this.form = this.formBuilder.group({
-			clan1: [this.clanwar.clan1, [Validators.required]],
-			clan2: [this.clanwar.clan2, [Validators.required]],
-			matches: [this.clanwar.matches]
-    });
+		this.form = new FormGroup({
+			clan1: new FormControl(this.clanwar.clan1, [Validators.required]),
+			clan2: new FormControl(this.clanwar.clan2, [Validators.required]),
+			matches: new FormArray([])
+		});
 	}
 	
 	onSubmit() {
 		if (this.form.valid && this.form.dirty) {
 			this.clanwar.clan1 = this.form.controls['clan1'].value;
 			this.clanwar.clan2 = this.form.controls['clan2'].value;
-			
+
 			this.form.markAsUntouched();
 			this.form.markAsPristine();
 			

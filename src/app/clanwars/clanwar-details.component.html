@@ -8,10 +8,13 @@
 						<label for="field-clan1">Clan 1:</label>
 					</td>
 					<td>
-						<select id="field-clan1" formControlName="clan1" required>
+						<select id="field-clan1" 
+										formControlName="clan1" 
+										setInitialSelectedOption 
+										required>
 							<option *ngFor="let clan of clans" 
 											[ngValue]="clan"
-											[attr.selected]="clanwar.clan1 === clan1">
+											[attr.selected]="clanwar.clan1 === clan">
 								{{clan.name}}
 							</option>
 						</select>
@@ -23,10 +26,12 @@
 						<label for="field-clan2">Clan 2:</label>
 					</td>
 					<td>
-						<select id="field-clan2" formControlName="clan2">
+						<select id="field-clan2" 
+										formControlName="clan2"
+										setInitialSelectedOption>
 							<option *ngFor="let clan of clans" 
 											[ngValue]="clan"
-											[attr.selected]="clanwar.clan2 === clan2">
+											[attr.selected]="clanwar.clan2 === clan">
 								{{clan.name}}
 							</option>
 						</select>
@@ -38,7 +43,7 @@
 						<label>Matches:</label>
 					</td>
 					<td>
-						<cw-matches-form-field formControlName="matches" 
+						<cw-matches-form-field [matchesFormArray]="form.controls.matches"
 																	 [matches]="clanwar.matches"></cw-matches-form-field>
 					</td>
 				</tr>

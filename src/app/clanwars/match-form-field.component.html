@@ -1,12 +1,14 @@
 <div>
 	<span>
 		<cw-match-side-form-field [matchSide]="match.side1" 
+															[matchFormGroup]="matchFormGroup"
 															sideNum="1"
 															(changeMatchSide)="onChangeMatchSide(1, match.side1)"></cw-match-side-form-field>
 	</span>
 	:
 	<span>
-		<cw-match-side-form-field [matchSide]="match.side2" 
+		<cw-match-side-form-field [matchSide]="match.side2"
+															[matchFormGroup]="matchFormGroup"
 															sideNum="2"
 															(changeMatchSide)="onChangeMatchSide(2, match.side2)"></cw-match-side-form-field>
 	</span>
