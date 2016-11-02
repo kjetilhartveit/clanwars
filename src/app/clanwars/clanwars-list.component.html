@@ -1,9 +1,7 @@
 
 <edit-entity-template title="Clanwars">
 	<edit-entity-template-list>
-		<edit-entity-template-list-item *ngFor="let clanwar of clanwars" 
-																		[item]="clanwar">
-			
+		<edit-entity-template-list-item *ngFor="let clanwar of clanwars" [item]="clanwar">
 			<edit-entity-template-column type="primary">
 				{{clanwar.clan1.name}} vs {{clanwar.clan2.name}}
 			</edit-entity-template-column>

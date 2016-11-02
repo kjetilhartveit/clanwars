@@ -7,14 +7,15 @@ import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
 import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
+import { MatchesFormArray } from './matches-form-array';
 import { NotificationType } from '../core/notifications/notification';
 import { NotificationsService } from '../core/notifications/notifications.service';
 import { NotificationsServiceToken } from '../core/notifications/notifications.service.token';
 
 @Component({
-  selector: globals.directiveSelector + 'clanwar-details',
-  templateUrl: './clanwar-details.component.html',
-  styleUrls: ['./clanwar-details.component.scss']
+	selector: globals.directiveSelector + 'clanwar-details',
+	templateUrl: './clanwar-details.component.html',
+	styleUrls: ['./clanwar-details.component.scss']
 })
 export class ClanwarDetailsComponent implements OnInit {
 	@Input() clanwar: Clanwar;
@@ -24,8 +25,9 @@ export class ClanwarDetailsComponent implements OnInit {
 	form: FormGroup;
 	
 	constructor(private clansService: ClansService,
-							private playersService: PlayersService,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {}
+				private playersService: PlayersService,
+				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
+	}
 		
 	ngOnInit() {
 		this.clans = this.clansService.getClans();
@@ -48,7 +50,7 @@ export class ClanwarDetailsComponent implements OnInit {
 		this.form = new FormGroup({
 			clan1: new FormControl(this.clanwar.clan1, [Validators.required]),
 			clan2: new FormControl(this.clanwar.clan2, [Validators.required]),
-			matches: new FormArray([])
+			matches: new MatchesFormArray(this.clanwar.matches)
 		});
 	}
 	
@@ -56,12 +58,10 @@ export class ClanwarDetailsComponent implements OnInit {
 		if (this.form.valid && this.form.dirty) {
 			this.clanwar.clan1 = this.form.controls['clan1'].value;
 			this.clanwar.clan2 = this.form.controls['clan2'].value;
+			this.clanwar.matches = this.form.controls['matches'].value;
 
 			this.form.markAsUntouched();
 			this.form.markAsPristine();
-			
-			// TODO this isn't working. Maybe we need model-driven forms
-//			this.clanwar.matches = this.formHelperService.getValueAndResetState<Match[]>(form.form.controls['matches']);
 			
 			this.notificationsService.addMessage('Clanwar updated', 'Clanwar successfully updated', NotificationType.Success);
 		}

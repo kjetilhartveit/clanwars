@@ -9,9 +9,9 @@ import { ClanwarsService } from './clanwars.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
 
 @Component({
-  selector: globals.directiveSelector + 'clanwars-list',
-  templateUrl: './clanwars-list.component.html',
-  styleUrls: ['./clanwars-list.component.scss'],
+	selector: globals.directiveSelector + 'clanwars-list',
+	templateUrl: './clanwars-list.component.html',
+	styleUrls: ['./clanwars-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
 export class ClanwarsListComponent implements HasSubscriptionsNgLifecycles, OnInit {
@@ -20,17 +20,18 @@ export class ClanwarsListComponent implements HasSubscriptionsNgLifecycles, OnIn
 	subs: Subscription[] = [];
 	
 	constructor(private route: ActivatedRoute,
-							private router: Router, 
-							private clanwarsService: ClanwarsService,
-							private editEntityTemplateService: EditEntityTemplateService<Clanwar>) {}
-	
-	onSelect(clanwar: Clanwar): void {
-    this.router.navigate(['/clanwars', clanwar.id]);
+				private router: Router, 
+				private clanwarsService: ClanwarsService,
+				private editEntityTemplateService: EditEntityTemplateService<Clanwar>) {
+	}
+
+	onSelect(clanwar: Clanwar) {
+		this.router.navigate(['/clanwars', clanwar.id]);
 		this.selectedClanwar = clanwar;
-  }
+	}
 	
 	ngOnInit() {
-    this.clanwars = this.clanwarsService.getClanwars();
+		this.clanwars = this.clanwarsService.getClanwars();
 		
 		this.route.params.forEach((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
@@ -54,7 +55,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNgLifecycles, OnIn
 				this.onSelect(item);
 			})
 		);
-  }
+	}
 	
 	ngOnDestroy() {
 		this.subs.forEach((sub) => {

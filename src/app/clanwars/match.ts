@@ -1,4 +1,4 @@
-import { MatchSide } from './match-side';
+import { MatchSide, SinglesMatchSide, DoublesMatchSide } from './match-side';
 
 export abstract class Match {
 	id: number;
@@ -6,6 +6,24 @@ export abstract class Match {
 	abstract side1: MatchSide;
 	abstract side2: MatchSide;
 	abstract type: MatchType;
+}
+
+export class SinglesMatch extends Match {
+	side1: SinglesMatchSide;
+	side2: SinglesMatchSide;
+
+	get type() {
+		return MatchType.Singles;
+	}
+}
+
+export class DoublesMatch extends Match {
+	side1: DoublesMatchSide;
+	side2: DoublesMatchSide;
+
+	get type() {
+		return MatchType.Doubles;
+	}
 }
 
 export enum MatchType {

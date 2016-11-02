@@ -8,9 +8,7 @@ import { ClanwarsHandlerService } from './clanwars-handler.service';
 import { ClanwarsService } from './clanwars.service';
 import { ClanwarsListComponent } from './clanwars-list.component';
 import { ClanwarDetailsComponent } from './clanwar-details.component';
-import { MatchSideFormFieldComponent } from './match-side-form-field.component';
-import { MatchFormFieldComponent } from './match-form-field.component';
-import { MatchesFormFieldComponent } from './matches-form-field.component';
+import { MatchSideControlsComponent } from './match-side-controls.component';
 
 @NgModule({
   imports: [
@@ -20,11 +18,9 @@ import { MatchesFormFieldComponent } from './matches-form-field.component';
 		PlayersModule
   ],
   declarations: [
-		MatchSideFormFieldComponent,
-		MatchFormFieldComponent,
 		ClanwarsListComponent,
 		ClanwarDetailsComponent,
-		MatchesFormFieldComponent
+		MatchSideControlsComponent
 	],
 	exports: [
 		ClanwarsListComponent

@@ -1,0 +1,28 @@
+
+<span [formGroup]="matchSideGroup">
+	<span class="score-container">
+		<input type="number" formControlName="score" />
+	</span>
+
+	<span class="singles-container" *ngIf="matchSideGroup.contains('player')">
+		<select formControlName="player">
+			<option *ngFor="let player of players" [ngValue]="player">
+				{{player.nickname}}
+			</option>
+		</select>
+	</span>
+
+	<span class="doubles-container" *ngIf="matchSideGroup.contains('player1')">
+		<select formControlName="player1">
+			<option *ngFor="let player of players" [ngValue]="player">
+				{{player.nickname}}
+			</option>
+		</select>
+		/
+		<select formControlName="player2">
+			<option *ngFor="let player of players" [ngValue]="player">
+				{{player.nickname}}
+			</option>
+		</select>
+	</span>
+</span>

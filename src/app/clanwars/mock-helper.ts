@@ -1,8 +1,5 @@
-import { Match, MatchDistance } from './match'; 
-import { SinglesMatchSide } from './singles-match-side'; 
-import { DoublesMatchSide } from './doubles-match-side'; 
-import { SinglesMatch } from './singles-match'; 
-import { DoublesMatch } from './doubles-match'; 
+import { Match, SinglesMatch, DoublesMatch, MatchDistance } from './match'; 
+import { SinglesMatchSide, DoublesMatchSide } from './match-side'; 
 import { PlayersService } from '../players/players.service'; 
 
 export class MockHelper {
