@@ -1,0 +1,31 @@
+
+.form-group-container {
+	display: inline-flex;
+	
+	.singles-container {
+		order: 2;
+	}
+
+	.doubles-container {
+		order: 3;
+
+		display: flex;
+		flex-direction: column;
+
+		select:first-of-type {
+			margin-bottom: 0.4rem;
+		}
+	}
+
+	.score-container {
+		order: 4;
+
+		margin: 0 0.25rem;
+	}
+
+	&[data-side-num="2"] {
+		.score-container {
+			order: 1;
+		}
+	}
+}

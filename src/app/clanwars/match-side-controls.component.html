@@ -1,5 +1,7 @@
 
-<span [formGroup]="matchSideGroup">
+<span class="form-group-container" 
+	  [formGroup]="matchSideGroup"
+	  [attr.data-side-num]="sideNum">
 	<span class="score-container">
 		<input type="number" formControlName="score" />
 	</span>
@@ -18,7 +20,7 @@
 				{{player.nickname}}
 			</option>
 		</select>
-		/
+		
 		<select formControlName="player2">
 			<option *ngFor="let player of players" [ngValue]="player">
 				{{player.nickname}}

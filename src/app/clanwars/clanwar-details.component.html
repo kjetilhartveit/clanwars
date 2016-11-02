@@ -47,12 +47,14 @@
 						<div formArrayName="matches">
 							<div *ngFor="let match of form.controls.matches.controls; let i=index">
 								<!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-								<div [formGroupName]="i">
+								<div class="match-control" [formGroupName]="i">
 									<span formGroupName="side1">
-										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side1"></cw-match-side-controls>
+										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side1"
+																sideNum="1"></cw-match-side-controls>
 									</span>
 									<span formGroupName="side2">
-										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side2"></cw-match-side-controls>
+										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side2"
+																sideNum="2"></cw-match-side-controls>
 									</span>
 								</div>
 							</div>

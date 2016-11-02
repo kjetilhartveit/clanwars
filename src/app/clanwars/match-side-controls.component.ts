@@ -12,6 +12,7 @@ import { PlayersService } from '../players/players.service';
 })
 export class MatchSideControlsComponent implements OnInit {
 	@Input() matchSideGroup: FormGroup;
+	@Input() sideNum: number;
 
 	players: Player[];
 
