@@ -15,28 +15,29 @@ import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 
 @Injectable()
 export class ToastyNotificationsService implements HasSubscriptions, NotificationsService, OnDestroy {
-	notifications: Notification[] = [];
 	readonly notificationHasToast = new ReplaySubject<Notification>();
 	readonly notificationHasDomElement = new ReplaySubject<Notification>();
-	readonly removeNotification = new ReplaySubject<Notification>();
+    readonly removeNotification = new ReplaySubject<Notification>();
+    notifications: Notification[] = [];
 	subs: Subscription[] = []; 
 	
 	toastsContainer: {
 		toasts: ToastData[];
 	}
 	
-  constructor(@Inject(NotificationsConfigServiceToken) private notificationsConfigService: NotificationsConfigService,
-							private toastyService: ToastyService,
-							@Inject(NotificationsFactoryToken) private notificationsFactory: NotificationsFactory) { 
+    constructor(@Inject(NotificationsConfigServiceToken) private notificationsConfigService: NotificationsConfigService,
+                private toastyService: ToastyService,
+                @Inject(NotificationsFactoryToken) private notificationsFactory: NotificationsFactory) {
+         
 		let toastyNotificationsFactory = <ToastyNotificationsFactory>this.notificationsFactory;		
 		
 		this.subs.push(
 			toastyNotificationsFactory.notificationCreated.subscribe((notification) => { 
 				this.onNotificationCreated(notification) 
 			}),
-			this.notificationHasDomElement.subscribe((notification) => 
-				this.onNotificationHasDomElement(notification)
-			),
+            this.notificationHasDomElement.subscribe((notification) => {
+                this.onNotificationHasDomElement(notification)
+            }),
 			this.removeNotification.subscribe((notification) => { this.onRemoveNotification(notification) })
 		);
 	}

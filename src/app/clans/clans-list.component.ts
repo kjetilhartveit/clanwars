@@ -22,15 +22,16 @@ export class ClansListComponent implements HasSubscriptionsNgLifecycles, OnInit 
 	constructor(private route: ActivatedRoute,
 							private router: Router, 
 							private clansService: ClansService,
-							private editEntityTemplateService: EditEntityTemplateService<Clan>) {}
+                            private editEntityTemplateService: EditEntityTemplateService<Clan>) {
+    }
 	
 	onSelectClan(clan: Clan) {
-    this.router.navigate(['/clans', clan.id]);
-		this.selectedClan = clan;
-  }
+        this.router.navigate(['/clans', clan.id]);
+	    this.selectedClan = clan;
+     }
 	
 	ngOnInit() {
-    this.clans = this.clansService.getClans();
+        this.clans = this.clansService.getClans();
 		
 		this.route.params.forEach((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number

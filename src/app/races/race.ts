@@ -1,6 +1,6 @@
 
 export class Race {
-	id: string;
-	name: string;
-	iconFilename: string;
+    id: string;
+    name: string;
+    iconFilename: string;
 } 

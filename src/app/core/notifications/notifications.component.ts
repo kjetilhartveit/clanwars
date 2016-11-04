@@ -10,23 +10,22 @@ import { NotificationsServiceToken } from './notifications.service.token';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 
 @Component({
-  selector: globals.directiveSelector + 'notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss'],
-	providers: [IdGeneratorService]
+    selector: globals.directiveSelector + 'notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.scss'],
+    providers: [IdGeneratorService]
 })
 export class NotificationsComponent implements HasSubscriptionsNgLifecycles, AfterViewInit, OnDestroy {
-	@Output()
-	readonly toastAddedToDom = new ReplaySubject<Element>();
+	@Output() readonly toastAddedToDom = new ReplaySubject<Element>();
 	
-	@ViewChild(ToastyComponent)
-	private toastyComponent: ToastyComponent;
-	
+	@ViewChild(ToastyComponent) private toastyComponent: ToastyComponent;
+
+    subs: Subscription[] = [];
+
 	private toastsObserver: MutationObserver;
-	subs: Subscription[] = [];
-	
+
 	constructor(private elementRef: ElementRef,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
+				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
 
 	}
 	

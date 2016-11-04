@@ -9,15 +9,15 @@ import { FieldIsRequiredComponent }	from './form/field-is-required.component';
 import { SetInitialSelectedOptionDirective } from './set-initial-selected-option.directive';
 
 @NgModule({
-  imports: [
+    imports: [
         CommonModule,
-		ReactiveFormsModule,
-		EditEntityTemplateModule
-  ],
-  declarations: [
-		FieldIsRequiredComponent,
-		SetInitialSelectedOptionDirective
-	],
+	    ReactiveFormsModule,
+	    EditEntityTemplateModule
+    ],
+    declarations: [
+	    FieldIsRequiredComponent,
+	    SetInitialSelectedOptionDirective
+    ],
 	exports: [
 		CommonModule,
 		ReactiveFormsModule,

@@ -20,18 +20,18 @@ export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnIni
 	subs: Subscription[] = [];
 	
 	constructor(private route: ActivatedRoute,
-							private router: Router,
-							private playersService: PlayersService,
-							private editEntityTemplateService: EditEntityTemplateService<Player>) {
+			    private router: Router,
+			    private playersService: PlayersService,
+			    private editEntityTemplateService: EditEntityTemplateService<Player>) {
 	}
 	
 	onSelectPlayer(player: Player): void {
-    this.router.navigate(['/players', player.id]);
-		this.selectedPlayer = player;
-  }
+        this.router.navigate(['/players', player.id]);
+	    this.selectedPlayer = player;
+    }
 	
 	ngOnInit() {
-    this.players = this.playersService.getPlayers();
+        this.players = this.playersService.getPlayers();
 		
 		this.route.params.forEach((params: Params) => {
 			 let id = +params['id']; // (+) converts string 'id' to a number
