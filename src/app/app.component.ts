@@ -5,9 +5,9 @@ import { NotificationsConfigService } from './core/notifications/notifications-c
 import { NotificationsConfigServiceToken } from './core/notifications/notifications-config.service.token';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 	title = "Clan Wars";

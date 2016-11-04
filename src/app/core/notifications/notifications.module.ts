@@ -12,7 +12,7 @@ import { NotificationsComponent } from './notifications.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+        CommonModule,
 		ToastyModule.forRoot()
   ],
   declarations: [

@@ -15,7 +15,7 @@ import { HomeComponent } from './home.component';
 import { routing, appRoutingProviders } from './app.routing';
 
 @NgModule({
-	imports:      [ 
+	imports: [ 
 		BrowserModule,
 		HttpModule,        
 		CoreModule,

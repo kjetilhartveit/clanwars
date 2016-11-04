@@ -8,14 +8,14 @@ import { ClanwarsListComponent }  from './clanwars/clanwars-list.component';
 import { LeagueComponent }  from './league/league.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'clans', component: ClansListComponent },
-  { path: 'clans/:id', component: ClansListComponent },
-  { path: 'players', component: PlayersListComponent },
-  { path: 'players/:id', component: PlayersListComponent },
-  { path: 'clanwars', component: ClanwarsListComponent },
-  { path: 'clanwars/:id', component: ClanwarsListComponent },
-  { path: 'league', component: LeagueComponent }
+    { path: '', component: HomeComponent },
+    { path: 'clans', component: ClansListComponent },
+    { path: 'clans/:id', component: ClansListComponent },
+    { path: 'players', component: PlayersListComponent },
+    { path: 'players/:id', component: PlayersListComponent },
+    { path: 'clanwars', component: ClanwarsListComponent },
+    { path: 'clanwars/:id', component: ClanwarsListComponent },
+    { path: 'league', component: LeagueComponent }
 //  { path: 'heroes', component: HeroListComponent }
 //  {
 //    path: 'heroes',

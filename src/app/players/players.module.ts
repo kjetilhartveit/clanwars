@@ -10,22 +10,22 @@ import { PlayersListComponent } from './players-list.component';
 import { PlayerDetailsComponent } from './player-details.component';
 
 @NgModule({
-  imports: [
-		RouterModule,
-		FormsModule,
-		SharedModule,
-		RacesModule,
-		CountriesModule
-  ],
-  declarations: [
-		PlayersListComponent,
-		PlayerDetailsComponent
-	],
-	exports: [
-		PlayersListComponent
-	],
-	providers: [
-		{ provide: PlayersService, useClass: PlayersService }
-	]
+    imports: [
+	    RouterModule,
+	    FormsModule,
+	    SharedModule,
+	    RacesModule,
+	    CountriesModule
+    ],
+    declarations: [
+	    PlayersListComponent,
+	    PlayerDetailsComponent
+    ],
+    exports: [
+	    PlayersListComponent
+    ],
+    providers: [
+	    { provide: PlayersService, useClass: PlayersService }
+    ]
 })
 export class PlayersModule { }

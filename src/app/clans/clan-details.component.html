@@ -8,7 +8,7 @@
 						<label for="field-name">Name:</label>
 					</td>
 					<td>
-						<input id="field-name" formControlName="name" required />
+						<input formControlName="name" id="field-name" required />
 						<cw-form-field-is-required [element]="form.controls.name" fieldname="Name"></cw-form-field-is-required>
 					</td>
 				</tr>
@@ -17,7 +17,7 @@
 						<label for="field-shortname">Short name:</label>
 					</td>
 					<td>
-						<input id="field-shortname" formControlName="shortname" required />
+						<input formControlName="shortname" id="field-shortname" required />
 						<cw-form-field-is-required [element]="form.controls.shortname" fieldname="Short name"></cw-form-field-is-required>
 					</td>
 				</tr>
@@ -26,7 +26,7 @@
 						<label for="field-country">Country:</label>
 					</td>
 					<td>
-						<select id="field-country" formControlName="country" required>
+						<select formControlName="country" id="field-country" required>
 							<option *ngFor="let country of countries" 
 											[ngValue]="country"
 											[attr.selected]="clan.country === country">
@@ -50,7 +50,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button [disabled]="!form.valid">Save</button>
+						<button type="submit" [disabled]="!form.valid">Save</button>
 					</td>
 				</tr>
 			</table>

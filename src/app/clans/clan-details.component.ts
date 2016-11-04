@@ -1,5 +1,5 @@
-import { Component, Inject, Input, SimpleChange, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Inject, Input, SimpleChange, OnInit, OnChanges } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { globals } from '../core/globals';
 import { Country } from '../countries/country';
@@ -15,18 +15,18 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	selector: globals.directiveSelector + 'clan-details',
 	templateUrl: './clan-details.component.html'
 })
-export class ClanDetailsComponent implements OnInit { 
-	@Input() 
-	clan: Clan;
+export class ClanDetailsComponent implements OnInit, OnChanges { 
+	@Input() clan: Clan;
 	
 	players: Player[];
 	countries: Country[];
 	form: FormGroup;
 	
 	constructor(private countriesService: CountriesService, 
-							private playersService: PlayersService,
-							@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
-							private formBuilder: FormBuilder) {}
+				private playersService: PlayersService,
+				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
+                private formBuilder: FormBuilder) {
+    }
 		
 	ngOnInit() {
 		this.countries = this.countriesService.getCountries();
@@ -49,19 +49,6 @@ export class ClanDetailsComponent implements OnInit {
 		}
 	}
 	
-	buildForm() {
-		this.form = this.formBuilder.group({
-			name: [this.clan.name, [
-          Validators.required,
-//          Validators.minLength(4),
-//          Validators.maxLength(24),
-        ]
-      ],
-			shortname: [this.clan.shortname, [Validators.required]],
-      country:   [this.clan.country, [Validators.required]]
-    });
-	}
-	
 	onSubmit() {
 		if (this.form && this.form.valid && this.form.dirty) {
 			this.clan.name = this.form.controls['name'].value;
@@ -73,5 +60,13 @@ export class ClanDetailsComponent implements OnInit {
 			
 			this.notificationsService.addMessage('Clan updated', 'Clan successfully updated', NotificationType.Success);
 		}
-	}
+    }
+
+    buildForm() {
+        this.form = new FormGroup({
+            name: new FormControl(this.clan.name, [Validators.required]),
+            shortname: new FormControl(this.clan.shortname, [Validators.required]),
+            country: new FormControl(this.clan.country, [Validators.required])
+        });
+    }
 }

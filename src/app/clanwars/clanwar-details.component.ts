@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, SimpleChange } from '@angular/core';
+import { Component, Inject, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
 import { globals } from '../core/globals';
@@ -17,7 +17,7 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	templateUrl: './clanwar-details.component.html',
 	styleUrls: ['./clanwar-details.component.scss']
 })
-export class ClanwarDetailsComponent implements OnInit {
+export class ClanwarDetailsComponent implements OnInit, OnChanges {
 	@Input() clanwar: Clanwar;
 	
 	clans: Clan[];

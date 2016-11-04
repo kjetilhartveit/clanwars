@@ -5,17 +5,17 @@ import { ClanwarsModule } from '../clanwars/clanwars.module';
 import { LeagueComponent } from './league.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-		ClanwarsModule
-  ],
-  declarations: [
-		LeagueComponent
-	],
-	exports: [
-		LeagueComponent
-	],
-	providers: [
-	]
+    imports: [
+        CommonModule,
+	    ClanwarsModule
+    ],
+    declarations: [
+	    LeagueComponent
+    ],
+    exports: [
+	    LeagueComponent
+    ],
+    providers: [
+    ]
 })
 export class LeagueModule { }

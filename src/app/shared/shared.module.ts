@@ -10,7 +10,7 @@ import { SetInitialSelectedOptionDirective } from './set-initial-selected-option
 
 @NgModule({
   imports: [
-    CommonModule,
+        CommonModule,
 		ReactiveFormsModule,
 		EditEntityTemplateModule
   ],

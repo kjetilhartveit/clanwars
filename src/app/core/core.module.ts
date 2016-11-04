@@ -11,7 +11,7 @@ import { MainNavComponent }	from './navigation/mainnav.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+        CommonModule,
 		RouterModule,
 		NotificationsModule
   ],

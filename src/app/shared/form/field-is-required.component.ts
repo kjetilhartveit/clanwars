@@ -9,9 +9,6 @@ import { globals } from '../../core/globals';
 	styleUrls: ['./field-is-required.component.scss']
 })
 export class FieldIsRequiredComponent { 
-	@Input()
-	element: FormControl;
-
-	@Input('fieldname')
-	fieldName: string;
+	@Input() element: FormControl;
+	@Input('fieldname') fieldName: string;
 }

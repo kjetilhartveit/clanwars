@@ -10,7 +10,7 @@ import { EditEntityTemplateComponent } from './edit-entity-template.component';
 
 @NgModule({
   imports: [
-    CommonModule
+        CommonModule
   ],
   declarations: [
 		EditEntityTemplateComponent,

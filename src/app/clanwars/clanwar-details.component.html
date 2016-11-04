@@ -9,12 +9,12 @@
 					</td>
 					<td>
 						<select id="field-clan1" 
-										formControlName="clan1" 
-										setInitialSelectedOption 
-										required>
+								formControlName="clan1" 
+								setInitialSelectedOption 
+								required>
 							<option *ngFor="let clan of clans" 
-											[ngValue]="clan"
-											[attr.selected]="clanwar.clan1 === clan">
+									[ngValue]="clan"
+									[attr.selected]="clanwar.clan1 === clan">
 								{{clan.name}}
 							</option>
 						</select>
@@ -27,12 +27,12 @@
 					</td>
 					<td>
 						<select id="field-clan2" 
-										formControlName="clan2"
-										setInitialSelectedOption
-										required>
+								formControlName="clan2"
+								setInitialSelectedOption
+								required>
 							<option *ngFor="let clan of clans" 
-											[ngValue]="clan"
-											[attr.selected]="clanwar.clan2 === clan">
+									[ngValue]="clan"
+									[attr.selected]="clanwar.clan2 === clan">
 								{{clan.name}}
 							</option>
 						</select>
@@ -63,7 +63,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<button [disabled]="!form.valid">Save</button>
+						<button type="submit" [disabled]="!form.valid">Save</button>
 					</td>
 				</tr>
 			</table>

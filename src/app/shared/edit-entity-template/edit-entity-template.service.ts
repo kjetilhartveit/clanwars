@@ -5,5 +5,5 @@ import { BehaviorSubject } from 'rxjs';
 export class EditEntityTemplateService<T> {
 	selectItem = new BehaviorSubject<T>(null);
 
-  constructor() { }
+    constructor() { }
 }
