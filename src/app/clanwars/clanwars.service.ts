@@ -3,15 +3,14 @@ import { Injectable }    from '@angular/core';
 import { Clanwar } from './clanwar';
 import { CLANWARS } from './mock-clanwars';
 import { Cache } from '../shared/cache';
+import { BaseService } from '../shared/base.service';
  
 @Injectable()
-/**
- * Races service.
- * 
- * A lot of hardcoding here, should we refactor or not?
- */
-export class ClanwarsService {
-	
+export class ClanwarsService extends BaseService<Clanwar> {
+    getMockData() {
+        return CLANWARS;
+    }
+
 	private _cache = new Cache<Clanwar[]>();
 	
 	getClanwars(): Clanwar[] {
@@ -22,7 +21,7 @@ export class ClanwarsService {
 		return this._cache.get();
 	}
 	
-	getOnId(id: number): Clanwar {
+	getClanwarOnId(id: number): Clanwar {
 		return this.getClanwars().find(p => p.id === id);
 	}
 }

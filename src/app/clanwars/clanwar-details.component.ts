@@ -1,7 +1,9 @@
 import { Component, Inject, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Clanwar } from './clanwar';
 import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
@@ -17,12 +19,13 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	templateUrl: './clanwar-details.component.html',
 	styleUrls: ['./clanwar-details.component.scss']
 })
-export class ClanwarDetailsComponent implements OnInit, OnChanges {
+export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges {
 	@Input() clanwar: Clanwar;
 	
 	clans: Clan[];
 	players: Player[];
-	form: FormGroup;
+    form: FormGroup;
+    subs: Subscription[] = [];
 	
 	constructor(private clansService: ClansService,
 				private playersService: PlayersService,
@@ -30,24 +33,30 @@ export class ClanwarDetailsComponent implements OnInit, OnChanges {
 	}
 		
     ngOnInit() {
-        this.clansService.getAll().subscribe(clans => {
-            this.clans = clans;
-        });
+        this.subs.push(
+            this.clansService.getAll().subscribe(clans => {
+                this.clans = clans;
+            }),
+            this.playersService.getAll().subscribe(players => {
+                this.players = players;
+            })
+        );;
         
-		this.players = this.playersService.getPlayers();
-
 		this.buildForm();
 	}
 	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 		if ('clanwar' in changes) {
-			var chng = changes['clanwar'];
+			var change = changes['clanwar'];
 			
-			if (chng.currentValue != null) {
+			if (change.currentValue != null) {
 				this.buildForm();
 			}
 		}
-	}
+    }
+
+    ngOnDestroy() {
+    }
 	
 	buildForm() {
 		this.form = new FormGroup({

@@ -3,7 +3,7 @@ import { Subscription, ReplaySubject } from 'rxjs';
 import { ToastyComponent } from 'ng2-toasty';
 
 import { globals } from '../globals';
-import { HasSubscriptionsNgLifecycles } from '../../shared/has-subscriptions';
+import { HasSubscriptionsNg } from '../../shared/has-subscriptions';
 import { IdGeneratorService } from '../../shared/id-generator.service';
 import { NotificationsService } from './notifications.service';
 import { NotificationsServiceToken } from './notifications.service.token';
@@ -15,7 +15,7 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
     styleUrls: ['./notifications.component.scss'],
     providers: [IdGeneratorService]
 })
-export class NotificationsComponent implements HasSubscriptionsNgLifecycles, AfterViewInit, OnDestroy {
+export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit, OnDestroy {
 	@Output() readonly toastAddedToDom = new ReplaySubject<Element>();
 	
 	@ViewChild(ToastyComponent) private toastyComponent: ToastyComponent;

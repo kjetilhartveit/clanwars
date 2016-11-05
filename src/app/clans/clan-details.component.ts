@@ -1,7 +1,9 @@
 import { Component, Inject, Input, SimpleChange, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Country } from '../countries/country';
 import { CountriesService } from '../countries/countries.service';
 import { Clan } from './clan';
@@ -15,12 +17,13 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	selector: globals.directiveSelector + 'clan-details',
 	templateUrl: './clan-details.component.html'
 })
-export class ClanDetailsComponent implements OnInit, OnChanges { 
+export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges { 
 	@Input() clan: Clan;
 	
 	players: Player[];
 	countries: Country[];
-	form: FormGroup;
+    form: FormGroup;
+    subs: Subscription[] = [];
 	
 	constructor(private countriesService: CountriesService, 
 				private playersService: PlayersService,
@@ -28,9 +31,13 @@ export class ClanDetailsComponent implements OnInit, OnChanges {
                 private formBuilder: FormBuilder) {
     }
 		
-	ngOnInit() {
-		this.countries = this.countriesService.getCountries();
-	
+    ngOnInit() {
+        this.subs.push(
+            this.countriesService.getAll().subscribe(countries => {
+                this.countries = countries;
+            })
+        )
+
 		this.buildForm();
 	
 //    this.heroForm.valueChanges
@@ -40,14 +47,22 @@ export class ClanDetailsComponent implements OnInit, OnChanges {
 	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 		if ('clan' in changes) {
-			var chng = changes['clan'];
+			var change = changes['clan'];
 			
-			if (chng.currentValue != null) {
-				this.buildForm();
-				this.players = this.playersService.getPlayersInClanOnId(chng.currentValue['id'] as number);
+			if (change.currentValue != null) {
+                this.buildForm();
+
+                this.subs.push(
+                    this.playersService.getPlayersInClanOnId(change.currentValue['id'] as number)
+                        .subscribe(players => { this.players = players; })
+                );
 			}
 		}
-	}
+    }
+
+    ngOnDestroy() {
+        this.subs.forEach(sub => sub.unsubscribe());
+    }
 	
 	onSubmit() {
 		if (this.form && this.form.valid && this.form.dirty) {

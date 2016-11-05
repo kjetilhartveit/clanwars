@@ -1,6 +1,6 @@
 
 export class Country {
-    alpha2code: string;
+    id: string;
     name: string;
     flagFilename: string;
 }

@@ -1,7 +1,9 @@
 import { Component, Inject, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Player } from './player';
 import { FormHelperService } from '../shared/form/form-helper.service';
 import { Race } from '../races/race';
@@ -18,13 +20,14 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	selector: globals.directiveSelector + 'player-details',
 	templateUrl: './player-details.component.html'
 })
-export class PlayerDetailsComponent implements OnInit, OnChanges { 
+export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges { 
 	@Input() player: Player;
 	
 	countries: Country[];
 	clans: Clan[];
     races: Race[];
     form: FormGroup;
+    subs: Subscription[] = [];
 	
 	constructor(private racesService: RacesService,
 				private countriesService: CountriesService, 
@@ -34,27 +37,35 @@ export class PlayerDetailsComponent implements OnInit, OnChanges {
                 @Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
     }
 	
-	ngOnInit() {
-		this.races = this.racesService.getRaces();
-        this.countries = this.countriesService.getCountries();
-
-        this.clansService.getAll().subscribe(clans => {
-            this.clans = clans;
-        });
+    ngOnInit() {
+        this.subs.push(
+            this.racesService.getAll().subscribe(races => {
+                this.races = races;
+            }),
+            this.countriesService.getAll().subscribe(countries => {
+                this.countries = countries;
+            }),
+            this.clansService.getAll().subscribe(clans => {
+                this.clans = clans;
+            })
+        );
         
         this.buildForm();
     }
 
     ngOnChanges(changes: { [propertyName: string]: SimpleChange }) {
         if ('player' in changes) {
-            var chng = changes['player'];
+            var change = changes['player'];
 
-            if (chng.currentValue != null) {
+            if (change.currentValue != null) {
                 this.buildForm();
             }
         }
     }
 
+    ngOnDestroy() {
+        this.subs.forEach(sub => sub.unsubscribe());
+    }
 	
 	onSubmit() {
 		if (this.form.valid && this.form.dirty) {

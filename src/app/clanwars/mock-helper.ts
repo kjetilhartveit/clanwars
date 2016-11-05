@@ -34,16 +34,16 @@ export class MockHelper {
 	
 	createSinglesMatchSide(playerId: number, score: number): SinglesMatchSide {
 		let side = new SinglesMatchSide();
-		side.player = this.playersService.getPlayerOnId(playerId);
+		side.player = this.playersService.getOnIdSync(playerId);
 		side.score = score;
 		
 		return side;
 	}
 	
 	createDoublesMatchSide(player1Id: number, player2Id: number, score: number): DoublesMatchSide {
-		let side = new DoublesMatchSide();
-		side.player1 = this.playersService.getPlayerOnId(player1Id);
-		side.player2 = this.playersService.getPlayerOnId(player2Id);
+        let side = new DoublesMatchSide();
+        side.player1 = this.playersService.getOnIdSync(player1Id);
+		side.player2 = this.playersService.getOnIdSync(player2Id);
 		side.score = score;
 		
 		return side;

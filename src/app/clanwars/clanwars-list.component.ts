@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
-import { HasSubscriptionsNgLifecycles } from '../shared/has-subscriptions';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Clanwar } from './clanwar';
 import { ClanwarsService } from './clanwars.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -14,7 +14,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 	styleUrls: ['./clanwars-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
-export class ClanwarsListComponent implements HasSubscriptionsNgLifecycles, OnInit {
+export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
 	clanwars: Clanwar[] = [];
 	selectedClanwar: Clanwar;
 	subs: Subscription[] = [];
@@ -36,12 +36,14 @@ export class ClanwarsListComponent implements HasSubscriptionsNgLifecycles, OnIn
 		this.route.params.forEach((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
 			 
-			if (id) {
-				let clanwar = this.clanwarsService.getOnId(id);
-
-				if (clanwar) {
-					this.editEntityTemplateService.selectItem.next(clanwar);			 
-				}
+            if (id) {
+                this.subs.push(
+                    this.clanwarsService.getOnId(id).subscribe(clanwar => {
+                        if (clanwar) {
+                            this.editEntityTemplateService.selectItem.next(clanwar);
+                        }
+                    })
+                );
 			}
 		});
 	 

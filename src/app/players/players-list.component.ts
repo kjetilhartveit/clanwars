@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
-import { HasSubscriptionsNgLifecycles } from '../shared/has-subscriptions';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Player } from './player';
 import { PlayersService } from './players.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -14,7 +14,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 	styleUrls:  ['./players-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
-export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnInit, OnDestroy {
+export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestroy {
 	players: Player[] = [];
 	selectedPlayer: Player;
 	subs: Subscription[] = [];
@@ -30,36 +30,40 @@ export class PlayersListComponent implements HasSubscriptionsNgLifecycles, OnIni
 	    this.selectedPlayer = player;
     }
 	
-	ngOnInit() {
-        this.players = this.playersService.getPlayers();
-		
-		this.route.params.forEach((params: Params) => {
-			 let id = +params['id']; // (+) converts string 'id' to a number
-			 
-			 if (id) {
-				 let player = this.playersService.getPlayerOnId(id);
+    ngOnInit() {
+        this.subs.push(
+            this.playersService.getAll().subscribe(players => {
+                this.players = players;
+            })
+        );
 
-				 if (player) {
-					 this.editEntityTemplateService.selectItem.next(player);			 
-				 }
-			 }
-		 });
-		 
-		// No selected item. Load first player
-		if (!this.editEntityTemplateService.selectItem.value) {
-			this.editEntityTemplateService.selectItem.next(this.players[0]);
-		}
+        this.route.params.forEach((params: Params) => {
+            let id = +params['id']; // (+) converts string 'id' to a number
+
+            if (id) {
+                this.subs.push(
+                    this.playersService.getOnId(id).subscribe(player => {
+                        if (player) {
+                            this.editEntityTemplateService.selectItem.next(player);
+                        }
+                    })
+                );
+            }
+        });
+
+        // No selected item. Load first player
+        if (!this.editEntityTemplateService.selectItem.value) {
+            this.editEntityTemplateService.selectItem.next(this.players[0]);
+        }
 		
 		this.subs.push(
-			this.editEntityTemplateService.selectItem.subscribe((item) => {
-				this.onSelectPlayer(item);
+            this.editEntityTemplateService.selectItem.subscribe(player => {
+                this.onSelectPlayer(player);
 			})
 		);
   }
 	
 	ngOnDestroy() {
-		this.subs.forEach((sub) => {
-			sub.unsubscribe();
-		})
+        this.subs.forEach(sub => sub.unsubscribe());
 	}
 }

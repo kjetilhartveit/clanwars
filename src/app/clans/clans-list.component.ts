@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { globals } from '../core/globals';
-import { HasSubscriptionsNgLifecycles } from '../shared/has-subscriptions';
+import { HasSubscriptionsNg } from '../shared/has-subscriptions';
 import { Clan } from './clan';
 import { ClansService } from './clans.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -14,7 +14,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 	styleUrls:  ['./clans-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
-export class ClansListComponent implements HasSubscriptionsNgLifecycles, OnInit {
+export class ClansListComponent implements HasSubscriptionsNg, OnInit {
 	clans: Clan[] = [];
 	selectedClan: Clan;
 	subs: Subscription[] = [];

@@ -1,13 +1,13 @@
 import { Country } from './country'; 
 
 export const COUNTRIES: Country[] = [
-	{alpha2code: 'cn', name: 'China', flagFilename: 'cn.png'},
-	{alpha2code: 'de', name: 'Germany', flagFilename: 'de.png'},
-	{alpha2code: 'dk', name: 'Denmark', flagFilename: 'dk.png'},
-	{alpha2code: 'fr', name: 'France', flagFilename: 'fr.png'},
-	{alpha2code: 'kr', name: 'South-Korea', flagFilename: 'kr.png'},
-	{alpha2code: 'nl', name: 'Netherlands', flagFilename: 'nl.png'},
-	{alpha2code: 'no', name: 'Norway', flagFilename: 'no.png'},
-	{alpha2code: 'uk', name: 'United Kingdom', flagFilename: 'uk.png'},
-	{alpha2code: 'se', name: 'Sweden', flagFilename: 'se.png'},
+	{id: 'cn', name: 'China', flagFilename: 'cn.png'},
+	{id: 'de', name: 'Germany', flagFilename: 'de.png'},
+	{id: 'dk', name: 'Denmark', flagFilename: 'dk.png'},
+	{id: 'fr', name: 'France', flagFilename: 'fr.png'},
+	{id: 'kr', name: 'South-Korea', flagFilename: 'kr.png'},
+	{id: 'nl', name: 'Netherlands', flagFilename: 'nl.png'},
+	{id: 'no', name: 'Norway', flagFilename: 'no.png'},
+	{id: 'uk', name: 'United Kingdom', flagFilename: 'uk.png'},
+	{id: 'se', name: 'Sweden', flagFilename: 'se.png'},
 ];

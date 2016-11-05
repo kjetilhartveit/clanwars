@@ -7,8 +7,8 @@ let injector = ReflectiveInjector.resolveAndCreate([CountriesService]);
 let countriesService: CountriesService = injector.get(CountriesService);
 
 export const CLANS: Clan[] = [
-	{ id: 1, name: 'Four Kings', shortname: '4K', country: countriesService.getOnAlpha2Code('uk') },
-	{ id: 2, name: 'Meet Your Makers', shortname: 'MYM', country: countriesService.getOnAlpha2Code('dk') },
-	{ id: 3, name: 'SK Gaming', shortname: 'SK', country: countriesService.getOnAlpha2Code('de') },
-	{ id: 4, name: 'World Elite', shortname: 'WE', country: countriesService.getOnAlpha2Code('cn') }
+    { id: 1, name: 'Four Kings', shortname: '4K', country: countriesService.getOnIdSync('uk') },
+	{ id: 2, name: 'Meet Your Makers', shortname: 'MYM', country: countriesService.getOnIdSync('dk') },
+	{ id: 3, name: 'SK Gaming', shortname: 'SK', country: countriesService.getOnIdSync('de') },
+	{ id: 4, name: 'World Elite', shortname: 'WE', country: countriesService.getOnIdSync('cn') }
 ];
