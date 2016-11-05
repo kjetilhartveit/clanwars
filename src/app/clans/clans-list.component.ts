@@ -11,7 +11,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 @Component({
 	selector: globals.directiveSelector + 'clans-list',
 	templateUrl: './clans-list.component.html',
-	styleUrls:  ['./clans-list.component.scss'],
+	styleUrls: ['./clans-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
 export class ClansListComponent implements HasSubscriptionsNg, OnInit {
@@ -20,15 +20,18 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
 	subs: Subscription[] = [];
 	
 	constructor(private route: ActivatedRoute,
-							private router: Router, 
-							private clansService: ClansService,
-                            private editEntityTemplateService: EditEntityTemplateService<Clan>) {
+				private router: Router, 
+				private clansService: ClansService,
+                private editEntityTemplateService: EditEntityTemplateService<Clan>) {
     }
 	
     ngOnInit() {
         this.subs.push(
             this.clansService.getAll().subscribe(clans => {
                 this.clans = clans;
+            }),
+            this.editEntityTemplateService.entityChanges.skip(1).subscribe((item) => {
+                this.onSelectClan(item);
             })
         );
 		
@@ -39,27 +42,24 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
                 this.subs.push(
                     this.clansService.getOnId(id).subscribe(clan => {
                         if (clan) {
-                            this.editEntityTemplateService.selectItem.next(clan);
+                            this.editEntityTemplateService.entityChanges.next(clan);
                         }
                     })
                 );
-			}
-		});
-	 
-		// No selected item. Load first player
-		if (!this.editEntityTemplateService.selectItem.value) {
-			this.editEntityTemplateService.selectItem.next(this.clans[0]);
-		}
-		
-		this.subs.push(
-			this.editEntityTemplateService.selectItem.subscribe((item) => {
-				this.onSelectClan(item);
-			})
-		);
+            } else {
+                this.subs.push(
+                    this.clansService.getAll().subscribe(clans => {
+                        if (clans) {
+                            this.editEntityTemplateService.entityChanges.next(this.clans[0]);
+                        }
+                    })
+                );
+            }
+		});	
   }
 	
 	ngOnDestroy() {
-        this.subs.forEach((sub) => { sub.unsubscribe(); });
+        this.subs.forEach(sub => sub.unsubscribe());
     }
 
     onSelectClan(clan: Clan) {

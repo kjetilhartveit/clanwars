@@ -2,7 +2,7 @@
 <edit-entity-template title="Clans">
 	<edit-entity-template-list>
 		<edit-entity-template-list-item *ngFor="let clan of clans" 
-										[item]="clan">
+										[entity]="clan">
 			
 			<edit-entity-template-column type="flag">
 				<img [src]="clan.country | countryToFlagPath" />

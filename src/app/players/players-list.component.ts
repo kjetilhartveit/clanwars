@@ -16,7 +16,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 })
 export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestroy {
 	players: Player[] = [];
-	selectedPlayer: Player;
+    selectedPlayer: Player;
 	subs: Subscription[] = [];
 	
 	constructor(private route: ActivatedRoute,
@@ -34,9 +34,12 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
         this.subs.push(
             this.playersService.getAll().subscribe(players => {
                 this.players = players;
+            }),
+            this.editEntityTemplateService.entityChanges.skip(1).subscribe(player => {
+                this.onSelectPlayer(player);
             })
         );
-
+		
         this.route.params.forEach((params: Params) => {
             let id = +params['id']; // (+) converts string 'id' to a number
 
@@ -44,23 +47,22 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                 this.subs.push(
                     this.playersService.getOnId(id).subscribe(player => {
                         if (player) {
-                            this.editEntityTemplateService.selectItem.next(player);
+                            this.editEntityTemplateService.entityChanges.next(player);
+                        }
+                    })
+                );
+            } else {
+                this.subs.push(
+                    this.playersService.getAll().subscribe(players => {
+                        this.players = players;
+
+                        if (players) {
+                            this.editEntityTemplateService.entityChanges.next(this.players[0]);
                         }
                     })
                 );
             }
         });
-
-        // No selected item. Load first player
-        if (!this.editEntityTemplateService.selectItem.value) {
-            this.editEntityTemplateService.selectItem.next(this.players[0]);
-        }
-		
-		this.subs.push(
-            this.editEntityTemplateService.selectItem.subscribe(player => {
-                this.onSelectPlayer(player);
-			})
-		);
   }
 	
 	ngOnDestroy() {

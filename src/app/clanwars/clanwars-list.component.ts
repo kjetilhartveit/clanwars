@@ -30,8 +30,15 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
 		this.selectedClanwar = clanwar;
 	}
 	
-	ngOnInit() {
-		this.clanwars = this.clanwarsService.getClanwars();
+    ngOnInit() {
+        this.subs.push(
+            this.clanwarsService.getAll().subscribe(clanwars => {
+                this.clanwars = clanwars;
+            }),
+            this.editEntityTemplateService.entityChanges.skip(1).subscribe(item => {
+                this.onSelect(item)
+            })
+        );
 		
 		this.route.params.forEach((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
@@ -40,23 +47,20 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
                 this.subs.push(
                     this.clanwarsService.getOnId(id).subscribe(clanwar => {
                         if (clanwar) {
-                            this.editEntityTemplateService.selectItem.next(clanwar);
+                            this.editEntityTemplateService.entityChanges.next(clanwar);
                         }
                     })
                 );
-			}
+            } else {
+                this.subs.push(
+                    this.clanwarsService.getAll().subscribe(clanwars => {
+                        if (clanwars) {
+                            this.editEntityTemplateService.entityChanges.next(this.clanwars[0]);
+                        }
+                    })
+                );
+            }
 		});
-	 
-		// No selected item. Load first player
-		if (!this.editEntityTemplateService.selectItem.value) {
-			this.editEntityTemplateService.selectItem.next(this.clanwars[0]);
-		}
-		
-		this.subs.push(
-			this.editEntityTemplateService.selectItem.subscribe((item) => {
-				this.onSelect(item);
-			})
-		);
 	}
 	
 	ngOnDestroy() {

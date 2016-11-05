@@ -2,7 +2,7 @@
 <edit-entity-template title="Players">
 	<edit-entity-template-list>
 		<edit-entity-template-list-item *ngFor="let player of players" 
-										[item]="player">
+										[entity]="player">
 			
 			<edit-entity-template-column type="flag">
 				<img [src]="player.country | countryToFlagPath" />
