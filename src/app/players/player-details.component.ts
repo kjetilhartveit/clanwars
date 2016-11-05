@@ -36,9 +36,12 @@ export class PlayerDetailsComponent implements OnInit, OnChanges {
 	
 	ngOnInit() {
 		this.races = this.racesService.getRaces();
-		this.countries = this.countriesService.getCountries();
-        this.clans = this.clansService.getClans();
+        this.countries = this.countriesService.getCountries();
 
+        this.clansService.getAll().subscribe(clans => {
+            this.clans = clans;
+        });
+        
         this.buildForm();
     }
 

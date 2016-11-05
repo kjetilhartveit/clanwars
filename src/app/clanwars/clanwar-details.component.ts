@@ -29,8 +29,11 @@ export class ClanwarDetailsComponent implements OnInit, OnChanges {
 				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
 	}
 		
-	ngOnInit() {
-		this.clans = this.clansService.getClans();
+    ngOnInit() {
+        this.clansService.getAll().subscribe(clans => {
+            this.clans = clans;
+        });
+        
 		this.players = this.playersService.getPlayers();
 
 		this.buildForm();

@@ -18,9 +18,9 @@ export class LeagueComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.clanwarResults = this.clanwarsService.getClanwars().map(clanwar => {
+        this.clanwarResults = this.clanwarsService.getClanwars().map(clanwar => 
             this.clanwarsHandlerService.calculateResults(clanwar)
-	    )};
+	    );
     }
 
 }

@@ -37,7 +37,7 @@
 					<td>
 						<select formControlName="race" id="field-race" required>
 							<option *ngFor="let race of races" 
-											[ngValue]="race">
+									[ngValue]="race">
 								{{race.name}}
 							</option>
 						</select>
@@ -51,7 +51,7 @@
 					<td>
 						<select formControlName="clan" id="field-clan" required>
 							<option *ngFor="let clan of clans" 
-											[ngValue]="clan">
+									[ngValue]="clan">
 								{{clan.name}}
 							</option>
 						</select>
@@ -65,7 +65,7 @@
 					<td>
 						<select formControlName="country" id="field-country" required>
 							<option *ngFor="let country of countries" 
-											[ngValue]="country">
+									[ngValue]="country">
 								{{country.name}}
 							</option>
 						</select>

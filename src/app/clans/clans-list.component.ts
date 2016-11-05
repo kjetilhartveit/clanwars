@@ -25,23 +25,24 @@ export class ClansListComponent implements HasSubscriptionsNgLifecycles, OnInit 
                             private editEntityTemplateService: EditEntityTemplateService<Clan>) {
     }
 	
-	onSelectClan(clan: Clan) {
-        this.router.navigate(['/clans', clan.id]);
-	    this.selectedClan = clan;
-     }
-	
-	ngOnInit() {
-        this.clans = this.clansService.getClans();
+    ngOnInit() {
+        this.subs.push(
+            this.clansService.getAll().subscribe(clans => {
+                this.clans = clans;
+            })
+        );
 		
 		this.route.params.forEach((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
 
-			if (id) {
-				let clan = this.clansService.getClanOnId(id);
-
-				if (clan) {
-					this.editEntityTemplateService.selectItem.next(clan);			 
-				}
+            if (id) {
+                this.subs.push(
+                    this.clansService.getOnId(id).subscribe(clan => {
+                        if (clan) {
+                            this.editEntityTemplateService.selectItem.next(clan);
+                        }
+                    })
+                );
 			}
 		});
 	 
@@ -58,8 +59,11 @@ export class ClansListComponent implements HasSubscriptionsNgLifecycles, OnInit 
   }
 	
 	ngOnDestroy() {
-		this.subs.forEach((sub) => {
-			sub.unsubscribe();
-		})
-	}
+        this.subs.forEach((sub) => { sub.unsubscribe(); });
+    }
+
+    onSelectClan(clan: Clan) {
+        this.router.navigate(['/clans', clan.id]);
+        this.selectedClan = clan;
+    }
 }

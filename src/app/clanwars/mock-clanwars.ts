@@ -20,8 +20,8 @@ export const CLANWARS: Clanwar[] = [
 	{
 		id: 1,
 		
-		clan1: clansService.getClanOnId(1),
-		clan2: clansService.getClanOnId(2),
+		clan1: clansService.getOnIdSync(1),
+		clan2: clansService.getOnIdSync(2),
 		
 		format: null,
 			
@@ -30,8 +30,8 @@ export const CLANWARS: Clanwar[] = [
 	{
 		id: 2,
 		
-		clan1: clansService.getClanOnId(3),
-		clan2: clansService.getClanOnId(4),
+		clan1: clansService.getOnIdSync(3),
+		clan2: clansService.getOnIdSync(4),
 		
 		format: null,
 			
@@ -40,8 +40,8 @@ export const CLANWARS: Clanwar[] = [
 	{
 		id: 3,
 		
-		clan1: clansService.getClanOnId(1),
-		clan2: clansService.getClanOnId(3),
+		clan1: clansService.getOnIdSync(1),
+		clan2: clansService.getOnIdSync(3),
 		
 		format: null,
 			
