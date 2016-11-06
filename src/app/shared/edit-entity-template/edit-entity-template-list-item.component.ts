@@ -1,7 +1,6 @@
 import { Component, HostBinding, HostListener, Input, EventEmitter, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 
-import { HasSubscriptionsNg } from '../has-subscriptions'; 
+import { Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../../core/';
 import { EditEntityTemplateService } from './edit-entity-template.service';
 
 @Component({
@@ -17,13 +16,13 @@ export class EditEntityTemplateListItemComponent implements HasSubscriptionsNg, 
 	    this.editEntityTemplateService.entityChanges.next(this.entity);
     }
 
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 	
     constructor(private editEntityTemplateService: EditEntityTemplateService<Object>) {
     }
 	
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
 	        this.editEntityTemplateService.entityChanges.subscribe((entity) => {
 		        this.activeClass = this.entity === entity;
             })
@@ -31,6 +30,6 @@ export class EditEntityTemplateListItemComponent implements HasSubscriptionsNg, 
     }
 
     ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
+        this.subs.unsubscribe();
     }
 }

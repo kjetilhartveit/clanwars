@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Clanwar } from './clanwar';
 import { ClanwarsService } from './clanwars.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -14,10 +12,10 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 	styleUrls: ['./clanwars-list.component.scss'],
 	providers: [EditEntityTemplateService]
 })
-export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
+export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDestroy {
 	clanwars: Clanwar[] = [];
-	selectedClanwar: Clanwar;
-	subs: Subscription[] = [];
+    selectedClanwar: Clanwar;
+    subs = new SubscriptionsManager();
 	
 	constructor(private route: ActivatedRoute,
 				private router: Router, 
@@ -31,7 +29,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
 	}
 	
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.clanwarsService.getAll().subscribe(clanwars => {
                 this.clanwars = clanwars;
             }),
@@ -44,7 +42,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
 			let id = +params['id']; // (+) converts string 'id' to a number
 			 
             if (id) {
-                this.subs.push(
+                this.subs.add(
                     this.clanwarsService.getOnId(id).subscribe(clanwar => {
                         if (clanwar) {
                             this.editEntityTemplateService.entityChanges.next(clanwar);
@@ -52,7 +50,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
                     })
                 );
             } else {
-                this.subs.push(
+                this.subs.add(
                     this.clanwarsService.getAll().subscribe(clanwars => {
                         if (clanwars) {
                             this.editEntityTemplateService.entityChanges.next(this.clanwars[0]);
@@ -64,8 +62,6 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit {
 	}
 	
 	ngOnDestroy() {
-		this.subs.forEach((sub) => {
-			sub.unsubscribe();
-		})
+        this.subs.unsubscribe();
 	}
 }

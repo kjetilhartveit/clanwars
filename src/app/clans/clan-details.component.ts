@@ -1,9 +1,7 @@
-import { Component, Inject, Input, SimpleChange, OnInit, OnChanges } from '@angular/core';
+import { Component, Inject, Input, SimpleChange, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Country } from '../countries/country';
 import { CountriesService } from '../countries/countries.service';
 import { Clan } from './clan';
@@ -17,13 +15,13 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	selector: globals.directiveSelector + 'clan-details',
 	templateUrl: './clan-details.component.html'
 })
-export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges { 
+export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestroy, OnChanges { 
 	@Input() clan: Clan;
 	
 	players: Player[];
 	countries: Country[];
     form: FormGroup;
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 	
 	constructor(private countriesService: CountriesService, 
 				private playersService: PlayersService,
@@ -32,7 +30,7 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChang
     }
 		
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.countriesService.getAll().subscribe(countries => {
                 this.countries = countries;
             })
@@ -52,7 +50,7 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChang
 			if (change.currentValue != null) {
                 this.buildForm();
 
-                this.subs.push(
+                this.subs.add(
                     this.playersService.getPlayersInClanOnId(change.currentValue['id'] as number)
                         .subscribe(players => { this.players = players; })
                 );
@@ -61,7 +59,7 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChang
     }
 
     ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
+        this.subs.unsubscribe();
     }
 	
 	onSubmit() {
@@ -78,10 +76,12 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnChang
     }
 
     buildForm() {
-        this.form = new FormGroup({
-            name: new FormControl(this.clan.name, [Validators.required]),
-            shortname: new FormControl(this.clan.shortname, [Validators.required]),
-            country: new FormControl(this.clan.country, [Validators.required])
-        });
+        if (this.clan) {
+            this.form = new FormGroup({
+                name: new FormControl(this.clan.name, [Validators.required]),
+                shortname: new FormControl(this.clan.shortname, [Validators.required]),
+                country: new FormControl(this.clan.country, [Validators.required])
+            });
+        }
     }
 }

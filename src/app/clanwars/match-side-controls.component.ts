@@ -1,9 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
 
@@ -12,18 +10,18 @@ import { PlayersService } from '../players/players.service';
 	templateUrl: './match-side-controls.component.html',
 	styleUrls: ['./match-side-controls.component.scss']
 })
-export class MatchSideControlsComponent implements HasSubscriptionsNg, OnInit {
+export class MatchSideControlsComponent implements HasSubscriptionsNg, OnInit, OnDestroy {
 	@Input() matchSideGroup: FormGroup;
 	@Input() sideNum: number;
 
     players: Player[];
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 
 	constructor(private playersService: PlayersService) {
 	}
 
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.playersService.getAll().subscribe(players => {
                 this.players = players;
             })
@@ -31,6 +29,6 @@ export class MatchSideControlsComponent implements HasSubscriptionsNg, OnInit {
     }
 
     ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
+        this.subs.unsubscribe();
     }
 }

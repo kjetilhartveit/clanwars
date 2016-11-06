@@ -7,6 +7,12 @@ export abstract class BaseService<T> {
     protected cache = new CachableObservable<T[]>();
     
     getAll(): Observable<T[]> {
+        /**
+         * TODO Instead of using CachableObservable, can we use .share() / .publish().refCount() ?
+            .map(...)
+            .publishLast() / publishReplay()
+            .refCount()
+         */
         return this.cache.getAndCache(this.getMockDataAsObservable());
     }
 

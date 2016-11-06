@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Player } from './player';
 import { PlayersService } from './players.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -17,7 +15,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestroy {
 	players: Player[] = [];
     selectedPlayer: Player;
-	subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 	
 	constructor(private route: ActivatedRoute,
 			    private router: Router,
@@ -25,13 +23,8 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
 			    private editEntityTemplateService: EditEntityTemplateService<Player>) {
 	}
 	
-	onSelectPlayer(player: Player): void {
-        this.router.navigate(['/players', player.id]);
-	    this.selectedPlayer = player;
-    }
-	
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.playersService.getAll().subscribe(players => {
                 this.players = players;
             }),
@@ -44,7 +37,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
             let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
-                this.subs.push(
+                this.subs.add(
                     this.playersService.getOnId(id).subscribe(player => {
                         if (player) {
                             this.editEntityTemplateService.entityChanges.next(player);
@@ -52,7 +45,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                     })
                 );
             } else {
-                this.subs.push(
+                this.subs.add(
                     this.playersService.getAll().subscribe(players => {
                         this.players = players;
 
@@ -63,9 +56,14 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                 );
             }
         });
-  }
+    }
 	
-	ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
-	}
+    ngOnDestroy() {
+        this.subs.unsubscribe();
+    }
+
+    onSelectPlayer(player: Player): void {
+        this.router.navigate(['/players', player.id]);
+        this.selectedPlayer = player;
+    }
 }

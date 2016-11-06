@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { BaseService } from '../core/';
 import { Player } from './player';
 import { PLAYERS } from './mock-players';
 import { Clan } from '../clans/clan';
-import { Cache } from '../shared/cache';
-import { BaseService } from '../shared/base.service';
  
 @Injectable()
 export class PlayersService extends BaseService<Player> {

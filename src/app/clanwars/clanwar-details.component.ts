@@ -1,9 +1,7 @@
-import { Component, Inject, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
+import { Component, Inject, Input, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Clanwar } from './clanwar';
 import { Clan } from '../clans/clan';
 import { ClansService } from '../clans/clans.service';
@@ -19,13 +17,13 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	templateUrl: './clanwar-details.component.html',
 	styleUrls: ['./clanwar-details.component.scss']
 })
-export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges {
+export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges, OnDestroy {
 	@Input() clanwar: Clanwar;
 	
 	clans: Clan[];
 	players: Player[];
     form: FormGroup;
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 	
 	constructor(private clansService: ClansService,
 				private playersService: PlayersService,
@@ -33,7 +31,7 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
 	}
 		
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.clansService.getAll().subscribe(clans => {
                 this.clans = clans;
             }),
@@ -56,14 +54,17 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
     }
 
     ngOnDestroy() {
+        this.subs.unsubscribe();
     }
 	
-	buildForm() {
-		this.form = new FormGroup({
-			clan1: new FormControl(this.clanwar.clan1, [Validators.required]),
-			clan2: new FormControl(this.clanwar.clan2, [Validators.required]),
-			matches: new MatchesFormArray(this.clanwar.matches)
-		});
+    buildForm() {
+        if (this.clanwar) {
+            this.form = new FormGroup({
+                clan1: new FormControl(this.clanwar.clan1, [Validators.required]),
+                clan2: new FormControl(this.clanwar.clan2, [Validators.required]),
+                matches: new MatchesFormArray(this.clanwar.matches)
+            });
+        }
 	}
 	
 	onSubmit() {

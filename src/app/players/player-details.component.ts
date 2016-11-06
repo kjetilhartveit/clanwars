@@ -1,9 +1,7 @@
-import { Component, Inject, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
+import { Component, Inject, Input, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Player } from './player';
 import { FormHelperService } from '../shared/form/form-helper.service';
 import { Race } from '../races/race';
@@ -20,14 +18,14 @@ import { NotificationsServiceToken } from '../core/notifications/notifications.s
 	selector: globals.directiveSelector + 'player-details',
 	templateUrl: './player-details.component.html'
 })
-export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges { 
+export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnChanges, OnDestroy { 
 	@Input() player: Player;
 	
 	countries: Country[];
 	clans: Clan[];
     races: Race[];
     form: FormGroup;
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 	
 	constructor(private racesService: RacesService,
 				private countriesService: CountriesService, 
@@ -38,7 +36,7 @@ export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnCha
     }
 	
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.racesService.getAll().subscribe(races => {
                 this.races = races;
             }),
@@ -64,7 +62,7 @@ export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnCha
     }
 
     ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
+        this.subs.unsubscribe();
     }
 	
 	onSubmit() {
@@ -84,13 +82,15 @@ export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnCha
     }
 
     buildForm() {
-        this.form = new FormGroup({
-            nickname: new FormControl(this.player.nickname, [Validators.required]),
-            firstname: new FormControl(this.player.firstname, [Validators.required]),
-            lastname: new FormControl(this.player.lastname, [Validators.required]),
-            country: new FormControl(this.player.country, [Validators.required]),
-            race: new FormControl(this.player.race, [Validators.required]),
-            clan: new FormControl(this.player.clan, [Validators.required])
-        });
+        if (this.player) {
+            this.form = new FormGroup({
+                nickname: new FormControl(this.player.nickname, [Validators.required]),
+                firstname: new FormControl(this.player.firstname, [Validators.required]),
+                lastname: new FormControl(this.player.lastname, [Validators.required]),
+                country: new FormControl(this.player.country, [Validators.required]),
+                race: new FormControl(this.player.race, [Validators.required]),
+                clan: new FormControl(this.player.clan, [Validators.required])
+            });
+        }
     }
 }

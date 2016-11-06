@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
 
-import { globals } from '../core/globals';
-import { HasSubscriptionsNg } from '../shared/has-subscriptions';
+import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
 import { Clan } from './clan';
 import { ClansService } from './clans.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
@@ -17,7 +15,7 @@ import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-e
 export class ClansListComponent implements HasSubscriptionsNg, OnInit {
 	clans: Clan[] = [];
 	selectedClan: Clan;
-	subs: Subscription[] = [];
+	subs = new SubscriptionsManager();
 	
 	constructor(private route: ActivatedRoute,
 				private router: Router, 
@@ -26,7 +24,7 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
     }
 	
     ngOnInit() {
-        this.subs.push(
+        this.subs.add(
             this.clansService.getAll().subscribe(clans => {
                 this.clans = clans;
             }),
@@ -39,7 +37,7 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
 			let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
-                this.subs.push(
+                this.subs.add(
                     this.clansService.getOnId(id).subscribe(clan => {
                         if (clan) {
                             this.editEntityTemplateService.entityChanges.next(clan);
@@ -47,7 +45,7 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
                     })
                 );
             } else {
-                this.subs.push(
+                this.subs.add(
                     this.clansService.getAll().subscribe(clans => {
                         if (clans) {
                             this.editEntityTemplateService.entityChanges.next(this.clans[0]);
@@ -59,7 +57,7 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
   }
 	
 	ngOnDestroy() {
-        this.subs.forEach(sub => sub.unsubscribe());
+        this.subs.unsubscribe();
     }
 
     onSelectClan(clan: Clan) {

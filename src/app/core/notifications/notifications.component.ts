@@ -2,8 +2,7 @@ import { Component, Inject, Output, ViewChild, ElementRef, AfterViewInit, OnDest
 import { Subscription, ReplaySubject } from 'rxjs';
 import { ToastyComponent } from 'ng2-toasty';
 
-import { globals } from '../globals';
-import { HasSubscriptionsNg } from '../../shared/has-subscriptions';
+import { globals, SubscriptionsManager, HasSubscriptionsNg } from '../../core/';
 import { IdGeneratorService } from '../../shared/id-generator.service';
 import { NotificationsService } from './notifications.service';
 import { NotificationsServiceToken } from './notifications.service.token';
@@ -20,7 +19,7 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 	
 	@ViewChild(ToastyComponent) private toastyComponent: ToastyComponent;
 
-    subs: Subscription[] = [];
+    subs = new SubscriptionsManager();
 
 	private toastsObserver: MutationObserver;
 
@@ -32,7 +31,7 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 	ngOnInit() {		
 		let toastyNotificationsService = <ToastyNotificationsService>this.notificationsService;
 		
-		this.subs.push(
+		this.subs.add(
 			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.onToastAddedToDom(element))
 		);
 	}
@@ -44,7 +43,7 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 	}
 	
 	ngOnDestroy() {
-		this.subs.forEach(p => p.unsubscribe());
+		this.subs.unsubscribe();
 		this.toastsObserver.disconnect();
 	}
 	

@@ -2,7 +2,7 @@ import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { ToastyService, ToastOptions, ToastData } from 'ng2-toasty';
 import { Subscription, ReplaySubject } from 'rxjs';
 
-import { HasSubscriptions } from '../../shared/has-subscriptions';
+import { SubscriptionsManager, HasSubscriptions } from '../../core/';
 import { Notification, NotificationType } from './notification';
 import { ToastyNotification } from './toasty-notification';
 import { ToastyNotificationsConfig } from './toasty-notifications-config';
@@ -14,12 +14,12 @@ import { NotificationsFactoryToken } from './notifications.factory.token';
 import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 
 @Injectable()
-export class ToastyNotificationsService implements HasSubscriptions, NotificationsService, OnDestroy {
+export class ToastyNotificationsService implements HasSubscriptions, NotificationsService {
 	readonly notificationHasToast = new ReplaySubject<Notification>();
 	readonly notificationHasDomElement = new ReplaySubject<Notification>();
     readonly removeNotification = new ReplaySubject<Notification>();
     notifications: Notification[] = [];
-	subs: Subscription[] = []; 
+    subs = new SubscriptionsManager(); 
 	
 	toastsContainer: {
 		toasts: ToastData[];
@@ -31,7 +31,7 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
          
 		let toastyNotificationsFactory = <ToastyNotificationsFactory>this.notificationsFactory;		
 		
-		this.subs.push(
+		this.subs.add(
 			toastyNotificationsFactory.notificationCreated.subscribe((notification) => { 
 				this.onNotificationCreated(notification) 
 			}),
@@ -40,12 +40,8 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
             }),
 			this.removeNotification.subscribe((notification) => { this.onRemoveNotification(notification) })
 		);
-	}
-
-	ngOnDestroy() {
-		this.subs.forEach(p => p.unsubscribe());
-	}
-	
+    }
+    
 	addMessage(title: string, message: string, nType: NotificationType): Notification {
 		let toastyNotificationFactory = <ToastyNotificationsFactory>this.notificationsFactory;
 		
