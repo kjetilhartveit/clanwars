@@ -45,11 +45,11 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
 			
 			if (change.currentValue != null) {
                 this.buildForm();
-
-                this.subs.add(
-                    this.playersService.getPlayersInClanOnId(change.currentValue['id'] as number)
-                        .subscribe(players => { this.players = players; })
-                );
+                
+                this.playersService.getPlayersInClanOnId(change.currentValue['id'] as number)
+                    .subscribe(players => {
+                        this.players = players;
+                    })
 			}
 		}
     }
