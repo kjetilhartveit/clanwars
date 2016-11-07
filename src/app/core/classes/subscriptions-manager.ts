@@ -2,8 +2,6 @@
 import { Subscription } from 'rxjs';
 export { Subscription } from 'rxjs';
 
-// Clean-up closed subscriptions at a regular interval or perhaps when the number of subs
-// passes a treshold?
 export class SubscriptionsManager {
     subs: Subscription[] = [];
 

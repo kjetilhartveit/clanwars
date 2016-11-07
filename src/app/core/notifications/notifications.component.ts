@@ -16,7 +16,6 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
 })
 export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit, OnDestroy {
 	@Output() readonly toastAddedToDom = new ReplaySubject<Element>();
-	
 	@ViewChild(ToastyComponent) private toastyComponent: ToastyComponent;
 
     subs = new SubscriptionsManager();

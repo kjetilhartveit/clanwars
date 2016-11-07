@@ -37,10 +37,6 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
         )
 
 		this.buildForm();
-	
-//    this.heroForm.valueChanges
-//      .subscribe(data => this.onValueChanged(data));
-//    this.onValueChanged(); // (re)set validation messages now
 	}
 	
 	ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {

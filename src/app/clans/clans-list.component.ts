@@ -24,16 +24,15 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
     }
 	
     ngOnInit() {
-        this.subs.add(
-            this.clansService.getAll().subscribe(clans => {
-                this.clans = clans;
-            }),
-            this.editEntityTemplateService.entityChanges.skip(1).subscribe((item) => {
-                this.onSelectClan(item);
-            })
-        );
-		
-		this.route.params.forEach((params: Params) => {
+        let getAllClansSub = this.clansService.getAll().subscribe(clans => {
+            this.clans = clans;
+        });
+
+        let entityChangesSub = this.editEntityTemplateService.entityChanges.skip(1).subscribe((item) => {
+            this.onSelectClan(item);
+        });
+
+		let paramsSub = this.route.params.subscribe((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
@@ -53,8 +52,10 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
                     })
                 );
             }
-		});	
-  }
+        });	
+
+        this.subs.add(getAllClansSub, entityChangesSub, paramsSub);
+    }
 	
 	ngOnDestroy() {
         this.subs.unsubscribe();

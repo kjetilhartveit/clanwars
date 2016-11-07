@@ -23,22 +23,16 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDest
 				private editEntityTemplateService: EditEntityTemplateService<Clanwar>) {
 	}
 
-	onSelect(clanwar: Clanwar) {
-		this.router.navigate(['/clanwars', clanwar.id]);
-		this.selectedClanwar = clanwar;
-	}
-	
     ngOnInit() {
-        this.subs.add(
-            this.clanwarsService.getAll().subscribe(clanwars => {
-                this.clanwars = clanwars;
-            }),
-            this.editEntityTemplateService.entityChanges.skip(1).subscribe(item => {
-                this.onSelect(item)
-            })
-        );
+        let getAllClanwarsSub = this.clanwarsService.getAll().subscribe(clanwars => {
+            this.clanwars = clanwars;
+        });
+
+        let entityChangesSub = this.editEntityTemplateService.entityChanges.skip(1).subscribe(item => {
+            this.onSelect(item)
+        });
 		
-		this.route.params.forEach((params: Params) => {
+		let paramsSub = this.route.params.subscribe((params: Params) => {
 			let id = +params['id']; // (+) converts string 'id' to a number
 			 
             if (id) {
@@ -58,10 +52,17 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDest
                     })
                 );
             }
-		});
+        });
+
+        this.subs.add(getAllClanwarsSub, entityChangesSub, paramsSub);
 	}
 	
 	ngOnDestroy() {
         this.subs.unsubscribe();
-	}
+    }
+
+    onSelect(clanwar: Clanwar) {
+        this.router.navigate(['/clanwars', clanwar.id]);
+        this.selectedClanwar = clanwar;
+    }
 }

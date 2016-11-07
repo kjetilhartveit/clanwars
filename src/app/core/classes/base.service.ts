@@ -8,7 +8,7 @@ export abstract class BaseService<T> {
     
     getAll(): Observable<T[]> {
         /**
-         * TODO Instead of using CachableObservable, can we use .share() / .publish().refCount() ?
+         * Instead of using CachableObservable, can we use .share() / .publish().refCount() ?
             .map(...)
             .publishLast() / publishReplay()
             .refCount()
@@ -34,9 +34,13 @@ export abstract class BaseService<T> {
 
     protected getMockDataAsObservable(): Observable<T[]> {
         // Generate a random delay to imitate real http requests and async
-        let random = new Date().getMilliseconds();
+        let random = Math.random();
 
-        let delay = random > 500 ? random/2 : random;
+        let delay = random * 1000;
+
+        if (delay > 500) {
+            delay = delay / 2;
+        }
         
         return Observable.of(this.getMockData())
                          .delay(delay);

@@ -38,7 +38,9 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
             this.notificationHasDomElement.subscribe((notification) => {
                 this.onNotificationHasDomElement(notification)
             }),
-			this.removeNotification.subscribe((notification) => { this.onRemoveNotification(notification) })
+            this.removeNotification.subscribe((notification) => {
+                this.onRemoveNotification(notification)
+            })
 		);
     }
     

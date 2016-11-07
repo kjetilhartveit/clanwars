@@ -24,16 +24,15 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
 	}
 	
     ngOnInit() {
-        this.subs.add(
-            this.playersService.getAll().subscribe(players => {
-                this.players = players;
-            }),
-            this.editEntityTemplateService.entityChanges.skip(1).subscribe(player => {
-                this.onSelectPlayer(player);
-            })
-        );
+        let getAllPlayersSub = this.playersService.getAll().subscribe(players => {
+            this.players = players;
+        });
+
+        let entityChangesSub = this.editEntityTemplateService.entityChanges.skip(1).subscribe(player => {
+            this.onSelectPlayer(player);
+        });
 		
-        this.route.params.forEach((params: Params) => {
+        let paramsSub = this.route.params.subscribe((params: Params) => {
             let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
@@ -56,6 +55,8 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                 );
             }
         });
+
+        this.subs.add(getAllPlayersSub, entityChangesSub, paramsSub);
     }
 	
     ngOnDestroy() {
