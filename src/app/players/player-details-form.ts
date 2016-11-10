@@ -1,6 +1,6 @@
 ﻿import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
-import { TypedFormGroup } from '../core/';
+import { Utility, TypedFormGroup } from '../core/';
 import { Player } from './';
 
 export class PlayerDetailsForm extends TypedFormGroup<Player> {
@@ -43,7 +43,7 @@ export class PlayerDetailsForm extends TypedFormGroup<Player> {
      * Creates model from form
      */
     toModel(): Player {
-        let player = new Player();
+        let player = Utility.shallowCopy<Player>(this.original);
 
         player.nickname = this.nickname.value;
         player.firstname = this.firstname.value;

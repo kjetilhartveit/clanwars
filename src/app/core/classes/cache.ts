@@ -12,7 +12,7 @@ export class Cache<T> {
 		return this.innerCache != null;
 	}
 		
-	add(data: T) {
+	set(data: T) {
 		this.innerCache = data;
 	}
 

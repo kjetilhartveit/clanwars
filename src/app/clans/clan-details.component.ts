@@ -65,8 +65,7 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
      */
 	onSubmit() {
         if (this.form && this.form.valid && this.form.dirty) {
-            this.clan = this.form.toModel();
-            this.clansService.updateEntity(this.clan);
+            this.clansService.updateEntity(this.form.toModel());
 
 			this.form.markAsUntouched();
 			this.form.markAsPristine();

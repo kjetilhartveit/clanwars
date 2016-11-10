@@ -70,8 +70,7 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
 	
 	onSubmit() {
         if (this.form.valid && this.form.dirty) {
-            this.clanwar = this.form.toModel();
-            this.clanwarsService.updateEntity(this.clanwar);
+            this.clanwarsService.updateEntity(this.form.toModel());
 
 			this.form.markAsUntouched();
 			this.form.markAsPristine();

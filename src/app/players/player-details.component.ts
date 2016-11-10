@@ -70,8 +70,7 @@ export class PlayerDetailsComponent implements HasSubscriptionsNg, OnInit, OnCha
      */
 	onSubmit() {
         if (this.form.valid && this.form.dirty) {
-            this.player = this.form.toModel();
-            this.playersService.updateEntity(this.player);
+            this.playersService.updateEntity(this.form.toModel());
 
             this.form.markAsUntouched();
             this.form.markAsPristine();

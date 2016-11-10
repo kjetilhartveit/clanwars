@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { ConfigService } from './config.service';
 import { PathsService }	from './paths.service';
-import { UtilityService } from './utility.service';
 import { WebHelperService }	from './web-helper.service';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MainNavComponent }	from './navigation/mainnav.component';
@@ -23,7 +22,6 @@ import { MainNavComponent }	from './navigation/mainnav.component';
 		MainNavComponent
 	],
 	providers: [
-		{ provide: UtilityService, useClass: UtilityService },
 		{ provide: ConfigService, useClass: ConfigService },
 		{ provide: PathsService, useClass: PathsService },
 		{ provide: WebHelperService, useClass: WebHelperService }

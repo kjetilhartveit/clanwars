@@ -1,6 +1,6 @@
 ﻿import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
-import { TypedFormGroup } from '../core/';
+import { Utility, TypedFormGroup } from '../core/';
 import { Clan } from './';
 
 export class ClanDetailsForm extends TypedFormGroup<Clan> {
@@ -29,7 +29,7 @@ export class ClanDetailsForm extends TypedFormGroup<Clan> {
      */
     toModel(): Clan {
         // Make copy of original to make sure we don't override it
-        let model = Object.assign({}, this.original);
+        let model = Utility.shallowCopy<Clan>(this.original);
 
         model.name = this.name.value;
         model.shortname = this.shortname.value;

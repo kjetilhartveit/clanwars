@@ -1,6 +1,6 @@
 ﻿import { AbstractControl, FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
-import { TypedFormGroup } from '../core/'; 
+import { Utility, TypedFormGroup } from '../core/'; 
 import { MatchesFormArray, Clanwar } from './';
 
 export class ClanwarDetailsForm extends TypedFormGroup<Clanwar> {
@@ -28,7 +28,7 @@ export class ClanwarDetailsForm extends TypedFormGroup<Clanwar> {
      * Creates model from form
      */
     toModel(): Clanwar {
-        let clanwar = new Clanwar();
+        let clanwar = Utility.shallowCopy<Clanwar>(this.original);
 
         clanwar.clan1 = this.clan1.value;
         clanwar.clan2 = this.clan2.value;

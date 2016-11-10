@@ -1,37 +1,55 @@
-﻿import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+﻿import { Observable } from 'rxjs';
 
+import { Cache } from './';
+
+/**
+ * Class used for caching observables, for example for HTTP requests.
+ *
+ * Usage:
+ * let cache = new CachedObservable<Array<SomeEntity>>();
+ *
+ * cache.get(this.backend.getSomeEntities()).subscribe(entities => {
+ *   // do something 
+ * });
+ *
+ * Source/inspiration: http://stackoverflow.com/questions/34104277/caching-results-with-angular2-http-service
+ */
 export class CachableObservable<T> {
-    private data: T;
-    private observable: Observable<T>;
-    
-    getAndCache(callback: Observable<T>): Observable<T> {
-        if (this.data) {
-            // if `data` is available just return it as `Observable`
-            return Observable.of(this.data);
+    disableCache: boolean = false; // disables caching
+
+    private cache = new Cache<T>(); // observable cache
+    private observable: Observable<any>; // contains on-going request/observable
+
+	/**
+	 * Cleans cache
+	 */
+    cleanCache() {
+        this.cache.clean();
+    }
+
+	/**
+	 * Gets and caches observable 
+	 */
+    get(observable: Observable<T>): Observable<T> {
+        if (!this.disableCache && this.cache.hasCache()) {
+            // We have cache, return it
+            return Observable.of(this.cache.get());
         } else if (this.observable) {
-            // if `this.observable` is set then the request is in progress
-            // return the `Observable` for the ongoing request
+            // An on-going observable exists, use it
             return this.observable;
         } else {
-            this.observable = callback
+            // Observe and cache
+            this.observable = observable
                 .map(response => {
-                    // when the cached data is available we don't need the `Observable` reference anymore
                     this.observable = null;
 
-                    if (response) {
-                        this.data = response;
-                        return this.data;
-                    }
+                    this.cache.set(response);
+
+                    return response;
                 })
                 .share();
 
             return this.observable;
         }
-    }
-
-    cleanCache() {
-        this.data = null;
     }
 }
