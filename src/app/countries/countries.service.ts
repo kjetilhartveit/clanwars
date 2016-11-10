@@ -1,7 +1,7 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BaseService } from '../core/';
-import { Country } from './country';
+import { Country } from './';
 import { COUNTRIES } from './mock-countries';
  
 @Injectable()

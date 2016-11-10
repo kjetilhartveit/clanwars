@@ -1,4 +1,4 @@
-import { Country } from './country'; 
+import { Country } from './'; 
 
 export const COUNTRIES: Country[] = [
 	{id: 'cn', name: 'China', flagFilename: 'cn.png'},

@@ -1,16 +1,17 @@
 import { Component, Inject, Input, OnInit, OnChanges, OnDestroy, SimpleChange } from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 
-import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { Clanwar } from './clanwar';
-import { Clan } from '../clans/clan';
+import {
+    globals, Subscription, SubscriptionsManager, HasSubscriptionsNg,
+    Notification, NotificationsServiceToken, NotificationType
+} from '../core/';
+import { Clan } from '../clans/';
+import { Player } from '../players/';
+import { Clanwar, MatchesFormArray, ClanwarDetailsForm } from './';
 import { ClansService } from '../clans/clans.service';
-import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
-import { MatchesFormArray } from './matches-form-array';
-import { NotificationType } from '../core/notifications/notification';
+import { ClanwarsService } from './clanwars.service';
 import { NotificationsService } from '../core/notifications/notifications.service';
-import { NotificationsServiceToken } from '../core/notifications/notifications.service.token';
 
 @Component({
 	selector: globals.directiveSelector + 'clanwar-details',
@@ -21,15 +22,16 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
 	@Input() clanwar: Clanwar;
 	
 	clans: Clan[];
-	players: Player[];
-    form: FormGroup;
+    players: Player[];
+    form: ClanwarDetailsForm;
     subs = new SubscriptionsManager();
 	
 	constructor(private clansService: ClansService,
-				private playersService: PlayersService,
+                private playersService: PlayersService,
+                private clanwarsService: ClanwarsService,
 				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
-	}
-		
+    }
+
     ngOnInit() {
         this.subs.add(
             this.clansService.getAll().subscribe(clans => {
@@ -38,7 +40,7 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
             this.playersService.getAll().subscribe(players => {
                 this.players = players;
             })
-        );;
+        );
         
 		this.buildForm();
 	}
@@ -56,22 +58,20 @@ export class ClanwarDetailsComponent implements HasSubscriptionsNg, OnInit, OnCh
     ngOnDestroy() {
         this.subs.unsubscribe();
     }
-	
+
+    /**
+     * Builds form
+     */
     buildForm() {
         if (this.clanwar) {
-            this.form = new FormGroup({
-                clan1: new FormControl(this.clanwar.clan1, [Validators.required]),
-                clan2: new FormControl(this.clanwar.clan2, [Validators.required]),
-                matches: new MatchesFormArray(this.clanwar.matches)
-            });
+            this.form = new ClanwarDetailsForm(this.clanwar);
         }
 	}
 	
 	onSubmit() {
-		if (this.form.valid && this.form.dirty) {
-			this.clanwar.clan1 = this.form.controls['clan1'].value;
-			this.clanwar.clan2 = this.form.controls['clan2'].value;
-			this.clanwar.matches = this.form.controls['matches'].value;
+        if (this.form.valid && this.form.dirty) {
+            this.clanwar = this.form.toModel();
+            this.clanwarsService.updateEntity(this.clanwar);
 
 			this.form.markAsUntouched();
 			this.form.markAsPristine();

@@ -1,7 +1,6 @@
 ﻿import { FormArray, FormGroup, FormControl } from '@angular/forms';
 
-import { MatchSide, SinglesMatchSide, DoublesMatchSide } from './match-side';
-import { Match } from './match';
+import { MatchSide, SinglesMatchSide, DoublesMatchSide, Match } from './';
 
 export class MatchesFormArray extends FormArray {
 	matches: Match[];
@@ -9,10 +8,12 @@ export class MatchesFormArray extends FormArray {
 	constructor(matches: Match[]) {
 		let matchControls = new Array<FormGroup>();
 
+        // Build matches form array
 		matches.forEach(match => {
 			let side1 = this.buildMatchSideGroup(match.side1);
 			let side2 = this.buildMatchSideGroup(match.side2);
-			
+
+            // One form group per match
 			let matchFormGroup = new FormGroup({
 				side1: side1,
 				side2: side2
@@ -26,16 +27,21 @@ export class MatchesFormArray extends FormArray {
 		this.matches = matches;
 	}
 
+    /**
+     * Builds controls for match side form group
+     */
 	private buildMatchSideGroup(matchSide: MatchSide): FormGroup {
 		let matchSideFormGroup = new FormGroup({
 			score: new FormControl(matchSide.score)
 		});
 
-		if ('player' in matchSide) {
+        if ('player' in matchSide) {
+            // Singles match side
 			let singlesMatchSide = <SinglesMatchSide>matchSide;
 
-			matchSideFormGroup.addControl('player', new FormControl(singlesMatchSide.player));
-		} else if ('player1' in matchSide) {
+            matchSideFormGroup.addControl('player', new FormControl(singlesMatchSide.player));
+        } else if ('player1' in matchSide) {
+            // Doubles match side
 			let doublesMatchSide = <DoublesMatchSide>matchSide;
 
 			matchSideFormGroup.addControl('player1', new FormControl(doublesMatchSide.player1));

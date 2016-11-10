@@ -1,4 +1,4 @@
-import { MatchFormat } from './match-format';
+import { MatchFormat } from './';
 
 export class ClanwarFormat {
 	matchFormats: MatchFormat[];

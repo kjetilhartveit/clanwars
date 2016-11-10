@@ -9,9 +9,9 @@ export interface NotificationsConfig {
 export enum NotificationsPosition {
 	BottomRight  = 1,
 	BottomLeft   = 2,
-	TopRight		 = 3,
-	TopLeft			 = 4,
-	TopCenter		 = 5,
+	TopRight     = 3,
+	TopLeft      = 4,
+	TopCenter    = 5,
 	BottomCenter = 6,
 	CenterCenter = 7
 }

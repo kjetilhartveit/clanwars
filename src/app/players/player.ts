@@ -1,6 +1,6 @@
-import { Country } from '../countries/country';
-import { Clan } from '../clans/clan';
-import { Race } from '../races/race';
+import { Country } from '../countries/';
+import { Clan } from '../clans/';
+import { Race } from '../races/';
 
 export class Player {
     id: number;

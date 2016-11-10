@@ -1,6 +1,6 @@
 import { ReflectiveInjector } from '@angular/core';
 
-import { Clan } from './clan'; 
+import { Clan } from './'; 
 import { CountriesService } from '../countries/countries.service'; 
 
 let injector = ReflectiveInjector.resolveAndCreate([CountriesService]);

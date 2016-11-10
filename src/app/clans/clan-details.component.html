@@ -8,8 +8,8 @@
 						<label for="field-name">Name:</label>
 					</td>
 					<td>
-						<input formControlName="name" id="field-name" required />
-						<cw-form-field-is-required [element]="form.controls.name" fieldname="Name"></cw-form-field-is-required>
+						<input [formControl]="form.name" id="field-name" required />
+						<cw-form-field-is-required [element]="form.name" fieldname="Name"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -17,8 +17,8 @@
 						<label for="field-shortname">Short name:</label>
 					</td>
 					<td>
-						<input formControlName="shortname" id="field-shortname" required />
-						<cw-form-field-is-required [element]="form.controls.shortname" fieldname="Short name"></cw-form-field-is-required>
+						<input [formControl]="form.shortname" id="field-shortname" required />
+						<cw-form-field-is-required [element]="form.shortname" fieldname="Short name"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -26,14 +26,12 @@
 						<label for="field-country">Country:</label>
 					</td>
 					<td>
-						<select formControlName="country" id="field-country" required>
-							<option *ngFor="let country of countries" 
-											[ngValue]="country"
-											[attr.selected]="clan.country === country">
+						<select [formControl]="form.country" id="field-country" required>
+							<option *ngFor="let country of countries" [ngValue]="country">
 								{{country.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.country" fieldname="Country"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.country" fieldname="Country"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>

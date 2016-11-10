@@ -1,6 +1,6 @@
 import { ToastyConfig } from 'ng2-toasty';
 
-import { NotificationsConfig, NotificationsPosition } from './notifications-config';
+import { NotificationsConfig, NotificationsPosition } from './';
 
 export class ToastyNotificationsConfig implements NotificationsConfig {
 	showClose? = true;
@@ -9,7 +9,10 @@ export class ToastyNotificationsConfig implements NotificationsConfig {
 	position? = NotificationsPosition.BottomRight;
 	
 	private theme = 'design';
-	
+
+    /**
+     * Builds a native toasty config from TS config
+     */
 	toToastyConfig(): ToastyConfig {
 		return {
 			limit: this.limit,
@@ -19,7 +22,10 @@ export class ToastyNotificationsConfig implements NotificationsConfig {
 			theme: this.theme
 		};
 	}
-	
+
+    /**
+     * Converts enum to native position value
+     */
 	private positionToString(position: NotificationsPosition): string {
 		let str: string;
 			

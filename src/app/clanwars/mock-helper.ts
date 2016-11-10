@@ -1,5 +1,4 @@
-import { Match, SinglesMatch, DoublesMatch, MatchDistance } from './match'; 
-import { SinglesMatchSide, DoublesMatchSide } from './match-side'; 
+import { Match, SinglesMatch, DoublesMatch, MatchDistance, SinglesMatchSide, DoublesMatchSide } from './'; 
 import { PlayersService } from '../players/players.service'; 
 
 export class MockHelper {
@@ -11,11 +10,17 @@ export class MockHelper {
 		this.playersService = playersService;
 		this.matchDistance = matchDistance;
 	}
-	
+
+    /**
+     * Generate unique ID
+     */
 	genId(): number {
 		return this.matchId++;
 	}
 
+    /**
+     * Initialize doubles match
+     */
 	initDoublesMatch(): DoublesMatch {
 		let match = new DoublesMatch();
 		match.id = this.genId();
@@ -23,7 +28,10 @@ export class MockHelper {
 		
 		return match;
 	}	
-	
+
+    /**
+     * Initialize singles match
+     */
 	initSinglesMatch(): SinglesMatch {
 		let match = new SinglesMatch();
 		match.id = this.genId();
@@ -31,7 +39,10 @@ export class MockHelper {
 		
 		return match;
 	}	
-	
+
+    /**
+     * Create singles match side
+     */
 	createSinglesMatchSide(playerId: number, score: number): SinglesMatchSide {
 		let side = new SinglesMatchSide();
 		side.player = this.playersService.getOnIdSync(playerId);
@@ -39,7 +50,10 @@ export class MockHelper {
 		
 		return side;
 	}
-	
+
+    /**
+     * Create doubles match side
+     */
 	createDoublesMatchSide(player1Id: number, player2Id: number, score: number): DoublesMatchSide {
         let side = new DoublesMatchSide();
         side.player1 = this.playersService.getOnIdSync(player1Id);

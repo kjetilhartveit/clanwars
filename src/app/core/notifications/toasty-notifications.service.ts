@@ -3,14 +3,13 @@ import { ToastyService, ToastOptions, ToastData } from 'ng2-toasty';
 import { Subscription, ReplaySubject } from 'rxjs';
 
 import { SubscriptionsManager, HasSubscriptions } from '../../core/';
-import { Notification, NotificationType } from './notification';
-import { ToastyNotification } from './toasty-notification';
-import { ToastyNotificationsConfig } from './toasty-notifications-config';
+import {
+    Notification, NotificationType, ToastyNotification, ToastyNotificationsConfig,
+    NotificationsConfigServiceToken, NotificationsFactoryToken
+} from './';
 import { NotificationsConfigService } from './notifications-config.service';
-import { NotificationsConfigServiceToken } from './notifications-config.service.token';
 import { NotificationsService } from './notifications.service';
 import { NotificationsFactory } from './notifications.factory';
-import { NotificationsFactoryToken } from './notifications.factory.token';
 import { ToastyNotificationsFactory } from './toasty-notifications.factory';
 
 @Injectable()
@@ -18,12 +17,9 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
 	readonly notificationHasToast = new ReplaySubject<Notification>();
 	readonly notificationHasDomElement = new ReplaySubject<Notification>();
     readonly removeNotification = new ReplaySubject<Notification>();
-    notifications: Notification[] = [];
+    notifications: Notification[] = []; // array of current notifications
+    toastsContainer: { toasts: ToastData[]; } // container of toasts
     subs = new SubscriptionsManager(); 
-	
-	toastsContainer: {
-		toasts: ToastData[];
-	}
 	
     constructor(@Inject(NotificationsConfigServiceToken) private notificationsConfigService: NotificationsConfigService,
                 private toastyService: ToastyService,
@@ -43,7 +39,10 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
             })
 		);
     }
-    
+
+    /**
+     * Displays a notification
+     */
 	addMessage(title: string, message: string, nType: NotificationType): Notification {
 		let toastyNotificationFactory = <ToastyNotificationsFactory>this.notificationsFactory;
 		
@@ -59,11 +58,13 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
 				theme: toastyConfig.theme,
 				onAdd: (toast: ToastData) => {
 					(<ToastyNotification>notification).toast = toast;
-					
+
+                    // Emit our toast data for newly added notification
 					this.notificationHasToast.next(notification);
 				}
 		};
-		
+
+        // Show toasty notification
 		switch (nType) {
 			case NotificationType.Info: 
 				this.toastyService.info(toastOptions);
@@ -84,53 +85,73 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
 		
 		return notification;
 	}
-	
-	onNotificationCreated(notification: Notification) {
+
+    /**
+     * On toast added to DOM
+     */
+    attachElementToNotification(element: Element) {
+        // Get earliest notification without a DOM element
+        let notification = this.getEarliestNotificationWithoutDomElement();
+
+        if (notification) {
+            let toastyNotification = <ToastyNotification>notification;
+
+            if (toastyNotification) {
+                // Associate notification with toast DOM element
+                toastyNotification.element = element;
+
+                this.notificationHasDomElement.next(toastyNotification);
+            }
+        }
+    }
+
+    /**
+     * On notification created
+     */
+	private onNotificationCreated(notification: Notification) {
 		this.notifications.push(notification);
 	}
-	
-	onToastAddedToDom(element: Element) {
-		// Map notification with toast DOM element
-		let notification = this.getEarliestNotificationWithoutDomElement();
-				
-		if (notification) {
-			let toastyNotification = <ToastyNotification>notification;
-			
-			if (toastyNotification) {
-				toastyNotification.element = element;
-				
-				this.notificationHasDomElement.next(toastyNotification);
-			}
-		}
-	}
-	
-	onNotificationHasDomElement(notification: Notification) {
+
+    /**
+     * On notification has DOM element
+     */
+	private onNotificationHasDomElement(notification: Notification) {
 		let toastyNotification = <ToastyNotification>notification;
 		
 		// Show the notification
-		setTimeout(() => {
+        setTimeout(() => {
+            // Add class to fade in element
 			toastyNotification.element.classList.add('showing');
 		}, 100);	
 		
 		// TODO when hover over the notification the timeout should be set to 0, restart timer onblur
-		setTimeout(() => {
+        setTimeout(() => {
+            // Emit event to remove notification
 			this.removeNotification.next(notification);
 		}, this.notificationsConfigService.config.timeout); 
 	}
-	
-	onRemoveNotification(notification: Notification) {
+
+    /**
+     * On remove notification
+     */
+	private onRemoveNotification(notification: Notification) {
 		let toastyNotification = <ToastyNotification>notification;
 		
-		// Fade out
+		// Remove class to fade out element
 		toastyNotification.element.classList.remove('showing');
 		
-		setTimeout(() => {
-			this.removeToasty(toastyNotification.toast.id);
+        setTimeout(() => {
+            // Remove toasty 
+            this.removeToasty(toastyNotification.toast.id);
+
 			// Can't use the official way as there's a bug in code. clear(id: number) clears all toasts
-//			this.toastyService.clear(toastyNotification.toast.id);
+            // this.toastyService.clear(toastyNotification.toast.id);
 		}, 600); // hardcoding fadeout time
 	}
-	
+
+    /**
+     * Get earliest notification without DOM element
+     */
 	private getEarliestNotificationWithoutDomElement(): Notification {
 		let domlessNotification: Notification;
 		
@@ -146,8 +167,13 @@ export class ToastyNotificationsService implements HasSubscriptions, Notificatio
 		
 		return domlessNotification;
 	}
-	
-	private removeToasty(id: number) {
+
+    /**
+     * Removes Toasty
+     *
+     * Code contents from Toasty2 source on Github
+     */
+    private removeToasty(id: number) {
 		if (this.toastsContainer.toasts) {
 			this.toastsContainer.toasts.forEach((toast: ToastData, index: number) => {
 				if (toast.id === id) {

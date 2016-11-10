@@ -1,4 +1,4 @@
-import { Player } from '../players/player';
+import { Player } from '../players/';
 
 export abstract class MatchSide {
 	abstract name: string;

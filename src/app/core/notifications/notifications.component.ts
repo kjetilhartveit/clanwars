@@ -2,10 +2,12 @@ import { Component, Inject, Output, ViewChild, ElementRef, AfterViewInit, OnDest
 import { Subscription, ReplaySubject } from 'rxjs';
 import { ToastyComponent } from 'ng2-toasty';
 
-import { globals, SubscriptionsManager, HasSubscriptionsNg } from '../../core/';
+import {
+    globals, SubscriptionsManager, HasSubscriptionsNg,
+    NotificationsServiceToken
+} from '../../core/';
 import { IdGeneratorService } from '../../shared/id-generator.service';
 import { NotificationsService } from './notifications.service';
-import { NotificationsServiceToken } from './notifications.service.token';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 
 @Component({
@@ -24,18 +26,18 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 
 	constructor(private elementRef: ElementRef,
 				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService) {
-
 	}
 	
 	ngOnInit() {		
 		let toastyNotificationsService = <ToastyNotificationsService>this.notificationsService;
 		
 		this.subs.add(
-			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.onToastAddedToDom(element))
+			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.attachElementToNotification(element))
 		);
 	}
 	
-	ngAfterViewInit() {
+    ngAfterViewInit() {
+        // Store the toasty component
 		(<ToastyNotificationsService>this.notificationsService).toastsContainer = this.toastyComponent;
 		
 		this.initMutationObserver();
@@ -45,10 +47,14 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 		this.subs.unsubscribe();
 		this.toastsObserver.disconnect();
 	}
-	
+
+    /**
+     * Initialize mutation observer and listen on DOM to detect new toasts
+     */
 	initMutationObserver() {
 		this.toastsObserver = new MutationObserver((mutations: MutationRecord[], observer: MutationObserver) => {
-			
+
+            // Find new toast nodes 
 			let toasts = mutations.map(p => {
 				let len = p.addedNodes.length;
 				
@@ -60,7 +66,8 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 					}
 				}
 			}).filter(p => p);
-			
+
+            // Emit toast in subject
 			if (toasts && toasts.length) {
 				for (let toast of toasts) {
 					this.toastAddedToDom.next(toast);

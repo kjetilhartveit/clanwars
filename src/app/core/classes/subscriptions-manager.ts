@@ -2,13 +2,22 @@
 import { Subscription } from 'rxjs';
 export { Subscription } from 'rxjs';
 
+/**
+ * Class for managing Observable subscriptions
+ */
 export class SubscriptionsManager {
-    subs: Subscription[] = [];
+    private subs: Subscription[] = [];
 
+    /**
+     * Add subscription(s)
+     */
     add(...subs: Subscription[]): number {
         return this.subs.push(...subs);
     }
 
+    /**
+     * Unsbscribe from all registered subscription
+     */
     unsubscribe() {
         this.subs.forEach(sub => sub.unsubscribe());
         this.subs = [];

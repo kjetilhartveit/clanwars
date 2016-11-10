@@ -3,27 +3,32 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-template.module';
-import { IdGeneratorService }	from './id-generator.service';
-import { FormHelperService }	from './form/form-helper.service';
+import { IdGeneratorService } from './id-generator.service';
+import { FormHelperService } from './form/form-helper.service';
 import { FieldIsRequiredComponent }	from './form/field-is-required.component';
 import { SetInitialSelectedOptionDirective } from './set-initial-selected-option.directive';
 
+const importsExports = [
+    CommonModule,
+    ReactiveFormsModule,
+    EditEntityTemplateModule
+];
+
+const declareExports = [
+    FieldIsRequiredComponent,
+    SetInitialSelectedOptionDirective
+];
+
 @NgModule({
     imports: [
-        CommonModule,
-	    ReactiveFormsModule,
-	    EditEntityTemplateModule
+        ...importsExports
     ],
     declarations: [
-	    FieldIsRequiredComponent,
-	    SetInitialSelectedOptionDirective
+        ...declareExports
     ],
-	exports: [
-		CommonModule,
-		ReactiveFormsModule,
-		EditEntityTemplateModule,
-		FieldIsRequiredComponent,
-		SetInitialSelectedOptionDirective
+    exports: [
+        ...importsExports,
+        ...declareExports
 	],
 	providers: [
 		{ provide: IdGeneratorService, useClass: IdGeneratorService },

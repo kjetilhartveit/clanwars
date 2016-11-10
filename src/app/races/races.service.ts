@@ -1,7 +1,7 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BaseService } from '../core/';
-import { Race } from './race';
+import { Race } from './';
 import { RACES } from './mock-races';
  
 @Injectable()

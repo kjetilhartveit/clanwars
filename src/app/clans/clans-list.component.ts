@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { Clan } from './clan';
+import { Clan } from './';
 import { ClansService } from './clans.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
 
@@ -36,6 +36,7 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
 			let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
+                // Select entity on ID from params
                 this.subs.add(
                     this.clansService.getOnId(id).subscribe(clan => {
                         if (clan) {
@@ -44,10 +45,11 @@ export class ClansListComponent implements HasSubscriptionsNg, OnInit {
                     })
                 );
             } else {
+                // Select first entity if no id
                 this.subs.add(
                     this.clansService.getAll().subscribe(clans => {
                         if (clans) {
-                            this.editEntityTemplateService.entityChanges.next(this.clans[0]);
+                            this.editEntityTemplateService.entityChanges.next(clans[0]);
                         }
                     })
                 );

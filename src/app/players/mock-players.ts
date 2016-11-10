@@ -1,6 +1,6 @@
-import { ReflectiveInjector }    from '@angular/core';
+import { ReflectiveInjector } from '@angular/core';
 
-import { Player } from './player';  
+import { Player } from './';  
 import { CountriesService } from '../countries/countries.service'; 
 import { RacesService } from '../races/races.service'; 
 import { ClansService } from '../clans/clans.service'; 

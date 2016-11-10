@@ -8,8 +8,8 @@
 						<label for="field-nickname">Nickname: </label>
 					</td>
 					<td>
-						<input formControlName="nickname" id="field-nickname" required />
-						<cw-form-field-is-required [element]="form.controls.nickname" fieldname="Nickname"></cw-form-field-is-required>
+						<input [formControl]="form.nickname" id="field-nickname" required />
+						<cw-form-field-is-required [element]="form.nickname" fieldname="Nickname"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -17,8 +17,8 @@
 						<label for="field-firstname">First name: </label>
 					</td>
 					<td>
-						<input formControlName="firstname"  id="field-firstname" required />
-						<cw-form-field-is-required [element]="form.controls.firstname" fieldname="First name"></cw-form-field-is-required>
+						<input [formControl]="form.firstname"  id="field-firstname" required />
+						<cw-form-field-is-required [element]="form.firstname" fieldname="First name"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -26,8 +26,8 @@
 						<label for="field-surname">Surname: </label>
 					</td>
 					<td>
-						<input formControlName="lastname" id="field-surname" required />
-						<cw-form-field-is-required [element]="form.controls.lastname" fieldname="Surname"></cw-form-field-is-required>
+						<input [formControl]="form.lastname" id="field-surname" required />
+						<cw-form-field-is-required [element]="form.lastname" fieldname="Surname"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -35,13 +35,12 @@
 						<label for="field-race">Race: </label>
 					</td>
 					<td>
-						<select formControlName="race" id="field-race" required>
-							<option *ngFor="let race of races" 
-									[ngValue]="race">
+						<select [formControl]="form.race" id="field-race" required>
+							<option *ngFor="let race of races" [ngValue]="race">
 								{{race.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.race" fieldname="Race"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.race" fieldname="Race"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -49,13 +48,12 @@
 						<label for="field-clan">Clan: </label>
 					</td>
 					<td>
-						<select formControlName="clan" id="field-clan" required>
-							<option *ngFor="let clan of clans" 
-									[ngValue]="clan">
+						<select [formControl]="form.clan" id="field-clan" required>
+							<option *ngFor="let clan of clans" [ngValue]="clan">
 								{{clan.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.clan" fieldname="Clan"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.clan" fieldname="Clan"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -63,13 +61,12 @@
 						<label for="field-country">Country:</label>
 					</td>
 					<td>
-						<select formControlName="country" id="field-country" required>
-							<option *ngFor="let country of countries" 
-									[ngValue]="country">
+						<select [formControl]="form.country" id="field-country" required>
+							<option *ngFor="let country of countries" [ngValue]="country">
 								{{country.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.country" fieldname="Country"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.country" fieldname="Country"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>

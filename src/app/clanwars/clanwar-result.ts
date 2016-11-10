@@ -1,5 +1,4 @@
-import { ClanResult } from './clan-result';
-import { Clanwar } from './clanwar';
+import { ClanResult, Clanwar } from './';
 
 export class ClanwarResult {
 	clan1result: ClanResult;

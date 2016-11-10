@@ -8,17 +8,12 @@
 						<label for="field-clan1">Clan 1:</label>
 					</td>
 					<td>
-						<select id="field-clan1" 
-								formControlName="clan1" 
-								setInitialSelectedOption 
-								required>
-							<option *ngFor="let clan of clans" 
-									[ngValue]="clan"
-									[attr.selected]="clanwar.clan1 === clan">
+						<select id="field-clan1" [formControl]="form.clan1"  required>
+							<option *ngFor="let clan of clans" [ngValue]="clan">
 								{{clan.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.clan1" fieldname="Clan 1"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.clan1" fieldname="Clan 1"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -26,17 +21,12 @@
 						<label for="field-clan2">Clan 2:</label>
 					</td>
 					<td>
-						<select id="field-clan2" 
-								formControlName="clan2"
-								setInitialSelectedOption
-								required>
-							<option *ngFor="let clan of clans" 
-									[ngValue]="clan"
-									[attr.selected]="clanwar.clan2 === clan">
+						<select id="field-clan2" [formControl]="form.clan2" required>
+							<option *ngFor="let clan of clans" [ngValue]="clan">
 								{{clan.name}}
 							</option>
 						</select>
-						<cw-form-field-is-required [element]="form.controls.clan2" fieldname="Clan 2"></cw-form-field-is-required>
+						<cw-form-field-is-required [element]="form.clan2" fieldname="Clan 2"></cw-form-field-is-required>
 					</td>
 				</tr>
 				<tr>
@@ -45,15 +35,15 @@
 					</td>
 					<td>
 						<div formArrayName="matches">
-							<div *ngFor="let match of form.controls.matches.controls; let i=index">
+							<div *ngFor="let match of form.matches.controls; let i=index">
 								<!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
 								<div class="match-control" [formGroupName]="i">
 									<div formGroupName="side1">
-										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side1"
+										<cw-match-side-controls [matchSideGroup]="form.matches.controls[i].controls.side1"
 																sideNum="1"></cw-match-side-controls>
 									</div>
 									<div formGroupName="side2">
-										<cw-match-side-controls [matchSideGroup]="form.controls.matches.controls[i].controls.side2"
+										<cw-match-side-controls [matchSideGroup]="form.matches.controls[i].controls.side2"
 																sideNum="2"></cw-match-side-controls>
 									</div>
 								</div>

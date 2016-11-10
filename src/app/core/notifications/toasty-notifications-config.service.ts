@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NotificationsConfig } from './notifications-config';
+import { NotificationsConfig } from './';
 import { NotificationsConfigService } from './notifications-config.service';
 import { ToastyNotificationsConfig } from './toasty-notifications-config';
 

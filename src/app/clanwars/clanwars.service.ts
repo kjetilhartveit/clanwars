@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 
 import { BaseService } from '../core/';
-import { Clanwar } from './clanwar';
+import { Clanwar } from './';
 import { CLANWARS } from './mock-clanwars';
  
 @Injectable()

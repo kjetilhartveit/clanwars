@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { ClanwarResult } from '../clanwars/clanwar-result';
+import { ClanwarResult } from '../clanwars/';
 import { ClanwarsService } from '../clanwars/clanwars.service';
 import { ClanwarsHandlerService } from '../clanwars/clanwars-handler.service';
 

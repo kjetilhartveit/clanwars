@@ -2,11 +2,11 @@ import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { ConfigService }	from './config.service';
+import { ConfigService } from './config.service';
 import { PathsService }	from './paths.service';
-import { UtilityService }	from './utility.service';
+import { UtilityService } from './utility.service';
 import { WebHelperService }	from './web-helper.service';
-import { NotificationsModule }	from './notifications/notifications.module';
+import { NotificationsModule } from './notifications/notifications.module';
 import { MainNavComponent }	from './navigation/mainnav.component';
 
 @NgModule({

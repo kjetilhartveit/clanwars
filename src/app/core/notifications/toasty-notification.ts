@@ -1,6 +1,6 @@
 import { ToastData } from 'ng2-toasty';
 
-import { Notification, NotificationType } from './notification';
+import { Notification, NotificationType } from './';
 
 export class ToastyNotification implements Notification {
 	id: number;

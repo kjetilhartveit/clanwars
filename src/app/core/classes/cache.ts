@@ -6,22 +6,21 @@
  * Might be able to extend this class to support non-nullable types if needed.
  */
 export class Cache<T> {
-	
-	private _cache: T;
+	private innerCache: T;
 	
 	hasCache(): boolean {
-		return this._cache != null;
+		return this.innerCache != null;
 	}
 		
 	add(data: T) {
-		this._cache = data;
+		this.innerCache = data;
 	}
 
 	clean() {
-		this._cache = null;
+		this.innerCache = null;
 	}
 	
 	get(): T {
-		return this._cache;
+		return this.innerCache;
 	}
 }

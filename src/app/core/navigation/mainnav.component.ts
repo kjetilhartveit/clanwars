@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { globals } from '../../core/globals';
+import { globals } from '../';
 
 @Component({  
 	selector: globals.directiveSelector + 'mainnav',

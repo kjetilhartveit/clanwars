@@ -1,6 +1,5 @@
-import { Clan } from '../clans/clan';
-import { Match } from './match';
-import { ClanwarFormat } from './clanwar-format';
+import { Clan } from '../clans/';
+import { Match, ClanwarFormat } from './';
 
 export class Clanwar {
 	id: number;

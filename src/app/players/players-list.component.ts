@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { Player } from './player';
+import { Player } from './';
 import { PlayersService } from './players.service';
 import { EditEntityTemplateService } from '../shared/edit-entity-template/edit-entity-template.service';
 
@@ -36,6 +36,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
             let id = +params['id']; // (+) converts string 'id' to a number
 
             if (id) {
+                // Select entity on ID
                 this.subs.add(
                     this.playersService.getOnId(id).subscribe(player => {
                         if (player) {
@@ -44,12 +45,13 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                     })
                 );
             } else {
+                // Select first entity from list
                 this.subs.add(
                     this.playersService.getAll().subscribe(players => {
                         this.players = players;
 
                         if (players) {
-                            this.editEntityTemplateService.entityChanges.next(this.players[0]);
+                            this.editEntityTemplateService.entityChanges.next(players[0]);
                         }
                     })
                 );

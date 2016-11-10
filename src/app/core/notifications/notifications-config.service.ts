@@ -1,4 +1,4 @@
-import { NotificationsConfig } from './notifications-config';
+import { NotificationsConfig } from './';
 
 export interface NotificationsConfigService {
 	config: NotificationsConfig;

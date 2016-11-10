@@ -1,4 +1,4 @@
-import { MatchSide, SinglesMatchSide, DoublesMatchSide } from './match-side';
+import { MatchSide, SinglesMatchSide, DoublesMatchSide } from './';
 
 export abstract class Match {
 	id: number;

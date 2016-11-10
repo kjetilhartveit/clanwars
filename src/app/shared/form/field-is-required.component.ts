@@ -10,5 +10,5 @@ import { globals } from '../../core/';
 })
 export class FieldIsRequiredComponent { 
 	@Input() element: FormControl;
-	@Input('fieldname') fieldName: string;
+	@Input() fieldName: string;
 }

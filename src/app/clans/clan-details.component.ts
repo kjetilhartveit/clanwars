@@ -1,15 +1,17 @@
 import { Component, Inject, Input, SimpleChange, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
-import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { Country } from '../countries/country';
+import {
+    globals, Subscription, SubscriptionsManager, HasSubscriptionsNg,
+    NotificationType, NotificationsServiceToken
+} from '../core/';
+import { Country } from '../countries/';
+import { Player } from '../players/';
+import { Clan, ClanDetailsForm } from './';
 import { CountriesService } from '../countries/countries.service';
-import { Clan } from './clan';
-import { Player } from '../players/player';
 import { PlayersService } from '../players/players.service';
-import { NotificationType } from '../core/notifications/notification';
+import { ClansService } from './clans.service';
 import { NotificationsService } from '../core/notifications/notifications.service';
-import { NotificationsServiceToken } from '../core/notifications/notifications.service.token';
 
 @Component({
 	selector: globals.directiveSelector + 'clan-details',
@@ -19,14 +21,14 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
 	@Input() clan: Clan;
 	
 	players: Player[];
-	countries: Country[];
-    form: FormGroup;
+    countries: Country[];
+    form: ClanDetailsForm;
     subs = new SubscriptionsManager();
 	
 	constructor(private countriesService: CountriesService, 
 				private playersService: PlayersService,
 				@Inject(NotificationsServiceToken) private notificationsService: NotificationsService,
-                private formBuilder: FormBuilder) {
+                private clansService: ClansService) {
     }
 		
     ngOnInit() {
@@ -57,13 +59,15 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
     ngOnDestroy() {
         this.subs.unsubscribe();
     }
-	
+
+    /**
+     * On form submit
+     */
 	onSubmit() {
-		if (this.form && this.form.valid && this.form.dirty) {
-			this.clan.name = this.form.controls['name'].value;
-			this.clan.shortname = this.form.controls['shortname'].value;
-			this.clan.country = this.form.controls['country'].value;
-			
+        if (this.form && this.form.valid && this.form.dirty) {
+            this.clan = this.form.toModel();
+            this.clansService.updateEntity(this.clan);
+
 			this.form.markAsUntouched();
 			this.form.markAsPristine();
 			
@@ -71,13 +75,12 @@ export class ClanDetailsComponent implements HasSubscriptionsNg, OnInit, OnDestr
 		}
     }
 
+    /**
+     * Builds form
+     */
     buildForm() {
         if (this.clan) {
-            this.form = new FormGroup({
-                name: new FormControl(this.clan.name, [Validators.required]),
-                shortname: new FormControl(this.clan.shortname, [Validators.required]),
-                country: new FormControl(this.clan.country, [Validators.required])
-            });
+            this.form = new ClanDetailsForm(this.clan);
         }
     }
 }

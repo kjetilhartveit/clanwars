@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { globals, Subscription, SubscriptionsManager, HasSubscriptionsNg } from '../core/';
-import { Player } from '../players/player';
+import { Player } from '../players/';
 import { PlayersService } from '../players/players.service';
 
 @Component({

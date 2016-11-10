@@ -1,10 +1,12 @@
 import { Directive, ElementRef, AfterViewInit } from '@angular/core';
 
+/**
+ * Explicitly select the option with the selected attribute
+ */
 @Directive({
     selector: 'select[setInitialSelectedOption]'
 })
 export class SetInitialSelectedOptionDirective implements AfterViewInit {
-
     constructor(private elementRef: ElementRef) { }
 
 	ngAfterViewInit() {

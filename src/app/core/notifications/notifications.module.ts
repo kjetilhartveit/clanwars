@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastyModule } from 'ng2-toasty';
 
-import { NotificationsConfigServiceToken } from './notifications-config.service.token';
+import { NotificationsConfigServiceToken, NotificationsFactoryToken, NotificationsServiceToken } from './';
 import { ToastyNotificationsConfigService } from './toasty-notifications-config.service';
-import { NotificationsFactoryToken } from './notifications.factory.token';
 import { ToastyNotificationsFactory } from './toasty-notifications.factory';
-import { NotificationsServiceToken } from './notifications.service.token';
 import { ToastyNotificationsService } from './toasty-notifications.service';
 import { NotificationsComponent } from './notifications.component';
 

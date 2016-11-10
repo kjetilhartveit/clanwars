@@ -1,4 +1,4 @@
-import { Race } from './race'; 
+import { Race } from './'; 
 
 export const RACES: Race[] = [
 	{ id: 'human', name: 'Human', iconFilename: 'human.gif' },
