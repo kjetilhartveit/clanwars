@@ -28,7 +28,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
             this.players = players;
         });
 
-        let entityChangesSub = this.editEntityTemplateService.entityChanges.skip(1).subscribe(player => {
+        let entityChangesSub = this.editEntityTemplateService.entityChanges.subscribe(player => {
             this.onSelectPlayer(player);
         });
 		
@@ -40,7 +40,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                 this.subs.add(
                     this.playersService.getOnId(id).subscribe(player => {
                         if (player) {
-                            this.editEntityTemplateService.entityChanges.next(player);
+                            this.editEntityTemplateService.selectEntity(player);
                         }
                     })
                 );
@@ -51,7 +51,7 @@ export class PlayersListComponent implements HasSubscriptionsNg, OnInit, OnDestr
                         this.players = players;
 
                         if (players) {
-                            this.editEntityTemplateService.entityChanges.next(players[0]);
+                            this.editEntityTemplateService.selectEntity(players[0]);
                         }
                     })
                 );

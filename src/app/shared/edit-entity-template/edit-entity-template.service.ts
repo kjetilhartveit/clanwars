@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class EditEntityTemplateService<T> {
-    entityChanges = new BehaviorSubject<T>(null);
+    entityChanges: Observable<T>;
+
+    private changeEntity = new BehaviorSubject<T>(null);
 
     constructor() {
+        // Init observable. Skip falsy entities
+        this.entityChanges = this.changeEntity.asObservable().skipWhile(entity => !entity);
+    }
+
+    /**
+     * Select entity
+     */
+    selectEntity(entity: T) {
+        this.changeEntity.next(entity);
     }
 }

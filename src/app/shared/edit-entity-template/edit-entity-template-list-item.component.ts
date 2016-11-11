@@ -13,7 +13,7 @@ export class EditEntityTemplateListItemComponent implements HasSubscriptionsNg, 
 
     @HostBinding('class.active') activeClass: boolean;
     @HostListener('click') onClick() {
-	    this.editEntityTemplateService.entityChanges.next(this.entity);
+        this.editEntityTemplateService.selectEntity(this.entity);
     }
 
     subs = new SubscriptionsManager();

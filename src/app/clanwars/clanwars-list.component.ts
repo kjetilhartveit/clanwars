@@ -28,7 +28,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDest
             this.clanwars = clanwars;
         });
 
-        let entityChangesSub = this.editEntityTemplateService.entityChanges.skip(1).subscribe(item => {
+        let entityChangesSub = this.editEntityTemplateService.entityChanges.subscribe(item => {
             this.onSelect(item)
         });
 		
@@ -40,7 +40,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDest
                 this.subs.add(
                     this.clanwarsService.getOnId(id).subscribe(clanwar => {
                         if (clanwar) {
-                            this.editEntityTemplateService.entityChanges.next(clanwar);
+                            this.editEntityTemplateService.selectEntity(clanwar);
                         }
                     })
                 );
@@ -49,7 +49,7 @@ export class ClanwarsListComponent implements HasSubscriptionsNg, OnInit, OnDest
                 this.subs.add(
                     this.clanwarsService.getAll().subscribe(clanwars => {
                         if (clanwars) {
-                            this.editEntityTemplateService.entityChanges.next(clanwars[0]);
+                            this.editEntityTemplateService.selectEntity(clanwars[0]);
                         }
                     })
                 );
