@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { EditEntityTemplateModule } from './edit-entity-template/edit-entity-template.module';
+import { DraggableDirective } from './drag-drop/draggable.directive';
+import { DroppableDirective } from './drag-drop/droppable.directive';
 import { IdGeneratorService } from './id-generator.service';
 import { FormHelperService } from './form/form-helper.service';
 import { FieldIsRequiredComponent }	from './form/field-is-required.component';
@@ -15,6 +17,8 @@ const importsExports = [
 ];
 
 const declareExports = [
+    DraggableDirective,
+    DroppableDirective,
     FieldIsRequiredComponent,
     SetInitialSelectedOptionDirective
 ];
