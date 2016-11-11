@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class EditEntityTemplateService<T> {
-    entityChanges: Observable<T>;
+    readonly entityChanges: Observable<T>;
 
     private changeEntity = new BehaviorSubject<T>(null);
 

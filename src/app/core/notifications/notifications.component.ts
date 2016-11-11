@@ -17,11 +17,11 @@ import { ToastyNotificationsService } from './toasty-notifications.service';
     providers: [IdGeneratorService]
 })
 export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit, OnDestroy {
-	@Output() readonly toastAddedToDom = new ReplaySubject<Element>();
 	@ViewChild(ToastyComponent) private toastyComponent: ToastyComponent;
 
     subs = new SubscriptionsManager();
 
+    private toastAddedToDom = new ReplaySubject<Element>(); // replay subject so we make sure not to miss any items
 	private toastsObserver: MutationObserver;
 
 	constructor(private elementRef: ElementRef,
@@ -30,9 +30,11 @@ export class NotificationsComponent implements HasSubscriptionsNg, AfterViewInit
 	
 	ngOnInit() {		
 		let toastyNotificationsService = <ToastyNotificationsService>this.notificationsService;
-		
-		this.subs.add(
-			this.toastAddedToDom.subscribe((element) => toastyNotificationsService.attachElementToNotification(element))
+        
+        this.subs.add(
+            this.toastAddedToDom.subscribe(element => {
+                toastyNotificationsService.attachElementToNotification(element);
+            })
 		);
 	}
 	

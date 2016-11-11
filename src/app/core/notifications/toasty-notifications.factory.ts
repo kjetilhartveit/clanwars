@@ -7,6 +7,7 @@ import { NotificationsFactory } from './notifications.factory';
 
 @Injectable()
 export class ToastyNotificationsFactory implements NotificationsFactory {
+     // replay subject so we can replay all values
 	readonly notificationCreated = new ReplaySubject<Notification>();
 	
 	constructor(private idGeneratorService: IdGeneratorService) {				
