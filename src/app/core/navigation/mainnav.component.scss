@@ -1,24 +1,31 @@
- 
-:host { 
-	nav {
-		ul {
-			display: flex;
-			justify-content: flex-start;
+@import '../../shared/scss/base';
+
+nav {
+	ul {
+		display: flex;
+		justify-content: flex-start;
 			
-			margin: 0;
-			padding: 0;
-		}
+		margin: 0;
+		padding: 0;
+	}
 		
-		li {
-			list-style: none;
-			padding-left: 5px;
-			padding-right: 5px;
-			border-right: 1px solid #ccc;
+	li {
+		list-style: none;
+		padding-left: 5px;
+		padding-right: 5px;
+		border-right: 1px solid #ccc;
 			
-			&:last-child {
-				border-right: 0;
-				padding-right: 0;
-			}
+		&:last-child {
+			border-right: 0;
+			padding-right: 0;
 		}
 	}
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }

@@ -4,7 +4,11 @@
 		<edit-entity-template-list-item *ngFor="let clanwar of clanwars" 
                                         [entity]="clanwar">
 			<edit-entity-template-column type="primary">
-				{{clanwar.clan1.name}} vs {{clanwar.clan2.name}}
+                <img [src]="clanwar.clan1.country | countryToFlagPath" /> 
+                {{clanwar.clan1.name}} 
+                vs 
+                {{clanwar.clan2.name}} 
+                <img [src]="clanwar.clan2.country | countryToFlagPath" />
 			</edit-entity-template-column>
 		</edit-entity-template-list-item>
 	</edit-entity-template-list>

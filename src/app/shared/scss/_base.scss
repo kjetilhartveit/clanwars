@@ -3,9 +3,17 @@
 
 $mainFonts: Arial, "Times New Roman", sans-serif;
 $mainFontSize: 13px;
-$linkColor: #456CFF;
 
 $maxSiteWidth: 900px;
+
+$colorPrimary: #CD0000;
+$colorSecondary: #FF7400;
+$colorThirdly: #FFD14A;
+
+$colorBlack: #000;
+$colorWhite: #EDEDED;
+
+$colorLink: $colorWhite;
 
 /** Mixins */
 

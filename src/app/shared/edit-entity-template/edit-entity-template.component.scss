@@ -1,16 +1,12 @@
-
-h2 {
-	text-align: center;
-}
+@import '../scss/base';
 
 .columns {
 	display: flex;
 	justify-content: flex-start;
 
 	.column:nth-child(1) {
-		width: 30%;
-		margin-left: 2%;
-		border-right: 1px solid #ddd;
+		width: 32%;
+		border-right: 1px solid $colorWhite;
 	}
 	
 	.column:nth-child(2) {

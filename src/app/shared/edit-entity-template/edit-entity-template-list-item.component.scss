@@ -1,3 +1,4 @@
+@import '../scss/base';
 
 :host {
 	display: flex;
@@ -5,9 +6,9 @@
 	align-items: center;
 
 	cursor: pointer;
-	padding: 5px;
+	padding: 5px 5px 5px 0;
 	
 	&.active {
-		background: #D9E4FF;
+		color: $colorThirdly;
 	}
 }

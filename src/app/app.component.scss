@@ -1,10 +1,23 @@
 
-@import 'shared/sass/base';
+@import 'shared/scss/base';
 
 :host {
 	display: block;
 	max-width: $maxSiteWidth;
 	
-	padding: 15px 20px 35px;
 	margin: 0 auto;
+    
+    background-color: $colorBlack;
+}
+
+#header-wrapper, #content-wrapper {
+	padding: 15px 20px 35px;
+}
+
+#header-wrapper {
+    border-bottom: 1px solid $colorPrimary;
+}
+
+#content-wrapper {
+    background-color: lighten($colorBlack, 2%);
 }

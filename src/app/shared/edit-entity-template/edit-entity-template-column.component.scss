@@ -1,6 +1,11 @@
 
 edit-entity-template-column {
 	margin-right: 4px;
+
+    /* TODO should these be a global rule somehow? */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 	
 	&.type-flag,
 	&.type-race { 

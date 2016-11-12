@@ -1,5 +1,5 @@
 
-@import 'app/shared/sass/base';
+@import 'app/shared/scss/base';
 
 /* Elements */
 
@@ -14,18 +14,15 @@ html, body {
 
 body {
 	font-size: $mainFontSize;
+    color: $colorWhite;
+    line-height: 1.1rem;
 }
 
-body,
-textarea,
-select,
-input {
+body, textarea, select, input {
 	font-family: $mainFonts;
 }
 
-textarea,
-select,
-input {
+textarea, select, input {
 	font-size: 1em;
 	padding: 3px 4px;
 }
@@ -44,12 +41,8 @@ button {
 }
 
 a {
-	color: $linkColor;
-	text-decoration: none;
-	
-	&:hover {
-		text-decoration: underline;
-	}
+	color: $colorLink;
+	text-decoration: underline;
 }
 
 img {
@@ -63,6 +56,14 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 1em 0;
 }		
 
+h1 {
+    color: $colorPrimary;
+}
+
+h2 {
+    color: $colorSecondary;
+}
+
 table {
 	th, td {
 		vertical-align: top;
@@ -71,5 +72,5 @@ table {
 	}
 }
 
-@import 'app/shared/sass/notifications';
-@import 'app/shared/sass/form-validation';
+@import 'app/shared/scss/notifications';
+@import 'app/shared/scss/form-validation';

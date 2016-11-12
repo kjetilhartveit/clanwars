@@ -1,14 +1,16 @@
 	
-<div>
-	<header>
-		<h1>{{title}}</h1>
-		<cw-mainnav></cw-mainnav>
-	</header>
-
-	<div id="content-wrapper">
-		<router-outlet></router-outlet>
-	</div>
-	
-	<cw-notifications></cw-notifications>
+<div id="header-wrapper">
+    <header>
+        <h1>{{title}}</h1>
+        <cw-mainnav></cw-mainnav>
+    </header>
 </div>
- 
+
+<div id="content-wrapper">
+    <div id="content">
+        <router-outlet></router-outlet>
+    </div>
+
+</div>
+	
+<cw-notifications></cw-notifications>

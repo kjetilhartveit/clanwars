@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared/shared.module';
+import { CountriesModule } from '../countries/countries.module';
 import { ClansModule } from '../clans/clans.module';
 import { PlayersModule } from '../players/players.module';
 import { ClanwarsHandlerService } from './clanwars-handler.service';
@@ -13,7 +14,8 @@ import { MatchSideControlsComponent } from './match-side-controls.component';
 @NgModule({
   imports: [
 		RouterModule,
-		SharedModule,
+        SharedModule,
+        CountriesModule,
 		ClansModule,
 		PlayersModule
   ],
