@@ -1,0 +1,14 @@
+@import 'base.scss';
+
+p:first-of-type {
+    margin-top: 2rem;
+
+    &::first-letter {
+        font-size: 3rem;
+        color: $colorThirdly;
+        float: left;
+        margin-bottom: 0.5rem;
+        margin-right: 0.5rem;
+        vertical-align: top;
+    }
+}

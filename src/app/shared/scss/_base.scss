@@ -1,10 +1,13 @@
 
 /* Variables */
 
-$mainFonts: Arial, "Times New Roman", sans-serif;
-$mainFontSize: 13px;
-
+/* Not used */
 $maxSiteWidth: 900px;
+
+$fontPrimary: Arial, sans-serif;
+$fontSecondary: capture_itregular, Arial, sans-serif;
+
+$fontSize: 13px;
 
 $colorPrimary: #CD0000;
 $colorSecondary: #FF7400;
@@ -14,8 +17,9 @@ $colorBlack: #000;
 $colorWhite: #EDEDED;
 
 $colorLink: $colorWhite;
+$colorHighlight: $colorThirdly;
 
-/** Mixins */
+/* Mixins */
 
 @mixin clearfix {
 	&:after {
@@ -23,4 +27,24 @@ $colorLink: $colorWhite;
 		clear: both;
 		display: block;
 	}
+}
+
+/* Placeholders */
+
+%highlightHover {
+    &:hover, &:active {
+        color: $colorHighlight;
+    }
+}
+
+%button {
+    @extend %highlightHover;
+    
+	cursor: pointer;
+    user-select: none;
+    text-decoration: none !important;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }

@@ -1,5 +1,8 @@
-
 @import 'app/shared/scss/base';
+@import 'app/shared/scss/fonts';
+@import 'app/shared/scss/notifications';
+@import 'app/shared/scss/form-validation';
+@import 'app/shared/scss/common';
 
 /* Elements */
 
@@ -13,13 +16,13 @@ html, body {
 }
 
 body {
-	font-size: $mainFontSize;
+	font-size: $fontSize;
     color: $colorWhite;
     line-height: 1.1rem;
 }
 
 body, textarea, select, input {
-	font-family: $mainFonts;
+	font-family: $fontPrimary;
 }
 
 textarea, select, input {
@@ -36,13 +39,22 @@ textarea {
 	height: 3.5em;
 }
 
-button {
-	cursor: pointer;
+button, .button {
+    @extend %button;
 }
 
 a {
+    @extend %highlightHover;
+
 	color: $colorLink;
 	text-decoration: underline;
+
+    /* commented out because :visited rules take presedence */
+    /*
+    &:visited {
+        color: darken($colorLink, 10%);
+    }
+    */
 }
 
 img {
@@ -57,20 +69,17 @@ h1, h2, h3, h4, h5, h6 {
 }		
 
 h1 {
+    font-family: $fontSecondary;
     color: $colorPrimary;
+    font-weight: normal;
 }
 
 h2 {
     color: $colorSecondary;
 }
 
-table {
-	th, td {
-		vertical-align: top;
-		text-align: left;
-		padding: 4px;
-	}
+th, td {
+	vertical-align: top;
+	text-align: left;
+	padding: 4px;
 }
-
-@import 'app/shared/scss/notifications';
-@import 'app/shared/scss/form-validation';
