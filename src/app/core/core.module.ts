@@ -9,29 +9,30 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { MainNavComponent }	from './navigation/mainnav.component';
 
 @NgModule({
-  imports: [
+    imports: [
         CommonModule,
-		RouterModule,
-		NotificationsModule
-  ],
-  declarations: [
-		MainNavComponent
-	],
-	exports: [
-		NotificationsModule,
-		MainNavComponent
-	],
-	providers: [
-		{ provide: ConfigService, useClass: ConfigService },
-		{ provide: PathsService, useClass: PathsService },
-		{ provide: WebHelperService, useClass: WebHelperService }
-	]
+        RouterModule,
+        NotificationsModule
+    ],
+    declarations: [
+        MainNavComponent
+    ],
+    exports: [
+        NotificationsModule,
+        MainNavComponent
+    ],
+    providers: [
+        { provide: ConfigService, useClass: ConfigService },
+        { provide: PathsService, useClass: PathsService },
+        { provide: WebHelperService, useClass: WebHelperService }
+    ]
 })
 export class CoreModule { 
 	constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
 		if (parentModule) {
 			throw new Error(
-				'CoreModule is already loaded. Import it in the AppModule only');
+                'CoreModule is already loaded. Import it in the AppModule only'
+            );
 		}
 	}
 }
